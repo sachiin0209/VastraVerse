@@ -1,0 +1,267 @@
+/**
+ * VastraVerse Main Styles
+ * Global styles for the entire website
+ */
+/* Base styles */
+:root {
+  --primary: #EC4899;
+  --primary-dark: #DB2777;
+  --secondary: #8B5CF6;
+  --dark-bg: #111827;
+  --darker-bg: #0F172A;
+  --dark-card: #1F2937;
+  --light-bg: #F9FAFB;
+  --light-card: #FFFFFF;
+  --dark-text: #111827;
+  --light-text: #F3F4F6;
+  --gray-text: #9CA3AF;
+  --primary-color: #0d9488;
+  --primary-dark: #115e59;
+  --primary-light: #99f6e4;
+  --text-color: #1f2937;
+  --text-dark: #111827;
+  --text-light: #6b7280;
+  --bg-color: #f9fafb;
+  --bg-dark: #111827;
+  --bg-card: #ffffff;
+  --bg-card-dark: #1f2937;
+  --transition-speed: 0.3s;
+  --accent-color: #ec4899; /* Pink color for VastraVerse branding */
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Typography adjustments */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Links */
+a {
+  transition: all 0.2s ease;
+}
+
+/* Layout utilities */
+.container {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Theme transitions */
+.theme-transition {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(31, 41, 55, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(236, 72, 153, 0.5);
+  border-radius: 4px;
+}
+
+.dark {
+  --text-color: #f9fafb;
+  --text-light: #d1d5db;
+  --bg-color: #111827;
+  --bg-card: #1f2937;
+}
+
+/* Logo styles */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-icon {
+  color: var(--accent-color);
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.logo-text {
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.05em;
+}
+
+.logo-accent {
+  color: var(--accent-color);
+}
+
+.logo-container:hover .logo-icon {
+  transform: rotate(15deg);
+}
+
+/* Dark mode for prose content */
+.dark .prose {
+  color: var(--text-light);
+}
+
+.dark .prose h1,
+.dark .prose h2,
+.dark .prose h3,
+.dark .prose h4,
+.dark .prose h5,
+.dark .prose h6 {
+  color: var(--text-color);
+}
+
+.dark .prose strong {
+  color: var(--text-color);
+}
+
+/* Animations */
+.slide-up {
+  animation: slideUp 0.7s ease-out forwards;
+  opacity: 0;
+}
+
+.slide-up.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.slide-up.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.slide-up.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.slide-up.delay-400 {
+  animation-delay: 0.4s;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-out forwards;
+  opacity: 0;
+}
+
+.fade-in.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.fade-in.delay-200 {
+  animation-delay: 0.2s;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Outfit selection styles */
+input[type="radio"] + label {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+input[type="radio"]:checked + label {
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+  background-color: rgba(236, 72, 153, 0.1);
+}
+
+/* Image preview */
+#imagePreview {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+#imagePreview:hover {
+  transform: scale(1.02);
+}
+
+/* Dropzone styles */
+#dropArea {
+  transition: all 0.3s ease;
+}
+
+#dropArea.dragover {
+  border-color: var(--accent-color);
+  background-color: rgba(236, 72, 153, 0.05);
+}
+
+/* Chat styles */
+#chatMessages {
+  scroll-behavior: smooth;
+}
+
+.suggestion-chip {
+  transition: all 0.2s ease;
+}
+
+.suggestion-chip:hover {
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* Utility classes */
+.prose {
+  max-width: 65ch;
+  line-height: 1.75;
+}
+
+.prose p {
+  margin-bottom: 1.5em;
+}
+
+.prose h2 {
+  margin-top: 2em;
+  margin-bottom: 1em;
+  font-weight: 700;
+}
+
+/* Animation for the VastraVerse logo */
+.animate-logo-hover {
+  transition: all 0.3s ease;
+}
+
+.animate-logo-hover:hover .logo-icon {
+  transform: rotate(15deg) scale(1.1);
+  color: #ec4899;
+}

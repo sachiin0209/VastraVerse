@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VastraVerse - Contact Us</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <!-- LottieFiles CDN for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
+  <style>
+    /* Custom animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-fade-in {
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+    
+    .animate-delay-100 {
+      animation-delay: 0.1s;
+    }
+    
+    .animate-delay-200 {
+      animation-delay: 0.2s;
+    }
+    
+    .animate-delay-300 {
+      animation-delay: 0.3s;
+    }
+    
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(to right, #ec4899, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    /* Input focus effects */
+    .input-focus-effect {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    
+    .input-focus-effect input,
+    .input-focus-effect textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background-color: #1f2937;
+      border: 1px solid #374151;
+      border-radius: 0.5rem;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .input-focus-effect input:focus,
+    .input-focus-effect textarea:focus {
+      border-color: #ec4899;
+      box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.2);
+      outline: none;
+    }
+    
+    .input-focus-effect label {
+      position: absolute;
+      left: 1rem;
+      top: 0.75rem;
+      color: #9ca3af;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .input-focus-effect input:focus ~ label,
+    .input-focus-effect input:not(:placeholder-shown) ~ label,
+    .input-focus-effect textarea:focus ~ label,
+    .input-focus-effect textarea:not(:placeholder-shown) ~ label {
+      top: -0.75rem;
+      left: 0.75rem;
+      font-size: 0.75rem;
+      padding: 0 0.25rem;
+      background-color: #1f2937;
+      color: #ec4899;
+    }
+    
+    /* Map overlay */
+    .map-overlay {
+      position: relative;
+    }
+    
+    .map-overlay::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(236, 72, 153, 0.2), rgba(139, 92, 246, 0.2));
+      pointer-events: none;
+      border-radius: 0.75rem;
+    }
+    
+    /* Shimmer base style for skeleton loaders */
+    .shimmer {
+      position: relative;
+      overflow: hidden;
+      background: #23272f;
+    }
+    .shimmer::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -150px; width: 150px; height: 100%;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      100% { left: 100%; }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white font-sans antialiased">
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-10 transition-all duration-300 ease-in-out py-4 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <div class="text-pink-500 text-2xl"><i class="fas fa-tshirt"></i></div>
+        <a href="index.html" class="text-xl font-bold">Vastra<span class="text-pink-500">Verse</span></a>
+      </div>
+      
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="hover:text-pink-500 transition-colors">Home</a>
+        <a href="about.html" class="hover:text-pink-500 transition-colors">About</a>
+        <a href="chatbot.html" class="hover:text-pink-500 transition-colors">Chatbot</a>
+        <a href="faq.html" class="hover:text-pink-500 transition-colors">FAQ</a>
+        <a href="contact.html" class="text-pink-500 transition-colors">Contact</a>
+        <button id="themeToggle" class="hover:text-pink-500 transition-colors">
+          <i class="fas fa-sun"></i>
+        </button>
+      </div>
+      
+      <div class="auth-buttons flex items-center space-x-4">
+        <a href="login.html" class="px-4 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">Login</a>
+        <a href="signup.html" class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors hidden md:block">Sign Up</a>
+      </div>
+      <div class="user-menu hidden items-center space-x-4">
+        <span class="text-gray-400">Hello, <span class="user-name">User</span></span>
+        <button id="logoutButton" class="px-4 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">Logout</button>
+      </div>
+      <button id="mobileMenuBtn" class="md:hidden text-gray-200 hover:text-pink-500">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="md:hidden bg-gray-800 hidden absolute w-full top-16">
+      <div class="container mx-auto px-4 py-4 flex flex-col space-y-3">
+        <a href="index.html" class="block py-2 hover:text-pink-500 transition-colors">Home</a>
+        <a href="about.html" class="block py-2 hover:text-pink-500 transition-colors">About</a>
+        <a href="chatbot.html" class="block py-2 hover:text-pink-500 transition-colors">Chatbot</a>
+        <a href="faq.html" class="block py-2 hover:text-pink-500 transition-colors">FAQ</a>
+        <a href="contact.html" class="block py-2 text-pink-500 transition-colors">Contact</a>
+        <button class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors w-full mt-2">Sign Up</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 bg-gradient-to-b from-gray-900 to-gray-800">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">
+        Get in <span class="gradient-text">Touch</span>
+      </h1>
+      <p class="text-xl text-gray-300 max-w-2xl mx-auto animate-fade-in animate-delay-100">
+        Have questions or feedback? We'd love to hear from you!
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Information -->
+  <section class="py-12 bg-gray-800">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Email Contact -->
+        <div class="bg-gray-900 rounded-xl p-8 text-center border border-gray-700 hover:border-pink-500 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg animate-fade-in">
+          <div class="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-full bg-pink-500 bg-opacity-10 text-pink-500">
+            <i class="fas fa-envelope text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Email Us</h3>
+          <p class="text-gray-400 mb-4">Our support team is here to help</p>
+          <a href="mailto:support@vastraverse.com" class="text-pink-500 hover:text-pink-400">support@vastraverse.com</a>
+        </div>
+        
+        <!-- Phone Contact -->
+        <div class="bg-gray-900 rounded-xl p-8 text-center border border-gray-700 hover:border-pink-500 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg animate-fade-in animate-delay-100">
+          <div class="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-full bg-pink-500 bg-opacity-10 text-pink-500">
+            <i class="fas fa-phone-alt text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Call Us</h3>
+          <p class="text-gray-400 mb-4">Mon-Fri from 9am to 6pm (IST)</p>
+          <a href="tel:+919876543210" class="text-pink-500 hover:text-pink-400">+91 98765 43210</a>
+        </div>
+        
+        <!-- Office Location -->
+        <div class="bg-gray-900 rounded-xl p-8 text-center border border-gray-700 hover:border-pink-500 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg animate-fade-in animate-delay-200">
+          <div class="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-full bg-pink-500 bg-opacity-10 text-pink-500">
+            <i class="fas fa-map-marker-alt text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Visit Us</h3>
+          <p class="text-gray-400 mb-4">Bengaluru Tech Park</p>
+          <p class="text-pink-500">Koramangala, Bengaluru - 560034</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form and Map -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col lg:flex-row gap-12">
+        <!-- Contact Form -->
+        <div class="lg:w-1/2 animate-fade-in animate-delay-100">
+          <div class="bg-gray-800 rounded-xl p-8 border border-gray-700">
+            <h2 class="text-2xl font-bold mb-6">Send us a message</h2>
+            <form id="contactForm">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="input-focus-effect">
+                  <input type="text" id="name" placeholder=" " required>
+                  <label for="name">Your Name</label>
+                </div>
+                
+                <div class="input-focus-effect">
+                  <input type="email" id="email" placeholder=" " required>
+                  <label for="email">Email Address</label>
+                </div>
+              </div>
+              
+              <div class="input-focus-effect mb-6">
+                <input type="text" id="subject" placeholder=" " required>
+                <label for="subject">Subject</label>
+              </div>
+              
+              <div class="input-focus-effect mb-6">
+                <textarea id="message" rows="6" placeholder=" " required></textarea>
+                <label for="message">Your Message</label>
+              </div>
+              
+              <div class="flex items-center mb-6">
+                <input type="checkbox" id="consent" class="mr-3 h-5 w-5 accent-pink-500">
+                <label for="consent" class="text-gray-300 text-sm">I agree to the processing of my personal data to receive a response to my inquiry</label>
+              </div>
+              
+              <button type="submit" class="w-full py-3 rounded-md bg-gradient-to-r from-pink-500 to-purple-600 text-white font-medium hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-pink-400">
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <!-- Map and Social Links -->
+        <div class="lg:w-1/2 animate-fade-in animate-delay-200">
+          <!-- Map -->
+          <div class="mb-8 rounded-xl overflow-hidden shadow-lg map-overlay">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31108.367382541736!2d77.61194570694282!3d12.93521267283903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae144ed898fc2d%3A0x1681f38e8c00ae56!2sKoramangala%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1698512489412!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+          
+          <!-- Business Hours -->
+          <div class="bg-gray-800 rounded-xl p-6 mb-8 border border-gray-700">
+            <h3 class="text-xl font-bold mb-4">Business Hours</h3>
+            <ul class="space-y-3">
+              <li class="flex justify-between">
+                <span class="text-gray-400">Monday - Friday</span>
+                <span>9:00 AM - 6:00 PM</span>
+              </li>
+              <li class="flex justify-between">
+                <span class="text-gray-400">Saturday</span>
+                <span>10:00 AM - 4:00 PM</span>
+              </li>
+              <li class="flex justify-between">
+                <span class="text-gray-400">Sunday</span>
+                <span class="text-pink-500">Closed</span>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Social Media -->
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+            <h3 class="text-xl font-bold mb-4">Connect With Us</h3>
+            <p class="text-gray-400 mb-6">Follow us on social media for updates and cultural insights</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <a href="#" class="flex flex-col items-center p-4 bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
+                <i class="fab fa-facebook-f text-2xl text-pink-500 mb-2"></i>
+                <span class="text-sm">Facebook</span>
+              </a>
+              <a href="#" class="flex flex-col items-center p-4 bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
+                <i class="fab fa-instagram text-2xl text-pink-500 mb-2"></i>
+                <span class="text-sm">Instagram</span>
+              </a>
+              <a href="#" class="flex flex-col items-center p-4 bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
+                <i class="fab fa-twitter text-2xl text-pink-500 mb-2"></i>
+                <span class="text-sm">Twitter</span>
+              </a>
+              <a href="#" class="flex flex-col items-center p-4 bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
+                <i class="fab fa-youtube text-2xl text-pink-500 mb-2"></i>
+                <span class="text-sm">YouTube</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Teaser -->
+  <section class="py-16 bg-gray-800">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-6">Frequently Asked Questions</h2>
+      <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+        Find quick answers to common questions about our platform
+      </p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-10">
+        <div class="bg-gray-900 p-6 rounded-xl border border-gray-700 text-left">
+          <h3 class="text-xl font-bold mb-3">How does the virtual try-on work?</h3>
+          <p class="text-gray-400">Our platform uses advanced AI to map traditional outfits onto your photos with realistic results, preserving your unique features and pose.</p>
+        </div>
+        
+        <div class="bg-gray-900 p-6 rounded-xl border border-gray-700 text-left">
+          <h3 class="text-xl font-bold mb-3">Is my data private and secure?</h3>
+          <p class="text-gray-400">Yes! All uploads are processed securely and either discarded after processing or stored temporarily with your consent.</p>
+        </div>
+      </div>
+      
+      <a href="faq.html" class="px-8 py-3 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors inline-flex items-center">
+        View All FAQs <i class="fas fa-arrow-right ml-2"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <div class="text-pink-500 text-2xl"><i class="fas fa-tshirt"></i></div>
+            <div class="text-xl font-bold">Vastra<span class="text-pink-500">Verse</span></div>
+          </div>
+          <p class="text-gray-400 mb-4">Celebrating the rich diversity of Indian traditional fashion and culture through AI innovation.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-pink-500 transition-colors">Home</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-pink-500 transition-colors">About Us</a></li>
+            <li><a href="chatbot.html" class="text-gray-400 hover:text-pink-500 transition-colors">AI Chatbot</a></li>
+            <li><a href="Festival Calendar.html" class="text-gray-400 hover:text-pink-500 transition-colors">Festival Calendar</a></li>
+            <li><a href="Traditional Outfits.html" class="text-gray-400 hover:text-pink-500 transition-colors">Traditional Outfits</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Resources</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">Blog</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">Cultural Guides</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">Outfit Dictionary</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">Regional Styles</a></li>
+            <li><a href="faq.html" class="text-gray-400 hover:text-pink-500 transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Subscribe to Our Newsletter</h4>
+          <p class="text-gray-400 mb-4">Stay updated with the latest festival guides and traditional fashion trends</p>
+          <form class="mb-4">
+            <div class="flex">
+              <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 w-full">
+              <button type="submit" class="px-4 py-2 bg-pink-500 text-white rounded-r-md hover:bg-pink-600 transition-colors">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+        <p>&copy; 2025 VastraVerse All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 10) {
+        navbar.classList.add('py-2', 'shadow-lg');
+        navbar.classList.remove('py-4');
+      } else {
+        navbar.classList.add('py-4');
+        navbar.classList.remove('py-2', 'shadow-lg');
+      }
+    });
+    
+    // Theme toggle (for demonstration)
+    document.getElementById('themeToggle').addEventListener('click', function() {
+      const icon = this.querySelector('i');
+      if (icon.classList.contains('fa-sun')) {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+        document.documentElement.classList.remove('dark');
+      } else {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+        document.documentElement.classList.add('dark');
+      }
+    });
+    
+    // Form submission handling
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Simulate form submission
+      const submitButton = this.querySelector('button[type="submit"]');
+      const originalText = submitButton.innerHTML;
+      
+      submitButton.disabled = true;
+      submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Sending...';
+      
+      // Simulate API call
+      setTimeout(() => {
+        // Show success message
+        const form = this;
+        form.innerHTML = `
+          <div class="text-center py-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-full bg-green-500 bg-opacity-10 text-green-500">
+              <i class="fas fa-check-circle text-3xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Message Sent!</h3>
+            <p class="text-gray-400 mb-6">Thank you for reaching out. We'll get back to you soon.</p>
+            <button id="sendAnother" class="px-6 py-2 rounded-md bg-pink-500 text-white hover:bg-pink-600 transition-colors">
+              Send Another Message
+            </button>
+          </div>
+        `;
+        
+        // Add listener to "Send Another" button
+        document.getElementById('sendAnother').addEventListener('click', function() {
+          window.location.reload();
+        });
+      }, 2000);
+    });
+  </script>
+  <script src="auth.js"></script>
+</body>
+</html>

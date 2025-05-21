@@ -1,0 +1,162 @@
+/**
+ * VastraVerse Authentication Pages Styles
+ * Additional styles specific to login and signup pages
+ */
+
+/* Form focus effects */
+input:focus, 
+select:focus, 
+textarea:focus {
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.3);
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+/* Custom checkbox styling */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 0.25rem;
+  background-color: #374151;
+  border: 1px solid #4B5563;
+  position: relative;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #EC4899;
+  border-color: #EC4899;
+}
+
+input[type="checkbox"]:checked::after {
+  content: '✓';
+  color: white;
+  position: absolute;
+  font-size: 0.8rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Form animations */
+@keyframes formFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+form {
+  animation: formFadeIn 0.5s ease-out;
+}
+
+/* Button hover effects */
+button:hover, 
+a.bg-pink-500:hover, 
+a.border-pink-500:hover {
+  transform: translateY(-1px);
+  transition: transform 0.2s ease;
+}
+
+button:active, 
+a.bg-pink-500:active, 
+a.border-pink-500:active {
+  transform: translateY(1px);
+}
+
+/* Error message animation */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+  20%, 40%, 60%, 80% { transform: translateX(2px); }
+}
+
+.text-red-500 {
+  animation: shake 0.6s ease-in-out;
+}
+
+/* Notification styling */
+@keyframes slideInUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+#notification {
+  animation: slideInUp 0.3s ease-out;
+}
+
+/* Password toggle styling */
+#togglePassword:hover, 
+#toggleConfirmPassword:hover {
+  color: #EC4899;
+}
+
+/* Link hover effects */
+a.text-pink-500 {
+  position: relative;
+  text-decoration: none;
+}
+
+a.text-pink-500:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -1px;
+  left: 0;
+  background-color: #EC4899;
+  transition: width 0.3s ease;
+}
+
+a.text-pink-500:hover:after {
+  width: 100%;
+}
+
+/* Dark mode adjustments */
+.dark input:focus {
+  background-color: #374151;
+}
+
+.dark input::placeholder {
+  color: #9CA3AF;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 640px) {
+  form {
+    padding: 1rem;
+  }
+  
+  input, button {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Loading indicator for form submissions */
+.loading-indicator {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Transitions for theme change */
+.animate-theme-change {
+  animation: themeChange 0.5s ease-out;
+}
+
+@keyframes themeChange {
+  0% { opacity: 0.8; transform: scale(0.98); }
+  50% { opacity: 0.9; transform: scale(1.01); }
+  100% { opacity: 1; transform: scale(1); }
+}

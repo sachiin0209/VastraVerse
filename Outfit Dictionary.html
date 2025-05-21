@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outfit Dictionary - VastraVerse</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <!-- LottieFiles CDN for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
+  <style>
+    /* Shimmer base style for skeleton loaders */
+    .shimmer {
+      position: relative;
+      overflow: hidden;
+      background: #23272f;
+    }
+    .shimmer::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -150px; width: 150px; height: 100%;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      100% { left: 100%; }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white font-sans antialiased">
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-10 transition-all duration-300 ease-in-out py-4 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <div class="text-pink-500 text-2xl"><i class="fas fa-tshirt"></i></div>
+        <a href="index.html" class="text-xl font-bold">Vastra<span class="text-pink-500">Verse</span></a>
+      </div>
+      
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="hover:text-pink-500 transition-colors">Home</a>
+        <a href="about.html" class="hover:text-pink-500 transition-colors">About</a>
+        <a href="chatbot.html" class="hover:text-pink-500 transition-colors">Chatbot</a>
+        <button id="themeToggle" class="hover:text-pink-500 transition-colors">
+          <i class="fas fa-sun"></i>
+        </button>
+      </div>
+      
+      <div class="auth-buttons flex items-center space-x-4">
+        <a href="login.html" class="px-4 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">Login</a>
+        <a href="signup.html" class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors hidden md:block">Sign Up</a>
+      </div>
+      <div class="user-menu hidden items-center space-x-4">
+        <span class="text-gray-400">Hello, <span class="user-name">User</span></span>
+        <button id="logoutButton" class="px-4 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">Logout</button>
+      </div>
+      <button id="mobileMenuBtn" class="md:hidden text-gray-200 hover:text-pink-500">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="md:hidden bg-gray-800 hidden">
+      <div class="container mx-auto px-4 py-4 flex flex-col space-y-3">
+        <a href="index.html" class="block py-2 hover:text-pink-500 transition-colors">Home</a>
+        <a href="about.html" class="block py-2 hover:text-pink-500 transition-colors">About</a>
+        <a href="chatbot.html" class="block py-2 hover:text-pink-500 transition-colors">Chatbot</a>
+        <button class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors w-full mt-2">Sign Up</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="pt-32 pb-16 bg-gradient-to-r from-gray-800 to-gray-900">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6">Indian Outfit <span class="text-pink-500">Dictionary</span></h1>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto">Explore the diverse world of traditional Indian attire from various regions and cultures across the subcontinent</p>
+    </div>
+  </header>
+
+ 
+
+  <!-- Outfit Categories -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-12 text-center">Browse by <span class="text-pink-500">Category</span></h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <a href="#women" class="block group">
+          <div class="bg-gray-800 rounded-xl p-6 text-center transition-transform transform hover:scale-105 hover:shadow-xl border border-gray-700">
+            <div class="w-20 h-20 mx-auto bg-pink-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4 group-hover:bg-pink-500 group-hover:bg-opacity-30 transition-colors">
+              <i class="fas fa-female text-3xl text-pink-500"></i>
+            </div>
+            <h3 class="text-xl font-semibold">Women's Wear</h3>
+          </div>
+        </a>
+        
+        <a href="#men" class="block group">
+          <div class="bg-gray-800 rounded-xl p-6 text-center transition-transform transform hover:scale-105 hover:shadow-xl border border-gray-700">
+            <div class="w-20 h-20 mx-auto bg-blue-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-500 group-hover:bg-opacity-30 transition-colors">
+              <i class="fas fa-male text-3xl text-blue-500"></i>
+            </div>
+            <h3 class="text-xl font-semibold">Men's Wear</h3>
+          </div>
+        </a>
+        
+        <a href="#accessories" class="block group">
+          <div class="bg-gray-800 rounded-xl p-6 text-center transition-transform transform hover:scale-105 hover:shadow-xl border border-gray-700">
+            <div class="w-20 h-20 mx-auto bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4 group-hover:bg-purple-500 group-hover:bg-opacity-30 transition-colors">
+              <i class="fas fa-gem text-3xl text-purple-500"></i>
+            </div>
+            <h3 class="text-xl font-semibold">Accessories</h3>
+          </div>
+        </a>
+        
+        <a href="#footwear" class="block group">
+          <div class="bg-gray-800 rounded-xl p-6 text-center transition-transform transform hover:scale-105 hover:shadow-xl border border-gray-700">
+            <div class="w-20 h-20 mx-auto bg-yellow-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4 group-hover:bg-yellow-500 group-hover:bg-opacity-30 transition-colors">
+              <i class="fas fa-shoe-prints text-3xl text-yellow-500"></i>
+            </div>
+            <h3 class="text-xl font-semibold">Footwear</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Women's Wear Section -->
+  <section id="women" class="py-16 bg-gray-800">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-12 text-center">Women's <span class="text-pink-500">Traditional Wear</span></h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Saree -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-pink-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-pink-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Saree</h3>
+              <span class="text-sm px-3 py-1 bg-pink-500 bg-opacity-20 text-pink-500 rounded-full">Pan-Indian</span>
+            </div>
+            <p class="text-gray-400 mb-4">A graceful unstitched drape varying from 5 to 9 yards, wrapped around the waist with one end draped over the shoulder. The garment showcases regional diversity in draping styles, fabric, and patterns.</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('saree-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="saree-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Regional Variations:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Kanjivaram (Tamil Nadu)</li>
+                <li>Banarasi (Uttar Pradesh)</li>
+                <li>Paithani (Maharashtra)</li>
+                <li>Chanderi (Madhya Pradesh)</li>
+                <li>Sambalpuri (Odisha)</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Weddings, religious ceremonies, festivals, formal events</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Lehenga -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-purple-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-purple-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Lehenga Choli</h3>
+              <span class="text-sm px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-500 rounded-full">North India</span>
+            </div>
+            <p class="text-gray-400 mb-4">A three-piece ensemble consisting of a voluminous ankle-length skirt (lehenga), a fitted blouse (choli), and a dupatta (scarf). Known for intricate embroidery and embellishments.</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('lehenga-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="lehenga-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Types:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Rajasthani Lehenga</li>
+                <li>Gujarati Chaniya Choli</li>
+                <li>Bridal Lehenga</li>
+                <li>A-line Lehenga</li>
+                <li>Mermaid Lehenga</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Weddings, engagement ceremonies, Garba/Dandiya nights, festive celebrations</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Salwar Kameez -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-blue-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-blue-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Salwar Kameez</h3>
+              <span class="text-sm px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-500 rounded-full">North/North-West</span>
+            </div>
+            <p class="text-gray-400 mb-4">A versatile outfit comprising loose trousers (salwar), a long tunic (kameez), and a scarf (dupatta). Available in various styles including Punjabi, Patiala, and Anarkali cuts.</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('salwar-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="salwar-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Variations:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Patiala Salwar (Punjab)</li>
+                <li>Anarkali Suit</li>
+                <li>Churidar Kameez</li>
+                <li>Palazzo Suit</li>
+                <li>Sharara/Gharara (Muslim influence)</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Everyday wear, semi-formal events, college/workplace, festivals</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Pavadai Dhavani -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-green-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-green-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Pavadai Dhavani</h3>
+              <span class="text-sm px-3 py-1 bg-green-500 bg-opacity-20 text-green-500 rounded-full">South India</span>
+            </div>
+            <p class="text-gray-400 mb-4">Traditional Tamil attire for young girls and women consisting of a long skirt (pavadai), a blouse, and a half-saree (dhavani) draped over the shoulder.</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('pavadai-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="pavadai-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Traditional silk fabric with gold zari work</li>
+                <li>Vibrant colors like maroon, green, and gold</li>
+                <li>Often adorned with traditional motifs</li>
+                <li>Modern versions include Langa Voni and Pattu Pavadai</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Coming-of-age ceremonies, temple visits, cultural events, festive celebrations</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Mekhela Chador -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-yellow-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-yellow-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Mekhela Chador</h3>
+              <span class="text-sm px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-500 rounded-full">Northeast India</span>
+            </div>
+            <p class="text-gray-400 mb-4">Traditional Assamese attire consisting of two main pieces: the mekhela (lower garment wrapped around the waist) and the chador (upper garment draped over the body and shoulders).</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('mekhela-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="mekhela-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Usually made of muga silk or pat silk</li>
+                <li>Traditional woven motifs and patterns</li>
+                <li>Geometric designs and natural elements</li>
+                <li>Comes in vibrant colors with golden thread work</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Bihu festival, weddings, cultural performances, formal events</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Kasavu -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-red-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-red-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Kerala Kasavu</h3>
+              <span class="text-sm px-3 py-1 bg-red-500 bg-opacity-20 text-red-500 rounded-full">South India</span>
+            </div>
+            <p class="text-gray-400 mb-4">The traditional cream-colored saree with golden border worn by Malayali women in Kerala. Also known as "Mundum Neriyathum" when worn in the traditional two-piece style.</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('kasavu-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="kasavu-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Made of handwoven cotton</li>
+                <li>Distinguished by its golden zari border (kasavu)</li>
+                <li>Simple, elegant design with minimal embellishments</li>
+                <li>Traditional version is off-white with gold border</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Onam festival, weddings, temple visits, traditional ceremonies</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Button (now a link) at the top -->
+      <div class="text-center mt-12">
+        <button onclick="toggleSection('women-more')" class="px-6 py-3 rounded-full bg-pink-500 hover:bg-pink-600 transition-colors">
+          View All Women's Outfits
+        </button>
+      </div>
+      <!-- Additional Women's Wear Items -->
+      <div id="women-more" class="hidden mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Pheran -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-indigo-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-indigo-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Pheran</h3>
+              <span class="text-sm px-3 py-1 bg-indigo-500 bg-opacity-20 text-indigo-500 rounded-full">Kashmir</span>
+            </div>
+            <p class="text-gray-400 mb-4">A long, loose gown worn by women in Kashmir, typically made of wool or cotton, perfect for the cold climate.</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('pheran-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="pheran-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Long, loose-fitting design</li>
+                <li>Often embroidered with intricate patterns</li>
+                <li>Worn with a headscarf (Kasaba)</li>
+                <li>Available in various colors and materials</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Daily wear, winter wear, cultural events</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phulkari -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-orange-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-orange-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Phulkari</h3>
+              <span class="text-sm px-3 py-1 bg-orange-500 bg-opacity-20 text-orange-500 rounded-full">Punjab</span>
+            </div>
+            <p class="text-gray-400 mb-4">Traditional embroidery technique from Punjab, featuring vibrant floral patterns on dupattas and suits.</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('phulkari-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="phulkari-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Intricate floral embroidery</li>
+                <li>Bright, contrasting colors</li>
+                <li>Traditionally made on khaddar fabric</li>
+                <li>Various styles like Bagh, Chope, and Til Patra</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Weddings, festivals, cultural celebrations</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chaniya Choli -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-teal-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-teal-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Chaniya Choli</h3>
+              <span class="text-sm px-3 py-1 bg-teal-500 bg-opacity-20 text-teal-500 rounded-full">Gujarat</span>
+            </div>
+            <p class="text-gray-400 mb-4">Traditional three-piece ensemble worn during Navratri, featuring a flared skirt, blouse, and dupatta.</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('chaniya-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="chaniya-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Mirror work and embroidery</li>
+                <li>Colorful bandhani patterns</li>
+                <li>Heavy embellishments</li>
+                <li>Matching accessories</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Navratri, Garba, Dandiya nights, weddings</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pochampally Ikat -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-indigo-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-indigo-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Pochampally Ikat</h3>
+              <span class="text-sm px-3 py-1 bg-indigo-500 bg-opacity-20 text-indigo-500 rounded-full">Telangana</span>
+            </div>
+            <p class="text-gray-400 mb-4">Traditional handwoven saree known for its distinctive geometric patterns and double ikat technique, originating from Pochampally village.</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('pochampally-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="pochampally-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Double ikat weaving technique</li>
+                <li>Geometric patterns and motifs</li>
+                <li>Natural dyes and colors</li>
+                <li>Lightweight and comfortable</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Weddings, festivals, formal events, cultural celebrations</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bomkai Saree -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-green-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-green-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Bomkai Saree</h3>
+              <span class="text-sm px-3 py-1 bg-green-500 bg-opacity-20 text-green-500 rounded-full">Odisha</span>
+            </div>
+            <p class="text-gray-400 mb-4">Traditional handloom saree from Odisha, known for its intricate thread work and tribal motifs, combining both ikat and embroidery techniques.</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('bomkai-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="bomkai-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Combination of ikat and embroidery</li>
+                <li>Traditional tribal motifs</li>
+                <li>Rich border designs</li>
+                <li>Natural silk and cotton base</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Weddings, festivals, cultural events, formal gatherings</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Muga Silk -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-yellow-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-yellow-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Muga Silk</h3>
+              <span class="text-sm px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-500 rounded-full">Assam</span>
+            </div>
+            <p class="text-gray-400 mb-4">Luxurious golden silk native to Assam, known for its durability and natural golden color. Used in traditional Mekhela Chador and sarees.</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('muga-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="muga-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Natural golden color</li>
+                <li>High durability</li>
+                <li>Traditional Assamese motifs</li>
+                <li>Handwoven technique</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Bihu festival, weddings, cultural events, formal ceremonies</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bandhani -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-red-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-red-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Bandhani</h3>
+              <span class="text-sm px-3 py-1 bg-red-500 bg-opacity-20 text-red-500 rounded-full">Gujarat/Rajasthan</span>
+            </div>
+            <p class="text-gray-400 mb-4">Traditional tie-dye technique creating intricate patterns on fabric, popular in Gujarat and Rajasthan. Known for its vibrant colors and dot patterns.</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('bandhani-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="bandhani-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Intricate tie-dye patterns</li>
+                <li>Vibrant color combinations</li>
+                <li>Traditional motifs</li>
+                <li>Lightweight fabric</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Navratri, weddings, festivals, casual wear</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chanderi -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-purple-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-purple-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Chanderi</h3>
+              <span class="text-sm px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-500 rounded-full">Madhya Pradesh</span>
+            </div>
+            <p class="text-gray-400 mb-4">Luxurious handwoven fabric from Chanderi, known for its sheer texture and gold/silver zari work. Used in sarees and suits.</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('chanderi-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="chanderi-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Sheer, lightweight fabric</li>
+                <li>Gold/silver zari work</li>
+                <li>Traditional motifs</li>
+                <li>Blend of cotton and silk</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Weddings, festivals, formal events, cultural celebrations</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kalamkari -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-blue-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-blue-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Kalamkari</h3>
+              <span class="text-sm px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-500 rounded-full">Andhra Pradesh</span>
+            </div>
+            <p class="text-gray-400 mb-4">Traditional hand-painted or block-printed textile art from Andhra Pradesh, featuring intricate mythological scenes and natural motifs.</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('kalamkari-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="kalamkari-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Hand-painted designs</li>
+                <li>Natural dyes</li>
+                <li>Mythological motifs</li>
+                <li>Traditional patterns</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Cultural events, festivals, formal gatherings, religious ceremonies</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ilkal Saree -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-orange-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-orange-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Ilkal Saree</h3>
+              <span class="text-sm px-3 py-1 bg-orange-500 bg-opacity-20 text-orange-500 rounded-full">Karnataka</span>
+            </div>
+            <p class="text-gray-400 mb-4">Traditional handloom saree from Ilkal, Karnataka, known for its unique border and pallu design, often made with cotton and silk.</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('ilkal-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="ilkal-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Distinctive border design</li>
+                <li>Cotton-silk blend</li>
+                <li>Traditional motifs</li>
+                <li>Unique pallu pattern</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Daily wear, festivals, cultural events, formal gatherings</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kosa Silk -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-teal-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-teal-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Kosa Silk</h3>
+              <span class="text-sm px-3 py-1 bg-teal-500 bg-opacity-20 text-teal-500 rounded-full">Chhattisgarh</span>
+            </div>
+            <p class="text-gray-400 mb-4">Luxurious silk from Chhattisgarh, known for its fine texture and natural colors. Used in traditional sarees and suits.</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('kosa-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="kosa-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Fine texture</li>
+                <li>Natural colors</li>
+                <li>Traditional designs</li>
+                <li>Durable fabric</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Weddings, festivals, formal events, cultural celebrations</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phanek -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-pink-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-female text-pink-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Phanek</h3>
+              <span class="text-sm px-3 py-1 bg-pink-500 bg-opacity-20 text-pink-500 rounded-full">Manipur</span>
+            </div>
+            <p class="text-gray-400 mb-4">Traditional wrap-around skirt from Manipur, often worn with a matching blouse and shawl, featuring unique patterns and designs.</p>
+            <button class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium" onclick="toggleDetails('phanek-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="phanek-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Wrap-around design</li>
+                <li>Traditional motifs</li>
+                <li>Handwoven fabric</li>
+                <li>Matching accessories</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Cultural events, festivals, daily wear, traditional ceremonies</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Men's Wear Section -->
+  <section id="men" class="py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-12 text-center">Men's <span class="text-blue-500">Traditional Wear</span></h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Kurta Pajama -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-blue-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-male text-blue-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Kurta Pajama</h3>
+              <span class="text-sm px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-500 rounded-full">North India</span>
+            </div>
+            <p class="text-gray-400 mb-4">A versatile outfit consisting of a long tunic (kurta) paired with loose-fitting pants (pajama). Made in various fabrics from cotton to silk depending on the occasion.</p>
+            <button class="text-blue-500 hover:text-blue-400 inline-flex items-center font-medium" onclick="toggleDetails('kurta-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="kurta-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Variations:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Straight-cut Kurta</li>
+                <li>Angrakha Kurta (overlapping front)</li>
+                <li>Pathani Suit (from Peshawar region)</li>
+                <li>Lucknowi Chikan Kurta</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Daily wear, festivals, religious functions, casual gatherings</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Sherwani -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-purple-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-male text-purple-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Sherwani</h3>
+              <span class="text-sm px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-500 rounded-full">North India</span>
+            </div>
+            <p class="text-gray-400 mb-4">An elegant, long coat-like garment that extends below the knees, typically paired with churidar or straight pants. Known for its intricate embroidery and royal appearance.</p>
+            <button class="text-blue-500 hover:text-blue-400 inline-flex items-center font-medium" onclick="toggleDetails('sherwani-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="sherwani-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Types:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Classic Sherwani (knee-length)</li>
+                <li>Achkan Sherwani (longer style)</li>
+                <li>Jodhpuri Sherwani (Bandhgala)</li>
+                <li>Indo-Western Sherwani</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Weddings, engagement ceremonies, formal events, festive celebrations</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Dhoti -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-green-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-male text-green-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Dhoti</h3>
+              <span class="text-sm px-3 py-1 bg-green-500 bg-opacity-20 text-green-500 rounded-full">Pan-Indian</span>
+            </div>
+            <p class="text-gray-400 mb-4">A rectangular piece of unstitched cloth, usually around 5 yards long, wrapped around the waist and legs in various styles depending on the region. Often paired with a kurta or angavastram.</p>
+            <button class="text-blue-500 hover:text-blue-400 inline-flex items-center font-medium" onclick="toggleDetails('dhoti-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="dhoti-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Regional Styles:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Bengali Style (front pleated)</li>
+                <li>Tamil/South Indian Style (Veshti)</li>
+                <li>Marathi Style (Dhotar)</li>
+                <li>Gujarati Style (Panche)</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Religious ceremonies, weddings, daily wear (in rural areas), classical performances</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Lungi -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-yellow-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-male text-yellow-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Lungi</h3>
+              <span class="text-sm px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-500 rounded-full">South/East India</span>
+            </div>
+            <p class="text-gray-400 mb-4">A garment worn around the waist extending to the ankles. Unlike the dhoti, it's sewn into a tube-like shape. Available in various colors and patterns, it's known for comfort in hot climates.</p>
+            <button class="text-blue-500 hover:text-blue-400 inline-flex items-center font-medium" onclick="toggleDetails('lungi-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="lungi-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Types:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Open Lungi (similar to sarong)</li>
+                <li>Kaili/Mundu (plain white with border)</li>
+                <li>Checkered Pattern (casual wear)</li>
+                <li>Fancy Lungis (festive occasions)</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Daily wear, home wear, informal gatherings, relaxed settings</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Bandhgala -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-red-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-male text-red-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Bandhgala / Jodhpuri</h3>
+              <span class="text-sm px-3 py-1 bg-red-500 bg-opacity-20 text-red-500 rounded-full">Rajasthan</span>
+            </div>
+            <p class="text-gray-400 mb-4">A structured jacket with a mandarin collar that buttons all the way to the neck. Originally from Jodhpur, it blends Western tailoring with Indian elegance, paired with matching trousers.</p>
+            <button class="text-blue-500 hover:text-blue-400 inline-flex items-center font-medium" onclick="toggleDetails('bandhgala-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="bandhgala-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Closed mandarin collar</li>
+                <li>Fitted silhouette</li>
+                <li>Multiple buttons down the front</li>
+                <li>Rich fabrics like silk, velvet, or brocade</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Black-tie events, diplomatic functions, high-profile weddings, formal gatherings</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Mundasa -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-pink-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-male text-pink-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Mundasa (Turban)</h3>
+              <span class="text-sm px-3 py-1 bg-pink-500 bg-opacity-20 text-pink-500 rounded-full">Pan-Indian</span>
+            </div>
+            <p class="text-gray-400 mb-4">Traditional headgear made by wrapping a long piece of cloth around the head. Styles vary greatly across regions, communities, and occasions, representing honor and dignity.</p>
+            <button class="text-blue-500 hover:text-blue-400 inline-flex items-center font-medium" onclick="toggleDetails('turban-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="turban-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Regional Styles:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Rajasthani Safa (colorful, often pink)</li>
+                <li>Punjabi Pagri (Sikh turban)</li>
+                <li>Mysore Peta (South Indian style)</li>
+                <li>Marathi Pheta</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Significance:</h4>
+              <p class="text-gray-400">Symbol of respect, honor, and identity; varies by region, community, and occasion</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-12">
+        <button onclick="toggleSection('men-more')" class="px-6 py-3 rounded-full bg-blue-500 hover:bg-blue-600 transition-colors">
+          View All Men's Outfits
+        </button>
+      </div>
+      <!-- Additional Men's Wear Items -->
+      <div id="men-more" class="hidden mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Pathani Suit -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-indigo-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-male text-indigo-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Pathani Suit</h3>
+              <span class="text-sm px-3 py-1 bg-indigo-500 bg-opacity-20 text-indigo-500 rounded-full">North-West</span>
+            </div>
+            <p class="text-gray-400 mb-4">A traditional outfit originating from the Peshawar region, featuring a long tunic with a straight cut and minimal embellishments.</p>
+            <button class="text-blue-500 hover:text-blue-400 inline-flex items-center font-medium" onclick="toggleDetails('pathani-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="pathani-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Straight cut design</li>
+                <li>Minimal embroidery</li>
+                <li>Often paired with a waistcoat</li>
+                <li>Popular in Afghanistan and Pakistan</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Religious gatherings, cultural events, formal occasions</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Angarkha -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-orange-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-male text-orange-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Angarkha</h3>
+              <span class="text-sm px-3 py-1 bg-orange-500 bg-opacity-20 text-orange-500 rounded-full">Rajasthan</span>
+            </div>
+            <p class="text-gray-400 mb-4">A traditional upper garment with overlapping front panels, known for its elegant drape and royal appearance.</p>
+            <button class="text-blue-500 hover:text-blue-400 inline-flex items-center font-medium" onclick="toggleDetails('angarkha-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="angarkha-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Overlapping front panels</li>
+                <li>Rich embroidery work</li>
+                <li>Often made of silk or brocade</li>
+                <li>Traditional royal attire</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Royal ceremonies, cultural performances, weddings</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dhoti Kurta -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-indigo-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-male text-indigo-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Dhoti Kurta</h3>
+              <span class="text-sm px-3 py-1 bg-indigo-500 bg-opacity-20 text-indigo-500 rounded-full">Pan-Indian</span>
+            </div>
+            <p class="text-gray-400 mb-4">Traditional combination of a dhoti (unstitched lower garment) with a kurta, worn across India with regional variations in draping styles.</p>
+            <button class="text-blue-500 hover:text-blue-400 inline-flex items-center font-medium" onclick="toggleDetails('dhoti-kurta-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="dhoti-kurta-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Regional Styles:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Bengali Style (front pleated)</li>
+                <li>South Indian Style (Veshti)</li>
+                <li>Maharashtrian Style (Dhotar)</li>
+                <li>Gujarati Style (Panche)</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Religious ceremonies, weddings, cultural events, formal gatherings</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achkan -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-purple-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-male text-purple-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Achkan</h3>
+              <span class="text-sm px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-500 rounded-full">North India</span>
+            </div>
+            <p class="text-gray-400 mb-4">A long-sleeved outer garment reaching below the knees, often worn with churidar pants. Known for its royal appearance and intricate embroidery.</p>
+            <button class="text-blue-500 hover:text-blue-400 inline-flex items-center font-medium" onclick="toggleDetails('achkan-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="achkan-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Long length design</li>
+                <li>Rich embroidery work</li>
+                <li>Buttoned front</li>
+                <li>Often paired with churidar</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Weddings, royal ceremonies, formal events, cultural celebrations</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mundu -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-green-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-male text-green-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Mundu</h3>
+              <span class="text-sm px-3 py-1 bg-green-500 bg-opacity-20 text-green-500 rounded-full">Kerala</span>
+            </div>
+            <p class="text-gray-400 mb-4">Traditional white cotton garment worn by men in Kerala, similar to a dhoti but with a distinctive border and draping style.</p>
+            <button class="text-blue-500 hover:text-blue-400 inline-flex items-center font-medium" onclick="toggleDetails('mundu-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="mundu-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>White cotton fabric</li>
+                <li>Golden border (kasavu)</li>
+                <li>Simple draping style</li>
+                <li>Often worn with a shirt</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Temple visits, festivals, formal events, daily wear</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pheta -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-yellow-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-male text-yellow-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Pheta</h3>
+              <span class="text-sm px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-500 rounded-full">Maharashtra</span>
+            </div>
+            <p class="text-gray-400 mb-4">Traditional Marathi turban, often worn during weddings and festivals. Known for its distinctive style and cultural significance.</p>
+            <button class="text-blue-500 hover:text-blue-400 inline-flex items-center font-medium" onclick="toggleDetails('pheta-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="pheta-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Traditional headgear</li>
+                <li>Various tying styles</li>
+                <li>Often with decorative elements</li>
+                <li>Cultural significance</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Weddings, festivals, cultural events, formal ceremonies</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gho -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-red-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-male text-red-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Gho</h3>
+              <span class="text-sm px-3 py-1 bg-red-500 bg-opacity-20 text-red-500 rounded-full">Sikkim</span>
+            </div>
+            <p class="text-gray-400 mb-4">Traditional knee-length robe worn by men in Sikkim, tied at the waist with a belt. Part of the cultural identity of the region.</p>
+            <button class="text-blue-500 hover:text-blue-400 inline-flex items-center font-medium" onclick="toggleDetails('gho-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="gho-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Knee-length robe</li>
+                <li>Wide sleeves</li>
+                <li>Belted waist</li>
+                <li>Traditional patterns</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Cultural events, festivals, formal gatherings, daily wear</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bakhu -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-60 bg-blue-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-male text-blue-500 text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Bakhu</h3>
+              <span class="text-sm px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-500 rounded-full">Arunachal Pradesh</span>
+            </div>
+            <p class="text-gray-400 mb-4">Traditional sleeveless long coat worn by men in Arunachal Pradesh, made from yak wool and decorated with intricate patterns.</p>
+            <button class="text-blue-500 hover:text-blue-400 inline-flex items-center font-medium" onclick="toggleDetails('bakhu-details')">
+              Read more <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <div id="bakhu-details" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <h4 class="font-semibold mb-2">Features:</h4>
+              <ul class="list-disc list-inside text-gray-400 space-y-1 mb-3">
+                <li>Yak wool fabric</li>
+                <li>Sleeveless design</li>
+                <li>Traditional patterns</li>
+                <li>Warm and durable</li>
+              </ul>
+              <h4 class="font-semibold mb-2">Typical Occasions:</h4>
+              <p class="text-gray-400">Cultural events, festivals, cold weather wear, formal gatherings</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Accessories Section -->
+  <section id="accessories" class="py-16 bg-gray-800">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-12 text-center">Traditional <span class="text-purple-500">Accessories</span></h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Bindi -->
+        <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="w-16 h-16 mx-auto bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-dot-circle text-2xl text-purple-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Bindi</h3>
+          <p class="text-gray-400 text-center">Decorative dot worn on the forehead, traditionally symbolizing the third eye in Hindu tradition. Now also a fashion accessory in various designs.</p>
+        </div>
+        
+        <!-- Bangles -->
+        <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="w-16 h-16 mx-auto bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-circle-notch text-2xl text-purple-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Bangles (Choodiyan)</h3>
+          <p class="text-gray-400 text-center">Circular bracelet-like ornaments worn by women, made from materials ranging from glass to gold, often worn in sets.</p>
+        </div>
+        
+        <!-- Maang Tikka -->
+        <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="w-16 h-16 mx-auto bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-gem text-2xl text-purple-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Maang Tikka</h3>
+          <p class="text-gray-400 text-center">Ornament worn on the hairline, typically featuring a pendant that rests on the forehead. Essential in bridal attire across India.</p>
+        </div>
+        
+        <!-- Nath -->
+        <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="w-16 h-16 mx-auto bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-ring text-2xl text-purple-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Nath (Nose Ring)</h3>
+          <p class="text-gray-400 text-center">Traditional nose ornament worn by women, ranging from small studs to elaborate rings connected to ear chains.</p>
+        </div>
+      </div>
+      
+      <div class="text-center mt-10">
+        <button onclick="toggleSection('accessories-more')" class="px-6 py-3 rounded-full bg-purple-500 hover:bg-purple-600 transition-colors">
+          View All Accessories
+        </button>
+      </div>
+      <!-- Additional Accessories -->
+      <div id="accessories-more" class="hidden mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Payal -->
+        <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="w-16 h-16 mx-auto bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-music text-2xl text-purple-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Payal</h3>
+          <p class="text-gray-400 text-center">Traditional anklet with small bells, worn by women during classical dance performances and special occasions.</p>
+        </div>
+
+        <!-- Kamarband -->
+        <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="w-16 h-16 mx-auto bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-gem text-2xl text-purple-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Kamarband</h3>
+          <p class="text-gray-400 text-center">Ornamental waist belt, often made of gold or silver, adorned with precious stones and intricate designs.</p>
+        </div>
+
+        <!-- Jhumka -->
+        <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="w-16 h-16 mx-auto bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-circle text-2xl text-purple-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Jhumka</h3>
+          <p class="text-gray-400 text-center">Traditional bell-shaped earrings, often worn in pairs, featuring intricate designs and sometimes precious stones.</p>
+        </div>
+
+        <!-- Haath Phool -->
+        <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="w-16 h-16 mx-auto bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-hand-sparkles text-2xl text-purple-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Haath Phool</h3>
+          <p class="text-gray-400 text-center">Traditional hand ornament that connects rings to a bracelet, often worn by brides and during special occasions.</p>
+        </div>
+
+        <!-- Tikli -->
+        <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="w-16 h-16 mx-auto bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-gem text-2xl text-purple-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Tikli</h3>
+          <p class="text-gray-400 text-center">Traditional forehead ornament, often worn with a chain connecting to the hair. Popular in North Indian bridal wear.</p>
+        </div>
+
+        <!-- Bajuband -->
+        <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="w-16 h-16 mx-auto bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-bracelet text-2xl text-purple-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Bajuband</h3>
+          <p class="text-gray-400 text-center">Traditional armlet worn on the upper arm, often made of gold or silver with intricate designs and gemstones.</p>
+        </div>
+
+        <!-- Rani Haar -->
+        <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="w-16 h-16 mx-auto bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-crown text-2xl text-purple-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Rani Haar</h3>
+          <p class="text-gray-400 text-center">Long necklace with multiple layers, often worn by brides. Features intricate designs and multiple strands of pearls or beads.</p>
+        </div>
+
+        <!-- Matha Patti -->
+        <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="w-16 h-16 mx-auto bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-headband text-2xl text-purple-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Matha Patti</h3>
+          <p class="text-gray-400 text-center">Traditional headpiece that extends from the center of the forehead to the hairline, often worn by brides.</p>
+        </div>
+
+        <!-- Choker -->
+        <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="w-16 h-16 mx-auto bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-circle text-2xl text-purple-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Choker</h3>
+          <p class="text-gray-400 text-center">Short necklace that fits closely around the neck, often adorned with pearls, beads, or precious stones.</p>
+        </div>
+
+        <!-- Armlet -->
+        <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="w-16 h-16 mx-auto bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-bracelet text-2xl text-purple-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Armlet</h3>
+          <p class="text-gray-400 text-center">Traditional ornament worn on the upper arm, often featuring intricate designs and gemstones.</p>
+        </div>
+
+        <!-- Anklet -->
+        <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="w-16 h-16 mx-auto bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-ring text-2xl text-purple-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Anklet</h3>
+          <p class="text-gray-400 text-center">Traditional ornament worn around the ankle, often with small bells or decorative elements.</p>
+        </div>
+
+        <!-- Toe Ring -->
+        <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="w-16 h-16 mx-auto bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-ring text-2xl text-purple-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Toe Ring</h3>
+          <p class="text-gray-400 text-center">Traditional silver ring worn on the second toe, symbolizing marital status in many Indian cultures.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footwear Section -->
+  <section id="footwear" class="py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-12 text-center">Traditional <span class="text-yellow-500">Footwear</span></h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Juttis -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-48 bg-yellow-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-shoe-prints text-yellow-500 text-5xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Juttis</h3>
+            <p class="text-gray-400">Handcrafted leather footwear with a closed upper and no left-right distinction. Known for colorful embroidery and embellishments, originating from Punjab and Rajasthan.</p>
+          </div>
+        </div>
+        
+        <!-- Kolhapuri Chappals -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-48 bg-yellow-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-shoe-prints text-yellow-500 text-5xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Kolhapuri Chappals</h3>
+            <p class="text-gray-400">Handcrafted open sandals made from tanned leather, originating from Kolhapur, Maharashtra. Known for their durability and unique design with toe loop.</p>
+          </div>
+        </div>
+        
+        <!-- Paduka -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-48 bg-yellow-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-shoe-prints text-yellow-500 text-5xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Paduka</h3>
+            <p class="text-gray-400">Ancient toe-knob sandals, considered sacred in Indian culture. Traditionally made of wood, sometimes adorned with silver or ivory for royalty and ceremonial purposes.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <button onclick="toggleSection('footwear-more')" class="px-6 py-3 rounded-full bg-yellow-500 hover:bg-yellow-600 transition-colors">
+          View All Footwear
+        </button>
+      </div>
+
+      <!-- Additional Footwear Items -->
+      <div id="footwear-more" class="hidden mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Mojaris -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-48 bg-yellow-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-shoe-prints text-yellow-500 text-5xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Mojaris</h3>
+            <p class="text-gray-400">Traditional Rajasthani footwear with intricate embroidery and mirror work. Made from leather and often decorated with colorful threads and beads.</p>
+          </div>
+        </div>
+
+        <!-- Khadau -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-48 bg-yellow-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-shoe-prints text-yellow-500 text-5xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Khadau</h3>
+            <p class="text-gray-400">Traditional wooden sandals worn by saints and ascetics. Simple in design but highly durable, often made from teak or other hardwoods.</p>
+          </div>
+        </div>
+
+        <!-- Peshawari Chappal -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-48 bg-yellow-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-shoe-prints text-yellow-500 text-5xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Peshawari Chappal</h3>
+            <p class="text-gray-400">Traditional footwear from Peshawar, known for its distinctive T-strap design and comfortable fit. Popular among both men and women in North India.</p>
+          </div>
+        </div>
+
+        <!-- Nagra -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-48 bg-yellow-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-shoe-prints text-yellow-500 text-5xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Nagra</h3>
+            <p class="text-gray-400">Traditional Punjabi footwear with a curled toe design. Often worn with traditional attire during weddings and festivals.</p>
+          </div>
+        </div>
+
+        <!-- Chappals with Bells -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-48 bg-yellow-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-shoe-prints text-yellow-500 text-5xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Chappals with Bells</h3>
+            <p class="text-gray-400">Traditional dance footwear with small bells attached. Popular among classical dancers and performers, especially in Kathak dance.</p>
+          </div>
+        </div>
+
+        <!-- Velvet Slippers -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:transform hover:scale-105 border border-gray-700">
+          <div class="h-48 bg-yellow-500 bg-opacity-20 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-shoe-prints text-yellow-500 text-5xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Velvet Slippers</h3>
+            <p class="text-gray-400">Luxurious footwear made from velvet with intricate embroidery. Often worn with traditional attire during special occasions and ceremonies.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Festival and Regional Connection -->
+  <section class="py-16 bg-gradient-to-r from-gray-900 to-gray-800">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Outfits by <span class="text-pink-500">Festival & Region</span></h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">Discover traditional attire specific to different celebrations and geographical areas</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Festival Connection -->
+        <div class="bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-700">
+          <h3 class="text-2xl font-bold mb-4">Festival-Specific Attire</h3>
+          
+          <div class="space-y-4">
+            <div class="p-4 bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-red-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                  <i class="fas fa-diya text-red-500"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold">Diwali</h4>
+                  <p class="text-gray-400 text-sm">Silk sarees, embellished lehengas, kurta sets with gold work</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-4 bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-blue-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                  <i class="fas fa-water text-blue-500"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold">Holi</h4>
+                  <p class="text-gray-400 text-sm">White cotton kurtas, lightweight chikan work outfits</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-4 bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                  <i class="fas fa-dharmachakra text-purple-500"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold">Navratri</h4>
+                  <p class="text-gray-400 text-sm">Chaniya choli, ghagra choli, color-specific attire for each day</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-4 bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-green-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                  <i class="fas fa-leaf text-green-500"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold">Onam</h4>
+                  <p class="text-gray-400 text-sm">Kerala kasavu sarees, mundus with golden borders</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 text-center">
+            <a href="Traditional Outfits.html" class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium">
+              Explore Festival Outfits <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Regional Connection -->
+        <div class="bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-700">
+          <h3 class="text-2xl font-bold mb-4">Regional Specialties</h3>
+          
+          <div class="space-y-4">
+            <div class="p-4 bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-yellow-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                  <i class="fas fa-mountain text-yellow-500"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold">North India</h4>
+                  <p class="text-gray-400 text-sm">Phulkari dupatta (Punjab), Chikankari (UP), Bandhani (Rajasthan)</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-4 bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-green-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                  <i class="fas fa-umbrella-beach text-green-500"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold">South India</h4>
+                  <p class="text-gray-400 text-sm">Kanjeevaram silk sarees (TN), Kasavu (Kerala), Ilkal sarees (Karnataka)</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-4 bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-blue-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                  <i class="fas fa-water text-blue-500"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold">East India</h4>
+                  <p class="text-gray-400 text-sm">Taant sarees (Bengal), Sambalpuri (Odisha), Mekhela Chador (Assam)</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-4 bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-red-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                  <i class="fas fa-sun text-red-500"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold">West India</h4>
+                  <p class="text-gray-400 text-sm">Bandhani (Gujarat), Paithani (Maharashtra), Goan Kunbi saree</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 text-center">
+            <a href="Regional Styles.html" class="text-pink-500 hover:text-pink-400 inline-flex items-center font-medium">
+              Explore Regional Styles <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="py-16 bg-gradient-to-r from-pink-500 to-purple-600">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-6">Try On These Traditional Outfits Virtually</h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">Experience how you'd look in these beautiful traditional garments with our AI-powered virtual try-on</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="index.html" class="px-8 py-3 rounded-full bg-white text-pink-600 hover:bg-gray-100 transition-colors font-medium">
+          Try Virtual Fitting
+        </a>
+        <a href="chatbot.html" class="px-8 py-3 rounded-full border-2 border-white text-white hover:bg-white hover:bg-opacity-10 transition-colors font-medium">
+          Ask Our AI Assistant
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <div class="text-pink-500 text-2xl"><i class="fas fa-tshirt"></i></div>
+            <div class="text-xl font-bold">Vastra<span class="text-pink-500">Verse</span></div>
+          </div>
+          <p class="text-gray-400 mb-4">Celebrating the rich diversity of Indian traditional fashion and culture through AI innovation.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-pink-500 transition-colors">Home</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-pink-500 transition-colors">About Us</a></li>
+            <li><a href="chatbot.html" class="text-gray-400 hover:text-pink-500 transition-colors">AI Chatbot</a></li>
+            <li><a href="Festival Calendar.html" class="text-gray-400 hover:text-pink-500 transition-colors">Festival Calendar</a></li>
+            <li><a href="Traditional Outfits.html" class="text-gray-400 hover:text-pink-500 transition-colors">Traditional Outfits</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Resources</h4>
+          <ul class="space-y-2">
+            <li><a href="blog.html" class="text-gray-400 hover:text-pink-500 transition-colors">Blog</a></li>
+            <li><a href="Cultural Guides.html" class="text-gray-400 hover:text-pink-500 transition-colors">Cultural Guides</a></li>
+            <li><a href="Outfit Dictionary.html" class="text-gray-400 hover:text-pink-500 transition-colors">Outfit Dictionary</a></li>
+            <li><a href="Regional Styles.html" class="text-gray-400 hover:text-pink-500 transition-colors">Regional Styles</a></li>
+            <li><a href="FAQ.html" class="text-gray-400 hover:text-pink-500 transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Subscribe to Our Newsletter</h4>
+          <p class="text-gray-400 mb-4">Stay updated with the latest festival guides and traditional fashion trends</p>
+          <form class="mb-4">
+            <div class="flex">
+              <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 w-full">
+              <button type="submit" class="px-4 py-2 bg-pink-500 text-white rounded-r-md hover:bg-pink-600 transition-colors">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+        <p>&copy; 2025 VastraVerse All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('py-2');
+        navbar.classList.add('shadow-md');
+      } else {
+        navbar.classList.remove('py-2');
+        navbar.classList.remove('shadow-md');
+      }
+    });
+    
+    // Toggle details sections
+    function toggleDetails(id) {
+      const detailsSection = document.getElementById(id);
+      if (detailsSection.classList.contains('hidden')) {
+        detailsSection.classList.remove('hidden');
+      } else {
+        detailsSection.classList.add('hidden');
+      }
+    }
+    
+    // Theme toggle functionality
+    document.getElementById('themeToggle').addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      if (document.documentElement.classList.contains('dark')) {
+        this.innerHTML = '<i class="fas fa-sun"></i>';
+      } else {
+        this.innerHTML = '<i class="fas fa-moon"></i>';
+      }
+    });
+    
+    // Toggle section visibility
+    function toggleSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section.classList.contains('hidden')) {
+        section.classList.remove('hidden');
+      } else {
+        section.classList.add('hidden');
+      }
+    }
+  </script>
+  <script src="auth.js"></script>
+</body>
+</html>

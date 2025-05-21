@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VastraVerse Blog - Cultural Fashion & Festival Insights</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <!-- LottieFiles CDN for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
+  <style>
+    /* Shimmer base style for skeleton loaders */
+    .shimmer {
+      position: relative;
+      overflow: hidden;
+      background: #23272f;
+    }
+    .shimmer::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -150px; width: 150px; height: 100%;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      100% { left: 100%; }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white font-sans antialiased">
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-10 transition-all duration-300 ease-in-out py-4 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <div class="text-pink-500 text-2xl"><i class="fas fa-tshirt"></i></div>
+        <a href="index.html" class="text-xl font-bold">Vastra<span class="text-pink-500">Verse</span></a>
+      </div>
+      
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="hover:text-pink-500 transition-colors">Home</a>
+        <a href="about.html" class="hover:text-pink-500 transition-colors">About</a>
+        <a href="chatbot.html" class="hover:text-pink-500 transition-colors">Chatbot</a>
+        <button id="themeToggle" class="hover:text-pink-500 transition-colors">
+          <i class="fas fa-sun"></i>
+        </button>
+      </div>
+      
+      <div class="auth-buttons flex items-center space-x-4">
+        <a href="login.html" class="px-4 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">Login</a>
+        <a href="signup.html" class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors hidden md:block">Sign Up</a>
+      </div>
+      <div class="user-menu hidden items-center space-x-4">
+        <span class="text-gray-400">Hello, <span class="user-name">User</span></span>
+        <button id="logoutButton" class="px-4 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">Logout</button>
+      </div>
+      <button id="mobileMenuBtn" class="md:hidden text-gray-200 hover:text-pink-500">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="md:hidden bg-gray-800 hidden">
+      <div class="container mx-auto px-4 py-4 flex flex-col space-y-3">
+        <a href="index.html" class="block py-2 hover:text-pink-500 transition-colors">Home</a>
+        <a href="about.html" class="block py-2 hover:text-pink-500 transition-colors">About</a>
+        <a href="blog.html" class="block py-2 text-pink-500 transition-colors">Blog</a>
+        <a href="chatbot.html" class="block py-2 hover:text-pink-500 transition-colors">Chatbot</a>
+        <button class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors w-full mt-2">Sign Up</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Blog Header -->
+  <section class="pt-32 pb-12 bg-gradient-to-b from-gray-800 to-gray-900">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">VastraVerse <span class="text-pink-500">Blog</span></h1>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto">Discover the stories, traditions, and beauty behind Indian cultural fashion and festivals</p>
+      
+      <!-- Search & Categories -->
+      <div class="mt-10 max-w-xl mx-auto">
+        <div class="flex flex-col md:flex-row gap-4">
+          <div class="relative flex-grow">
+            <input type="text" placeholder="Search articles..." class="w-full bg-gray-700 bg-opacity-50 border border-gray-600 rounded-full px-5 py-3 pr-12 text-white focus:outline-none focus:ring-2 focus:ring-pink-500">
+            <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-pink-500">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <select class="bg-gray-700 bg-opacity-50 border border-gray-600 rounded-full px-5 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 cursor-pointer">
+            <option value="">All Categories</option>
+            <option value="fashion">Traditional Fashion</option>
+            <option value="festivals">Festivals & Celebrations</option>
+            <option value="history">Cultural History</option>
+            <option value="styling">Styling Tips</option>
+            <option value="regional">Regional Spotlights</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Article -->
+  <section class="py-12">
+    <div class="container mx-auto px-4">
+      <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-xl">
+        <div class="flex flex-col md:flex-row">
+          <div class="md:w-1/2 bg-gradient-to-br from-pink-500 to-purple-600 h-64 md:h-auto relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="text-center text-white">
+                <div class="text-5xl mb-2"><i class="fas fa-diyas"></i></div>
+                <div class="text-2xl font-bold">Featured</div>
+              </div>
+            </div>
+          </div>
+          <div class="md:w-1/2 p-8">
+            <div class="flex items-center mb-4">
+              <span class="bg-pink-500 text-xs text-white px-3 py-1 rounded-full">Featured</span>
+              <span class="ml-3 text-gray-400 text-sm">May 5, 2025</span>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">The Evolution of Sarees: From Ancient Drapes to Modern Fashion</h2>
+            <p class="text-gray-400 mb-6">Explore the fascinating journey of India's most iconic garment through centuries of cultural significance, regional variations, and its modern renaissance in global fashion.</p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <img src="images/1.png" alt="Author" class="w-10 h-10 rounded-full object-cover mr-3">
+                <div>
+                  <p class="font-medium">Priya Sharma</p>
+                  <p class="text-gray-500 text-sm">Fashion Historian</p>
+                </div>
+              </div>
+              <a href="Regional Traditions.html" class="text-pink-500 hover:text-pink-400 inline-flex items-center">
+                Read More <i class="fas fa-arrow-right ml-2"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Articles -->
+  <section class="py-12">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl font-bold">Latest Articles</h2>
+        <a href="#" class="text-pink-500 hover:text-pink-400">View All</a>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Article 1 -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all">
+          <div class="h-48 bg-gradient-to-br from-red-500 to-yellow-500 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="text-4xl text-white"><i class="fas fa-fire"></i></div>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center mb-3">
+              <span class="bg-gray-700 text-gray-300 text-xs px-3 py-1 rounded-full">Festivals</span>
+              <span class="ml-2 text-gray-500 text-sm">May 3, 2025</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Karwa Chauth: Traditions, Outfits and Modern Celebrations</h3>
+            <p class="text-gray-400 mb-4">Discover the beautiful traditions behind this celebration of marital bonds and the stunning regional variations in attire.</p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <img src="images/2.png" alt="Author" class="w-8 h-8 rounded-full object-cover mr-2">
+                <p class="text-sm text-gray-400">Ananya Desai</p>
+              </div>
+              <a href="Ceremonies & Rituals.html" class="text-pink-500 hover:text-pink-400">Read More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Article 2 -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all">
+          <div class="h-48 bg-gradient-to-br from-green-500 to-blue-500 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="text-4xl text-white"><i class="fas fa-leaf"></i></div>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center mb-3">
+              <span class="bg-gray-700 text-gray-300 text-xs px-3 py-1 rounded-full">Fashion</span>
+              <span class="ml-2 text-gray-500 text-sm">May 1, 2025</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Sustainable Traditional Fashion: Eco-Friendly Indian Textiles</h3>
+            <p class="text-gray-400 mb-4">How traditional Indian weaving techniques and natural dyes are making a comeback in the age of sustainable fashion.</p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <img src="images/3.png" alt="Author" class="w-8 h-8 rounded-full object-cover mr-2">
+                <p class="text-sm text-gray-400">Raj Malhotra</p>
+              </div>
+              <a href="Ceremonies & Rituals.html" class="text-pink-500 hover:text-pink-400">Read More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Article 3 -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all">
+          <div class="h-48 bg-gradient-to-br from-purple-500 to-pink-500 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="text-4xl text-white"><i class="fas fa-palette"></i></div>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center mb-3">
+              <span class="bg-gray-700 text-gray-300 text-xs px-3 py-1 rounded-full">Styling</span>
+              <span class="ml-2 text-gray-500 text-sm">April 29, 2025</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Blending Traditional and Modern: Fusion Wear Guide</h3>
+            <p class="text-gray-400 mb-4">Create stunning contemporary looks that honor traditional aesthetics with these expert styling tips and ideas.</p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <img src="images/4.png" alt="Author" class="w-8 h-8 rounded-full object-cover mr-2">
+                <p class="text-sm text-gray-400">Meera Kapoor</p>
+              </div>
+              <a href="Ceremonies & Rituals.html" class="text-pink-500 hover:text-pink-400">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Topics Section -->
+  <section class="py-12 bg-gray-800">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold text-center mb-10">Popular Topics</h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="#" class="bg-gray-700 rounded-xl p-6 text-center hover:bg-gradient-to-br hover:from-pink-500 hover:to-purple-600 transition-all transform hover:-translate-y-1 hover:shadow-xl">
+          <div class="text-3xl mb-3"><i class="fas fa-female"></i></div>
+          <h3 class="font-medium">Women's Fashion</h3>
+        </a>
+        
+        <a href="#" class="bg-gray-700 rounded-xl p-6 text-center hover:bg-gradient-to-br hover:from-pink-500 hover:to-purple-600 transition-all transform hover:-translate-y-1 hover:shadow-xl">
+          <div class="text-3xl mb-3"><i class="fas fa-male"></i></div>
+          <h3 class="font-medium">Men's Fashion</h3>
+        </a>
+        
+        <a href="#" class="bg-gray-700 rounded-xl p-6 text-center hover:bg-gradient-to-br hover:from-pink-500 hover:to-purple-600 transition-all transform hover:-translate-y-1 hover:shadow-xl">
+          <div class="text-3xl mb-3"><i class="fas fa-ring"></i></div>
+          <h3 class="font-medium">Wedding Attire</h3>
+        </a>
+        
+        <a href="#" class="bg-gray-700 rounded-xl p-6 text-center hover:bg-gradient-to-br hover:from-pink-500 hover:to-purple-600 transition-all transform hover:-translate-y-1 hover:shadow-xl">
+          <div class="text-3xl mb-3"><i class="fas fa-gem"></i></div>
+          <h3 class="font-medium">Jewelry</h3>
+        </a>
+        
+        <a href="#" class="bg-gray-700 rounded-xl p-6 text-center hover:bg-gradient-to-br hover:from-pink-500 hover:to-purple-600 transition-all transform hover:-translate-y-1 hover:shadow-xl">
+          <div class="text-3xl mb-3"><i class="fas fa-hands"></i></div>
+          <h3 class="font-medium">Handcrafts</h3>
+        </a>
+        
+        <a href="#" class="bg-gray-700 rounded-xl p-6 text-center hover:bg-gradient-to-br hover:from-pink-500 hover:to-purple-600 transition-all transform hover:-translate-y-1 hover:shadow-xl">
+          <div class="text-3xl mb-3"><i class="fas fa-map-marked-alt"></i></div>
+          <h3 class="font-medium">Regional Styles</h3>
+        </a>
+        
+        <a href="#" class="bg-gray-700 rounded-xl p-6 text-center hover:bg-gradient-to-br hover:from-pink-500 hover:to-purple-600 transition-all transform hover:-translate-y-1 hover:shadow-xl">
+          <div class="text-3xl mb-3"><i class="fas fa-calendar-day"></i></div>
+          <h3 class="font-medium">Festival Guide</h3>
+        </a>
+        
+        <a href="#" class="bg-gray-700 rounded-xl p-6 text-center hover:bg-gradient-to-br hover:from-pink-500 hover:to-purple-600 transition-all transform hover:-translate-y-1 hover:shadow-xl">
+          <div class="text-3xl mb-3"><i class="fas fa-history"></i></div>
+          <h3 class="font-medium">History</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Regional Spotlights -->
+  <section class="py-12">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl font-bold">Regional Spotlights</h2>
+        <a href="#" class="text-pink-500 hover:text-pink-400">View All Regions</a>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Region 1 -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all">
+          <div class="h-40 bg-gradient-to-br from-yellow-600 to-red-600 flex items-center justify-center">
+            <h3 class="text-2xl font-bold text-white">North India</h3>
+          </div>
+          <div class="p-4">
+            <ul class="space-y-2">
+              <li><a href="Regional Traditions.html" class="text-gray-300 hover:text-pink-500 transition-colors flex justify-between"><span>Phulkari of Punjab</span> <i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="Regional Traditions.html" class="text-gray-300 hover:text-pink-500 transition-colors flex justify-between"><span>Kashmiri Embroidery</span> <i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="Regional Traditions.html" class="text-gray-300 hover:text-pink-500 transition-colors flex justify-between"><span>Rajasthani Mirror Work</span> <i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Region 2 -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all">
+          <div class="h-40 bg-gradient-to-br from-green-600 to-teal-600 flex items-center justify-center">
+            <h3 class="text-2xl font-bold text-white">South India</h3>
+          </div>
+          <div class="p-4">
+            <ul class="space-y-2">
+              <li><a href="Regional Traditions.html" class="text-gray-300 hover:text-pink-500 transition-colors flex justify-between"><span>Kanjivaram Silks</span> <i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="Regional Traditions.html" class="text-gray-300 hover:text-pink-500 transition-colors flex justify-between"><span>Kerala Kasavu</span> <i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="Regional Traditions.html" class="text-gray-300 hover:text-pink-500 transition-colors flex justify-between"><span>Pochampally Ikat</span> <i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Region 3 -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all">
+          <div class="h-40 bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center">
+            <h3 class="text-2xl font-bold text-white">East India</h3>
+          </div>
+          <div class="p-4">
+            <ul class="space-y-2">
+              <li><a href="Regional Traditions.html" class="text-gray-300 hover:text-pink-500 transition-colors flex justify-between"><span>Bengali Tant</span> <i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="Regional Traditions.html" class="text-gray-300 hover:text-pink-500 transition-colors flex justify-between"><span>Sambalpuri Sarees</span> <i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="Regional Traditions.html" class="text-gray-300 hover:text-pink-500 transition-colors flex justify-between"><span>Manipuri Dress</span> <i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Region 4 -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all">
+          <div class="h-40 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+            <h3 class="text-2xl font-bold text-white">West India</h3>
+          </div>
+          <div class="p-4">
+            <ul class="space-y-2">
+              <li><a href="Regional Traditions.html" class="text-gray-300 hover:text-pink-500 transition-colors flex justify-between"><span>Bandhani of Gujarat</span> <i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="Regional Traditions.html" class="text-gray-300 hover:text-pink-500 transition-colors flex justify-between"><span>Paithani of Maharashtra</span> <i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="Regional Traditions.html" class="text-gray-300 hover:text-pink-500 transition-colors flex justify-between"><span>Goan Kunbi Saree</span> <i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Newsletter -->
+  <section class="py-16 bg-gradient-to-r from-pink-500 to-purple-600">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-6">Stay Updated with VastraVerse</h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">Subscribe to our newsletter for the latest articles, festival guides, and cultural fashion trends</p>
+      
+      <form class="max-w-md mx-auto">
+        <div class="flex flex-col md:flex-row gap-3">
+          <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-white bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-80">
+          <button type="submit" class="px-6 py-3 bg-white text-pink-600 rounded-full hover:bg-gray-100 transition-colors font-medium">Subscribe</button>
+        </div>
+        <p class="text-sm mt-3 text-white text-opacity-80">We respect your privacy. Unsubscribe at any time.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <div class="text-pink-500 text-2xl"><i class="fas fa-tshirt"></i></div>
+            <div class="text-xl font-bold">Vastra<span class="text-pink-500">Verse</span></div>
+          </div>
+          <p class="text-gray-400 mb-4">Celebrating the rich diversity of Indian traditional fashion and culture through AI innovation.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-pink-500 transition-colors">Home</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-pink-500 transition-colors">About Us</a></li>
+            <li><a href="chatbot.html" class="text-gray-400 hover:text-pink-500 transition-colors">AI Chatbot</a></li>
+            <li><a href="Festival Calendar.html" class="text-gray-400 hover:text-pink-500 transition-colors">Festival Calendar</a></li>
+            <li><a href="Traditional Outfits.html" class="text-gray-400 hover:text-pink-500 transition-colors">Traditional Outfits</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Resources</h4>
+          <ul class="space-y-2">
+            <li><a href="blog.html" class="text-gray-400 hover:text-pink-500 transition-colors">Blog</a></li>
+            <li><a href="Cultural Guides.html" class="text-gray-400 hover:text-pink-500 transition-colors">Cultural Guides</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">Outfit Dictionary</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">Regional Styles</a></li>
+            <li><a href="FAQ.html" class="text-gray-400 hover:text-pink-500 transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Subscribe to Our Newsletter</h4>
+          <p class="text-gray-400 mb-4">Stay updated with the latest festival guides and traditional fashion trends</p>
+          <form class="mb-4">
+            <div class="flex">
+              <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 w-full">
+              <button type="submit" class="px-4 py-2 bg-pink-500 text-white rounded-r-md hover:bg-pink-600 transition-colors">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+        <p>&copy; 2025 VastraVerse All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

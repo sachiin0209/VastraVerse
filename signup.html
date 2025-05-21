@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VastraVerse - Sign Up</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <link href="auth-styles.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white font-sans antialiased">
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-10 transition-all duration-300 ease-in-out py-4 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <div class="text-pink-500 text-2xl"><i class="fas fa-tshirt"></i></div>
+        <a href="index.html" class="text-xl font-bold">Vastra<span class="text-pink-500">Verse</span></a>
+      </div>
+      
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="hover:text-pink-500 transition-colors">Home</a>
+        <a href="about.html" class="hover:text-pink-500 transition-colors">About</a>
+        <a href="chatbot.html" class="hover:text-pink-500 transition-colors">Chatbot</a>
+        <button id="themeToggle" class="hover:text-pink-500 transition-colors">
+          <i class="fas fa-sun"></i>
+        </button>
+      </div>
+      
+      <!-- Auth Buttons (shown when logged out) -->
+      <div class="auth-buttons flex items-center space-x-4">
+        <a href="login.html" class="px-4 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">Login</a>
+        <a href="signup.html" class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors hidden md:block">Sign Up</a>
+      </div>
+
+      <!-- User Menu (shown when logged in) -->
+      <div class="user-menu hidden items-center space-x-4">
+        <span class="text-gray-400">Hello, <span class="user-name">User</span></span>
+        <button id="logoutButton" class="px-4 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">
+          Logout
+        </button>
+      </div>
+
+      <button id="mobileMenuBtn" class="md:hidden text-gray-200 hover:text-pink-500">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="md:hidden bg-gray-800 hidden">
+      <div class="container mx-auto px-4 py-4 flex flex-col space-y-3">
+        <a href="index.html" class="block py-2 hover:text-pink-500 transition-colors">Home</a>
+        <a href="about.html" class="block py-2 hover:text-pink-500 transition-colors">About</a>
+        <a href="chatbot.html" class="block py-2 hover:text-pink-500 transition-colors">Chatbot</a>
+        <div class="auth-buttons">
+          <a href="login.html" class="block py-2 hover:text-pink-500 transition-colors">Login</a>
+        </div>
+        <div class="user-menu hidden">
+          <button id="mobileLogoutButton" class="block w-full text-left py-2 hover:text-pink-500 transition-colors">Logout</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sign Up Section -->
+  <section class="min-h-screen flex items-center justify-center pt-24 pb-16">
+    <div class="container mx-auto px-4">
+      <div class="max-w-md mx-auto bg-gray-800 rounded-xl shadow-2xl overflow-hidden">
+        <div class="p-8">
+          <div class="text-center mb-8">
+            <div class="inline-flex items-center space-x-2">
+              <div class="text-pink-500 text-3xl"><i class="fas fa-tshirt"></i></div>
+              <h2 class="text-2xl font-bold">Vastra<span class="text-pink-500">Verse</span></h2>
+            </div>
+            <h3 class="text-xl font-semibold mt-4">Create Your Account</h3>
+            <p class="text-gray-400 mt-2">Join our community of cultural fashion enthusiasts</p>
+          </div>
+          
+          <form id="signupForm" class="space-y-6">
+            <div class="space-y-2">
+              <label for="name" class="text-gray-300 block">Full Name</label>
+              <input 
+                type="text" 
+                id="name" 
+                class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                placeholder="Your full name"
+                required
+              >
+              <p id="nameError" class="text-red-500 text-sm hidden">Please enter your name</p>
+            </div>
+            
+            <div class="space-y-2">
+              <label for="email" class="text-gray-300 block">Email</label>
+              <input 
+                type="email" 
+                id="email" 
+                class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                placeholder="Your email"
+                required
+              >
+              <p id="emailError" class="text-red-500 text-sm hidden">Please enter a valid email address</p>
+            </div>
+            
+            <div class="space-y-2">
+              <label for="password" class="text-gray-300">Password</label>
+              <div class="relative">
+                <input 
+                  type="password" 
+                  id="password" 
+                  class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                  placeholder="Create a password"
+                  required
+                >
+                <button 
+                  type="button" 
+                  id="togglePassword" 
+                  class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                >
+                  <i class="far fa-eye"></i>
+                </button>
+              </div>
+              <div class="mt-2">
+                <div class="h-1 w-full bg-gray-700 rounded-full overflow-hidden">
+                  <div id="passwordStrength" class="h-full w-0 transition-all duration-300"></div>
+                </div>
+                <p id="passwordStrengthText" class="text-sm mt-1 text-gray-400">Password strength: <span>None</span></p>
+              </div>
+              <p id="passwordError" class="text-red-500 text-sm hidden">Password must be at least 6 characters</p>
+            </div>
+
+            <div class="space-y-2">
+              <label for="confirmPassword" class="text-gray-300">Confirm Password</label>
+              <div class="relative">
+                <input 
+                  type="password" 
+                  id="confirmPassword" 
+                  class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                  placeholder="Confirm your password"
+                  required
+                >
+              </div>
+              <p id="confirmPasswordError" class="text-red-500 text-sm hidden">Passwords do not match</p>
+            </div>
+            
+            <button 
+              type="submit" 
+              class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 rounded-lg hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-pink-400"
+            >
+              Create Account
+            </button>
+          </form>
+          
+          <div class="relative flex items-center justify-center mt-6 mb-6">
+            <div class="absolute border-t border-gray-600 w-full"></div>
+            <div class="relative bg-gray-800 px-4 text-gray-400">or continue with</div>
+          </div>
+          
+          <button 
+            id="googleSignIn" 
+            class="w-full flex items-center justify-center space-x-2 bg-white text-gray-800 py-3 rounded-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400"
+          >
+            <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google" class="w-5 h-5">
+            <span>Sign up with Google</span>
+          </button>
+          
+          <div class="text-center mt-8 text-gray-400">
+            Already have an account? <a href="login.html" class="text-pink-500 hover:text-pink-400">Sign in</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <div class="text-pink-500 text-2xl"><i class="fas fa-tshirt"></i></div>
+            <div class="text-xl font-bold">Vastra<span class="text-pink-500">Verse</span></div>
+          </div>
+          <p class="text-gray-400 mb-4">Celebrating the rich diversity of Indian traditional fashion and culture through AI innovation.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-pink-500 transition-colors">Home</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-pink-500 transition-colors">About Us</a></li>
+            <li><a href="chatbot.html" class="text-gray-400 hover:text-pink-500 transition-colors">AI Chatbot</a></li>
+            <li><a href="Festival Calendar.html" class="text-gray-400 hover:text-pink-500 transition-colors">Festival Calendar</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">Traditional Outfits</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Resources</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">Blog</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">Cultural Guides</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">Outfit Dictionary</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">Regional Styles</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Subscribe to Our Newsletter</h4>
+          <p class="text-gray-400 mb-4">Stay updated with the latest festival guides and traditional fashion trends</p>
+          <form class="mb-4">
+            <div class="flex">
+              <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 w-full">
+              <button type="submit" class="px-4 py-2 bg-pink-500 text-white rounded-r-md hover:bg-pink-600 transition-colors">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+        <p>&copy; 2025 VastraVerse All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://accounts.google.com/gsi/client"></script>
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

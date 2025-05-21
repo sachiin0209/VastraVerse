@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Festival Calendar - VastraVerse</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <link href="festival-calendar.css" rel="stylesheet">
+  <!-- LottieFiles CDN for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
+  <style>
+    /* Shimmer base style for skeleton loaders */
+    .shimmer {
+      position: relative;
+      overflow: hidden;
+      background: #23272f;
+    }
+    .shimmer::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -150px; width: 150px; height: 100%;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      100% { left: 100%; }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white font-sans antialiased">
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-10 transition-all duration-300 ease-in-out py-4 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <div class="text-pink-500 text-2xl"><i class="fas fa-tshirt"></i></div>
+        <a href="index.html" class="text-xl font-bold">Vastra<span class="text-pink-500">Verse</span></a>
+      </div>
+      
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="hover:text-pink-500 transition-colors">Home</a>
+        <a href="about.html" class="hover:text-pink-500 transition-colors">About</a>
+        <a href="chatbot.html" class="hover:text-pink-500 transition-colors">Chatbot</a>
+        <button id="themeToggle" class="hover:text-pink-500 transition-colors">
+          <i class="fas fa-sun"></i>
+        </button>
+      </div>
+      
+      <div class="auth-buttons flex items-center space-x-4">
+        <a href="login.html" class="px-4 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">Login</a>
+        <a href="signup.html" class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors hidden md:block">Sign Up</a>
+      </div>
+      <div class="user-menu hidden items-center space-x-4">
+        <span class="text-gray-400">Hello, <span class="user-name">User</span></span>
+        <button id="logoutButton" class="px-4 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">Logout</button>
+      </div>
+      <button id="mobileMenuBtn" class="md:hidden text-gray-200 hover:text-pink-500">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="md:hidden bg-gray-800 hidden">
+      <div class="container mx-auto px-4 py-4 flex flex-col space-y-3">
+        <a href="index.html" class="block py-2 hover:text-pink-500 transition-colors">Home</a>
+        <a href="about.html" class="block py-2 hover:text-pink-500 transition-colors">About</a>
+        <a href="festival-calendar.html" class="block py-2 text-pink-500 transition-colors">Festival Calendar</a>
+        <a href="chatbot.html" class="block py-2 hover:text-pink-500 transition-colors">Chatbot</a>
+        <button class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors w-full mt-2">Sign Up</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 bg-gray-800 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="festival-patterns"></div>
+    </div>
+    <div class="container mx-auto px-4">
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">
+          Indian Festival <span class="text-pink-500">Calendar</span>
+        </h1>
+        <p class="text-xl text-gray-300 mb-8">
+          Discover the vibrant celebrations across India throughout the year
+        </p>
+        <div class="flex justify-center gap-4 mb-10">
+          <button id="listViewBtn" class="px-4 py-2 rounded-md bg-pink-500 text-white hover:bg-pink-600 transition-colors">
+            <i class="fas fa-list mr-2"></i>List View
+          </button>
+          <button id="calendarViewBtn" class="px-4 py-2 rounded-md border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">
+            <i class="fas fa-calendar-alt mr-2"></i
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Google Calendar Style Component -->
+<section id="calendarSection" class="pt-32 pb-16">
+  <div class="container mx-auto px-4">
+    <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+      <!-- Calendar Header -->
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center space-x-4">
+          <button id="prevMonth" class="p-2 rounded-full hover:bg-gray-700 transition-colors">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <h2 id="currentMonthYear" class="text-2xl font-bold">April 2025</h2>
+          <button id="nextMonth" class="p-2 rounded-full hover:bg-gray-700 transition-colors">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+        <div class="flex space-x-2">
+          <button id="todayBtn" class="px-4 py-2 rounded-md border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">
+            Today
+          </button>
+          <div class="flex rounded-md overflow-hidden">
+            <button id="monthViewBtn" class="px-4 py-2 bg-pink-500 text-white">Month</button>
+            <button id="weekViewBtn" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white">Week</button>
+            <button id="dayViewBtn" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white">Day</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="flex flex-wrap gap-3 mb-6">
+        <div class="flex flex-1 min-w-64">
+          <div class="relative w-full">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <i class="fas fa-search text-gray-400"></i>
+            </div>
+            <input type="text" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full pl-10 p-2.5" placeholder="Search festivals">
+          </div>
+        </div>
+        
+        <select id="regionFilter" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 p-2.5">
+          <option value="all">All Regions</option>
+          <option value="north">North India</option>
+          <option value="south">South India</option>
+          <option value="east">East India</option>
+          <option value="west">West India</option>
+          <option value="northeast">Northeast India</option>
+        </select>
+        
+        <select id="categoryFilter" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 p-2.5">
+          <option value="all">All Categories</option>
+          <option value="religious">Religious</option>
+          <option value="cultural">Cultural</option>
+          <option value="harvest">Harvest</option>
+          <option value="national">National</option>
+        </select>
+        
+        <button id="filterBtn" class="flex items-center gap-2 px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors">
+          <i class="fas fa-filter"></i>
+          <span>Filter</span>
+        </button>
+      </div>
+      
+      <!-- Days of week header -->
+      <div class="grid grid-cols-7 mb-2">
+        <div class="text-center text-gray-400 py-2">Sun</div>
+        <div class="text-center text-gray-400 py-2">Mon</div>
+        <div class="text-center text-gray-400 py-2">Tue</div>
+        <div class="text-center text-gray-400 py-2">Wed</div>
+        <div class="text-center text-gray-400 py-2">Thu</div>
+        <div class="text-center text-gray-400 py-2">Fri</div>
+        <div class="text-center text-gray-400 py-2">Sat</div>
+      </div>
+      
+      <!-- Calendar Grid -->
+      <div id="calendarGrid" class="border border-gray-700 rounded-lg overflow-hidden">
+        <div class="grid grid-cols-7">
+          <!-- First row (previous month) -->
+          <div class="min-h-24 border border-gray-700 p-1 bg-gray-900">
+            <div class="text-sm text-gray-500 mb-1">30</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1 bg-gray-900">
+            <div class="text-sm text-gray-500 mb-1">31</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">1</div>
+            <div class="space-y-1">
+              <div class="bg-purple-500 text-white text-xs p-1 rounded truncate">Ram Navami</div>
+            </div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">2</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">3</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">4</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">5</div>
+            <div class="space-y-1"></div>
+          </div>
+          
+          <!-- Second row -->
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">6</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">7</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">8</div>
+            <div class="space-y-1">
+              <div class="bg-blue-500 text-white text-xs p-1 rounded truncate">Buddha Purnima</div>
+            </div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">9</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1 bg-gray-800">
+            <div class="text-sm mb-1 font-semibold text-white">10</div>
+            <div class="space-y-1">
+              <div class="bg-green-500 text-white text-xs p-1 rounded truncate">Eid al-Fitr</div>
+            </div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">11</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">12</div>
+            <div class="space-y-1"></div>
+          </div>
+          
+          <!-- Third row -->
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">13</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">14</div>
+            <div class="space-y-1">
+              <div class="bg-yellow-500 text-white text-xs p-1 rounded truncate">Baisakhi</div>
+            </div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">15</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">16</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">17</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">18</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">19</div>
+            <div class="space-y-1"></div>
+          </div>
+          
+          <!-- Fourth row -->
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">20</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">21</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">22</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">23</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">24</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">25</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">26</div>
+            <div class="space-y-1"></div>
+          </div>
+          
+          <!-- Fifth row -->
+          <div class="min-h-24 border border-gray-700 p-1 ring-2 ring-pink-500">
+            <div class="text-sm mb-1 font-bold text-pink-500">27</div>
+            <div class="space-y-1">
+              <div class="bg-purple-500 text-white text-xs p-1 rounded truncate">Akshaya Tritiya</div>
+            </div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">28</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">29</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1">
+            <div class="text-sm mb-1">30</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1 bg-gray-900">
+            <div class="text-sm text-gray-500 mb-1">1</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1 bg-gray-900">
+            <div class="text-sm text-gray-500 mb-1">2</div>
+            <div class="space-y-1"></div>
+          </div>
+          <div class="min-h-24 border border-gray-700 p-1 bg-gray-900">
+            <div class="text-sm text-gray-500 mb-1">3</div>
+            <div class="space-y-1"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Week/Day View (initially hidden) -->
+      <div id="weekDayView" class="mt-6 hidden">
+        <div class="flex">
+          <!-- Time column -->
+          <div class="w-20 border-r border-gray-700">
+            <div class="h-16 text-right pr-2 text-sm text-gray-400">12 AM</div>
+            <div class="h-16 text-right pr-2 text-sm text-gray-400">1 AM</div>
+            <div class="h-16 text-right pr-2 text-sm text-gray-400">2 AM</div>
+            <div class="h-16 text-right pr-2 text-sm text-gray-400">3 AM</div>
+            <div class="h-16 text-right pr-2 text-sm text-gray-400">4 AM</div>
+            <div class="h-16 text-right pr-2 text-sm text-gray-400">5 AM</div>
+          </div>
+          
+          <!-- Day columns (for week view) -->
+          <div class="flex-1 grid grid-cols-7" id="weekDays">
+            <!-- These would be dynamically generated -->
+            <div class="border-r border-gray-700">
+              <div class="text-center py-2 border-b border-gray-700">Sun 27</div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+            </div>
+            
+            <div class="border-r border-gray-700">
+              <div class="text-center py-2 border-b border-gray-700">Mon 28</div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+            </div>
+            
+            <div class="border-r border-gray-700">
+              <div class="text-center py-2 border-b border-gray-700">Tue 29</div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+            </div>
+            
+            <div class="border-r border-gray-700">
+              <div class="text-center py-2 border-b border-gray-700">Wed 30</div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+            </div>
+            
+            <div class="border-r border-gray-700">
+              <div class="text-center py-2 border-b border-gray-700">Thu 1</div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+            </div>
+            
+            <div class="border-r border-gray-700">
+              <div class="text-center py-2 border-b border-gray-700">Fri 2</div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+            </div>
+            
+            <div>
+              <div class="text-center py-2 border-b border-gray-700">Sat 3</div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+              <div class="h-16 border-b border-gray-700 relative"></div>
+            </div>
+          </div>
+          
+          <!-- Single day column (for day view) -->
+          <div class="flex-1 hidden" id="singleDay">
+            <div class="text-center py-2 border-b border-gray-700">Sunday, April 27, 2025</div>
+            <div class="h-16 border-b border-gray-700 relative"></div>
+            <div class="h-16 border-b border-gray-700 relative">
+              <div class="absolute top-0 left-0 right-0 h-16 bg-purple-500 bg-opacity-20 border-l-4 border-purple-500 text-white p-1 text-xs">
+                Akshaya Tritiya Celebration (1:00 AM - 2:00 AM)
+              </div>
+            </div>
+            <div class="h-16 border-b border-gray-700 relative"></div>
+            <div class="h-16 border-b border-gray-700 relative"></div>
+            <div class="h-16 border-b border-gray-700 relative"></div>
+            <div class="h-16 border-b border-gray-700 relative"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Legend for the event colors -->
+    <div class="mt-6 flex flex-wrap gap-4">
+      <div class="flex items-center">
+        <div class="w-4 h-4 rounded-full bg-purple-500 mr-2"></div>
+        <span class="text-sm text-gray-300">Religious Festivals</span>
+      </div>
+      <div class="flex items-center">
+        <div class="w-4 h-4 rounded-full bg-blue-500 mr-2"></div>
+        <span class="text-sm text-gray-300">Cultural Events</span>
+      </div>
+      <div class="flex items-center">
+        <div class="w-4 h-4 rounded-full bg-yellow-500 mr-2"></div>
+        <span class="text-sm text-gray-300">Harvest Festivals</span>
+      </div>
+      <div class="flex items-center">
+        <div class="w-4 h-4 rounded-full bg-green-500 mr-2"></div>
+        <span class="text-sm text-gray-300">National Holidays</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Filter Section -->
+  <section class="py-8 bg-gray-900">
+    <div class="container mx-auto px-4">
+      <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div>
+            <label class="block text-gray-300 mb-2">Region</label>
+            <select id="regionFilter" class="w-full bg-gray-700 border border-gray-600 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-pink-500">
+              <option value="all">All Regions</option>
+              <option value="north">North India</option>
+              <option value="south">South India</option>
+              <option value="east">East India</option>
+              <option value="west">West India</option>
+              <option value="northeast">Northeast India</option>
+            </select>
+          </div>
+          
+          <div>
+            <label class="block text-gray-300 mb-2">Month</label>
+            <select id="monthFilter" class="w-full bg-gray-700 border border-gray-600 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-pink-500">
+              <option value="all">All Months</option>
+              <option value="january">January</option>
+              <option value="february">February</option>
+              <option value="march">March</option>
+              <option value="april">April</option>
+              <option value="may">May</option>
+              <option value="june">June</option>
+              <option value="july">July</option>
+              <option value="august">August</option>
+              <option value="september">September</option>
+              <option value="october">October</option>
+              <option value="november">November</option>
+              <option value="december">December</option>
+            </select>
+          </div>
+          
+          <div>
+            <label class="block text-gray-300 mb-2">Category</label>
+            <select id="categoryFilter" class="w-full bg-gray-700 border border-gray-600 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-pink-500">
+              <option value="all">All Categories</option>
+              <option value="religious">Religious</option>
+              <option value="cultural">Cultural</option>
+              <option value="harvest">Harvest</option>
+              <option value="national">National</option>
+            </select>
+          </div>
+          
+          <div class="flex items-end">
+            <button id="applyFilters" class="w-full py-2 rounded-md bg-pink-500 text-white hover:bg-pink-600 transition-colors">
+              <i class="fas fa-filter mr-2"></i>Apply Filters
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- List View Section -->
+  <section id="listView" class="py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-8">Upcoming Festivals</h2>
+      
+      <div id="festivalsList" class="space-y-8">
+        <!-- Festivals will be populated here by JavaScript -->
+      </div>
+    </div>
+  </section>
+   
+
+  <!-- Festival Details Modal -->
+  <div id="festivalModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+    <div class="bg-gray-800 rounded-xl max-w-2xl w-full mx-4 max-h-screen overflow-y-auto">
+      <div id="festivalModalContent" class="p-6">
+        <!-- Modal content will be populated by JavaScript -->
+      </div>
+      <div class="p-4 border-t border-gray-700 flex justify-between">
+        <button id="closeModal" class="px-4 py-2 rounded-md border border-gray-600 text-gray-300 hover:bg-gray-700 transition-colors">
+          Close
+        </button>
+        <button id="tryOutfitButton" class="px-4 py-2 rounded-md bg-pink-500 text-white hover:bg-pink-600 transition-colors">
+          Try Festival Outfit
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Featured Festivals Section -->
+  <section class="py-16 bg-gray-800">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-8">Major Indian Festivals</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-105">
+          <div class="h-48 bg-gradient-to-r from-yellow-500 to-red-500 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-diya text-white text-5xl"></i>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="text-xl font-bold mb-2">Diwali</h3>
+            <p class="text-gray-400 mb-3">The festival of lights celebrating the triumph of light over darkness</p>
+            <a href="Indian Festivals.html" class="text-pink-500 hover:text-pink-400 inline-flex items-center text-sm festival-link" data-festival="diwali">
+              Learn more <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-105">
+          <div class="h-48 bg-gradient-to-r from-blue-500 to-green-500 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-water text-white text-5xl"></i>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="text-xl font-bold mb-2">Holi</h3>
+            <p class="text-gray-400 mb-3">The festival of colors welcoming spring with vibrant celebrations</p>
+            <a href="Indian Festivals.html" class="text-pink-500 hover:text-pink-400 inline-flex items-center text-sm festival-link" data-festival="holi">
+              Learn more <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-105">
+          <div class="h-48 bg-gradient-to-r from-pink-500 to-purple-600 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-dharmachakra text-white text-5xl"></i>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="text-xl font-bold mb-2">Navaratri</h3>
+            <p class="text-gray-400 mb-3">Nine nights dedicated to Goddess Durga with traditional dances</p>
+            <a href="Indian Festivals.html" class="text-pink-500 hover:text-pink-400 inline-flex items-center text-sm festival-link" data-festival="navratri">
+              Learn more <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-105">
+          <div class="h-48 bg-gradient-to-r from-orange-500 to-yellow-500 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-leaf text-white text-5xl"></i>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="text-xl font-bold mb-2">Pongal</h3>
+            <p class="text-gray-400 mb-3">The harvest festival of South India celebrating the sun and agriculture</p>
+            <a href="Indian Festivals.html" class="text-pink-500 hover:text-pink-400 inline-flex items-center text-sm festival-link" data-festival="pongal">
+              Learn more <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ask About Festivals Section -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl p-8 shadow-lg">
+        <div class="md:flex items-center justify-between">
+          <div class="md:w-2/3 mb-6 md:mb-0">
+            <h2 class="text-3xl font-bold mb-4">Have Questions About Indian Festivals?</h2>
+            <p class="text-xl">Get accurate information about traditional attire, customs, and rituals from our AI assistant</p>
+          </div>
+          <div>
+            <a href="chatbot.html" class="px-8 py-3 rounded-full bg-white text-pink-600 hover:bg-gray-100 transition-colors font-medium inline-block">
+              Ask Our AI Assistant
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <div class="text-pink-500 text-2xl"><i class="fas fa-tshirt"></i></div>
+            <div class="text-xl font-bold">Vastra<span class="text-pink-500">Verse</span></div>
+          </div>
+          <p class="text-gray-400 mb-4">Celebrating the rich diversity of Indian traditional fashion and culture through AI innovation.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-pink-500 transition-colors">Home</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-pink-500 transition-colors">About Us</a></li>
+            <li><a href="chatbot.html" class="text-gray-400 hover:text-pink-500 transition-colors">AI Chatbot</a></li>
+            <li><a href="festival-calendar.html" class="text-pink-500 transition-colors">Festival Calendar</a></li>
+            <li><a href="Traditional Outfits.html" class="text-gray-400 hover:text-pink-500 transition-colors">Traditional Outfits</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Resources</h4>
+          <ul class="space-y-2">
+            <li><a href="blog.html" class="text-gray-400 hover:text-pink-500 transition-colors">Blog</a></li>
+            <li><a href="Cultural Guides.html" class="text-gray-400 hover:text-pink-500 transition-colors">Cultural Guides</a></li>
+            <li><a href="Outfit Dictionary.html" class="text-gray-400 hover:text-pink-500 transition-colors">Outfit Dictionary</a></li>
+            <li><a href="Regional Styles.html" class="text-gray-400 hover:text-pink-500 transition-colors">Regional Styles</a></li>
+            <li><a href="FAQ.html" class="text-gray-400 hover:text-pink-500 transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Subscribe to Our Newsletter</h4>
+          <p class="text-gray-400 mb-4">Stay updated with the latest festival guides and traditional fashion trends</p>
+          <form class="mb-4">
+            <div class="flex">
+              <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 w-full">
+              <button type="submit" class="px-4 py-2 bg-pink-500 text-white rounded-r-md hover:bg-pink-600 transition-colors">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+        <p>&copy; 2025 VastraVerse All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="festival-calendar.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

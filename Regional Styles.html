@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regional Styles - VastraVerse</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <!-- LottieFiles CDN for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
+  <style>
+    /* Shimmer base style for skeleton loaders */
+    .shimmer {
+      position: relative;
+      overflow: hidden;
+      background: #23272f;
+    }
+    .shimmer::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -150px; width: 150px; height: 100%;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      100% { left: 100%; }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white font-sans antialiased">
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-10 transition-all duration-300 ease-in-out py-4 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <div class="text-pink-500 text-2xl"><i class="fas fa-tshirt"></i></div>
+        <a href="index.html" class="text-xl font-bold">Vastra<span class="text-pink-500">Verse</span></a>
+      </div>
+      
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="hover:text-pink-500 transition-colors">Home</a>
+        <a href="about.html" class="hover:text-pink-500 transition-colors">About</a>
+        <a href="chatbot.html" class="hover:text-pink-500 transition-colors">Chatbot</a>
+        <button id="themeToggle" class="hover:text-pink-500 transition-colors">
+          <i class="fas fa-sun"></i>
+        </button>
+      </div>
+      
+      <div class="auth-buttons flex items-center space-x-4">
+        <a href="login.html" class="px-4 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">Login</a>
+        <a href="signup.html" class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors hidden md:block">Sign Up</a>
+      </div>
+      <div class="user-menu hidden items-center space-x-4">
+        <span class="text-gray-400">Hello, <span class="user-name">User</span></span>
+        <button id="logoutButton" class="px-4 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">Logout</button>
+      </div>
+      <button id="mobileMenuBtn" class="md:hidden text-gray-200 hover:text-pink-500">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="md:hidden bg-gray-800 hidden absolute w-full">
+      <div class="container mx-auto px-4 py-4 flex flex-col space-y-3">
+        <a href="index.html" class="block py-2 hover:text-pink-500 transition-colors">Home</a>
+        <a href="about.html" class="block py-2 hover:text-pink-500 transition-colors">About</a>
+        <a href="chatbot.html" class="block py-2 hover:text-pink-500 transition-colors">Chatbot</a>
+        <button class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors w-full mt-2">Sign Up</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="pt-32 pb-16 bg-gray-800 bg-opacity-50 relative overflow-hidden">
+    <div class="container mx-auto px-4 text-center relative z-10">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6">Regional Styles of India</h1>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto">Discover the rich tapestry of traditional clothing from different regions across India</p>
+    </div>
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 z-0 opacity-10">
+      <div class="absolute top-0 left-0 w-full h-full">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <pattern id="pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M20 0 L40 20 L20 40 L0 20 Z" fill="none" stroke="white" stroke-width="2"/>
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#pattern)"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- Region Explorer -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold mb-4">Explore by Region</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">Each region of India has its own distinctive style of traditional clothing, reflecting local climate, cultural heritage, and historical influences</p>
+      </div>
+
+      <!-- Region Navigation -->
+      <div class="flex flex-wrap justify-center gap-4 mb-16">
+        <button class="region-btn active px-6 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors" data-region="north">North India</button>
+        <button class="region-btn px-6 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors" data-region="south">South India</button>
+        <button class="region-btn px-6 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors" data-region="east">East India</button>
+        <button class="region-btn px-6 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors" data-region="west">West India</button>
+        <button class="region-btn px-6 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors" data-region="northeast">Northeast India</button>
+      </div>
+
+      <!-- Region Content -->
+      <div class="region-content" id="north" style="display: block;">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div class="lg:col-span-2">
+            <h3 class="text-2xl font-bold mb-4 text-pink-500">North Indian Traditional Attire</h3>
+            <p class="text-gray-300 mb-6">North Indian traditional clothing showcases the region's rich cultural heritage, with flowing garments designed to accommodate the varying climate from scorching summers to chilly winters.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                <h4 class="text-xl font-bold mb-3">Women's Attire</h4>
+                <ul class="space-y-3 text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Anarkali Suits</strong> - Floor-length dresses with fitted bodice and flared bottom, originating from the Mughal era</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Patiala Salwar</strong> - Pleated, loose-fitting trousers paired with short kurtis, traditional to Punjab</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Phiran</strong> - Long woolen cloak worn in Kashmir, often with intricate embroidery</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                <h4 class="text-xl font-bold mb-3">Men's Attire</h4>
+                <ul class="space-y-3 text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Sherwani</strong> - Long coat-like garment with intricate embroidery, worn for formal occasions</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Kurta Pajama</strong> - Light cotton tunic with loose trousers, a versatile everyday outfit</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Bandhgala</strong> - Formal jacket with a mandarin collar, popular in Rajasthan and Punjab</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 mb-8">
+              <h4 class="text-xl font-bold mb-3">Regional Specialties</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Rajasthan</h5>
+                  <p class="text-gray-300 mb-4">Known for colorful ghagra-cholis with mirror work and bandhani tie-dye. Men wear angarkha and dhoti with elaborate turbans.</p>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Punjab</h5>
+                  <p class="text-gray-300 mb-4">Famous for vibrant phulkari embroidery on suits and chunnis. Men's attire includes kurta-pajama with a bhangra-style turban.</p>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Uttar Pradesh</h5>
+                  <p class="text-gray-300 mb-4">Chikankari embroidery from Lucknow adorns elegant kurtas and sarees. Banarasi silk sarees are treasured heirlooms.</p>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Himachal Pradesh</h5>
+                  <p class="text-gray-300 mb-4">Woolen garments with geometric patterns and bright colors. The Kullu shawl is recognized worldwide.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+              <h4 class="text-xl font-bold mb-3">Styling Tips</h4>
+              <ul class="space-y-3 text-gray-300">
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                  <span>Pair Bengal tant sarees with oxidized silver jewelry and a bold red bindi</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                  <span>Accessorize Mekhela Chador with traditional Assamese gold jewelry</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                  <span>For men, complement dhoti-kurta with a traditional Bengali topor (headgear) for weddings</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="lg:col-span-1">
+            <div class="sticky top-24">
+              <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg mb-6">
+                <div class="h-64 bg-gradient-to-br from-purple-500 to-red-500 relative flex items-center justify-center">
+                  <div class="text-white text-6xl">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </div>
+                </div>
+                <div class="p-6">
+                  <h4 class="text-xl font-bold mb-3">Featured Style</h4>
+                  <h5 class="text-pink-500 font-semibold mb-2">Baluchari Saree</h5>
+                  <p class="text-gray-300 mb-4">The exquisite Baluchari saree from Bengal features elaborate silk weaving with intricate panels (pallu) depicting mythological stories and scenes from royal courts. Each saree is a masterpiece of artistry.</p>
+                  <button class="px-4 py-2 rounded-md bg-pink-500 text-white hover:bg-pink-600 transition-colors w-full">Try On Virtual Outfit</button>
+                </div>
+              </div>
+              
+              <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                <div class="p-6">
+                  <h4 class="text-xl font-bold mb-3">Festival Connect</h4>
+                  <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                      <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <div>
+                        <h5 class="font-semibold">Durga Puja</h5>
+                        <p class="text-gray-400 text-sm">Traditional white/red bordered sarees</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                      <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <div>
+                        <h5 class="font-semibold">Bihu</h5>
+                        <p class="text-gray-400 text-sm">Colorful mekhela chador with motifs</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                      <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <div>
+                        <h5 class="font-semibold">Raja Parba</h5>
+                        <p class="text-gray-400 text-sm">Sambalpuri sarees in vibrant colors</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="region-content" id="west" style="display: none;">
+        <!-- West India content structure similar to North -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div class="lg:col-span-2">
+            <h3 class="text-2xl font-bold mb-4 text-pink-500">West Indian Traditional Attire</h3>
+            <p class="text-gray-300 mb-6">West Indian traditional clothing showcases vibrant colors, intricate mirror work, and elaborate embroidery, reflecting the region's desert landscapes and rich cultural heritage.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                <h4 class="text-xl font-bold mb-3">Women's Attire</h4>
+                <ul class="space-y-3 text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Ghagra Choli</strong> - Full skirt with blouse and dupatta, adorned with mirror work</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Panetar</strong> - Traditional white Gujarati wedding saree with red border</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Koli Saree</strong> - Colorful checkered sarees worn by the fishing communities of Maharashtra</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                <h4 class="text-xl font-bold mb-3">Men's Attire</h4>
+                <ul class="space-y-3 text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Kediyu</strong> - Pleated, flared kurta from Gujarat worn with churidar</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Dhoti-Sadra</strong> - Traditional Gujarati attire with a distinctive upper garment</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Phento</strong> - Traditional turban from Maharashtra</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 mb-8">
+              <h4 class="text-xl font-bold mb-3">Regional Specialties</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Gujarat</h5>
+                  <p class="text-gray-300 mb-4">Known for Bandhani tie-dye textiles, Patola silk, and vibrant embroidery styles like Kutch and Saurashtra.</p>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Maharashtra</h5>
+                  <p class="text-gray-300 mb-4">Famous for Paithani sarees with peacock motifs, Nauvari (9-yard) sarees, and cotton khadi fabrics.</p>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Goa</h5>
+                  <p class="text-gray-300 mb-4">Features Portuguese-influenced Kunbi sarees with distinctive red and white checkered patterns.</p>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Rajasthan</h5>
+                  <p class="text-gray-300 mb-4">Renowned for Bandhej, Leheriya, and Gota Patti work on vibrant fabrics reflecting desert aesthetics.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+              <h4 class="text-xl font-bold mb-3">Styling Tips</h4>
+              <ul class="space-y-3 text-gray-300">
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                  <span>Layer traditional ghagra choli with heavy silver jewelry and multiple bangles</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                  <span>Pair kediyu with a colorful turban and traditional mojari footwear</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                  <span>For Paithani sarees, complement with traditional nath (nose ring) and jhumkas</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="lg:col-span-1">
+            <div class="sticky top-24">
+              <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg mb-6">
+                <div class="h-64 bg-gradient-to-br from-orange-500 to-yellow-500 relative flex items-center justify-center">
+                  <div class="text-white text-6xl">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </div>
+                </div>
+                <div class="p-6">
+                  <h4 class="text-xl font-bold mb-3">Featured Style</h4>
+                  <h5 class="text-pink-500 font-semibold mb-2">Gujarati Bandhani</h5>
+                  <p class="text-gray-300 mb-4">Bandhani is an ancient tie-dye art from Gujarat featuring tiny dots forming beautiful patterns. The ghagra choli adorned with bandhani work is a hallmark of Gujarati traditional clothing.</p>
+                  <button class="px-4 py-2 rounded-md bg-pink-500 text-white hover:bg-pink-600 transition-colors w-full">Try On Virtual Outfit</button>
+                </div>
+              </div>
+              
+              <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                <div class="p-6">
+                  <h4 class="text-xl font-bold mb-3">Festival Connect</h4>
+                  <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                      <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <div>
+                        <h5 class="font-semibold">Navratri</h5>
+                        <p class="text-gray-400 text-sm">Colorful chaniya choli for garba dance</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                      <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <div>
+                        <h5 class="font-semibold">Ganesh Chaturthi</h5>
+                        <p class="text-gray-400 text-sm">Traditional Maharashtrian nauvari saree</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                      <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <div>
+                        <h5 class="font-semibold">Gudi Padwa</h5>
+                        <p class="text-gray-400 text-sm">Paithani sarees and traditional jewelry</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="region-content" id="northeast" style="display: none;">
+        <!-- Northeast India content structure similar to North -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div class="lg:col-span-2">
+            <h3 class="text-2xl font-bold mb-4 text-pink-500">Northeast Indian Traditional Attire</h3>
+            <p class="text-gray-300 mb-6">Northeast Indian traditional clothing represents the diverse tribal cultures of the region, featuring distinctive weaving patterns, vibrant colors, and unique styles that vary between communities.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                <h4 class="text-xl font-bold mb-3">Women's Attire</h4>
+                <ul class="space-y-3 text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Mekhela Chador</strong> - Two-piece traditional Assamese garment with distinctive patterns</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Puan</strong> - Vibrant handwoven wraparound skirt from Mizoram</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Rongai</strong> - Traditional garment from Arunachal Pradesh with geometric designs</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                <h4 class="text-xl font-bold mb-3">Men's Attire</h4>
+                <ul class="space-y-3 text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Jainse</strong> - Traditional Manipuri dhoti with decorative borders</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Tawlhloh Puan</strong> - Formal attire for men in Mizoram</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Dakhona</strong> - Traditional Bodo garment with symbolic motifs</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 mb-8">
+              <h4 class="text-xl font-bold mb-3">Regional Specialties</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Assam</h5>
+                  <p class="text-gray-300 mb-4">Known for golden muga silk and intricately woven mekhela chador with traditional motifs.</p>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Manipur</h5>
+                  <p class="text-gray-300 mb-4">Famous for Phanek (sarong) and Innaphi (scarf) with unique border designs and patterns.</p>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Nagaland</h5>
+                  <p class="text-gray-300 mb-4">Each tribe has distinctive shawls with geometric patterns that represent tribal identity.</p>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Meghalaya</h5>
+                  <p class="text-gray-300 mb-4">Jainsem and Dhara from Khasi and Garo tribes feature vibrant colors and striped patterns.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+              <h4 class="text-xl font-bold mb-3">Styling Tips</h4>
+              <ul class="space-y-3 text-gray-300">
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                  <span>Accessorize mekhela chador with traditional Assamese gold jewelry and orchid flowers</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                  <span>Pair tribal shawls with contemporary outfits for a fusion look</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                  <span>For men, complement traditional garments with tribal headgear for authentic styling</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="lg:col-span-1">
+            <div class="sticky top-24">
+              <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg mb-6">
+                <div class="h-64 bg-gradient-to-br from-teal-500 to-blue-500 relative flex items-center justify-center">
+                  <div class="text-white text-6xl">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </div>
+                </div>
+                <div class="p-6">
+                  <h4 class="text-xl font-bold mb-3">Featured Style</h4>
+                  <h5 class="text-pink-500 font-semibold mb-2">Naga Tribal Shawls</h5>
+                  <p class="text-gray-300 mb-4">Naga shawls are distinctive identity markers with intricate geometric patterns and vibrant colors. Each tribe has its own unique design, and these shawls often signify social status within the community.</p>
+                  <button class="px-4 py-2 rounded-md bg-pink-500 text-white hover:bg-pink-600 transition-colors w-full">Try On Virtual Outfit</button>
+                </div>
+              </div>
+              
+              <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                <div class="p-6">
+                  <h4 class="text-xl font-bold mb-3">Festival Connect</h4>
+                  <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                      <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <div>
+                        <h5 class="font-semibold">Bihu</h5>
+                        <p class="text-gray-400 text-sm">Traditional Assamese mekhela chador</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                      <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <div>
+                        <h5 class="font-semibold">Hornbill Festival</h5>
+                        <p class="text-gray-400 text-sm">Traditional Naga tribal attire</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                      <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <div>
+                        <h5 class="font-semibold">Cheiraoba</h5>
+                        <p class="text-gray-400 text-sm">Manipuri traditional clothing</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="region-content" id="south" style="display: none;">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div class="lg:col-span-2">
+            <h3 class="text-2xl font-bold mb-4 text-pink-500">South Indian Traditional Attire</h3>
+            <p class="text-gray-300 mb-6">South Indian traditional clothing is characterized by its elegant drapes, rich silks, and intricate designs. The region's attire reflects its cultural heritage and is known for its sophisticated craftsmanship.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                <h4 class="text-xl font-bold mb-3">Women's Attire</h4>
+                <ul class="space-y-3 text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Kanjeevaram Saree</strong> - Luxurious silk sarees with rich gold zari borders from Tamil Nadu</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Kasavu</strong> - Kerala's traditional cream cotton saree with gold border</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Pavada Davani</strong> - A half-saree ensemble worn by young women</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                <h4 class="text-xl font-bold mb-3">Men's Attire</h4>
+                <ul class="space-y-3 text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Veshti</strong> - White or cream cotton dhoti worn with an angavastram (shoulder cloth)</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Mundu</strong> - Traditional garment from Kerala, similar to a dhoti</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Panche</strong> - Kannada version of the dhoti, often with color borders</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 mb-8">
+              <h4 class="text-xl font-bold mb-3">Regional Specialties</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Tamil Nadu</h5>
+                  <p class="text-gray-300 mb-4">Known for the exquisite Kanjeevaram silk sarees with contrasting borders and traditional temple motifs.</p>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Kerala</h5>
+                  <p class="text-gray-300 mb-4">Famous for elegant Kasavu sarees and mundus with gold borders, perfect for the tropical climate.</p>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Karnataka</h5>
+                  <p class="text-gray-300 mb-4">Mysore silk sarees with delicate patterns and Ilkal sarees with distinct border designs are traditional treasures.</p>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Andhra Pradesh & Telangana</h5>
+                  <p class="text-gray-300 mb-4">Pochampally ikat and Gadwal sarees showcase intricate weaving techniques with geometric patterns.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+              <h4 class="text-xl font-bold mb-3">Styling Tips</h4>
+              <ul class="space-y-3 text-gray-300">
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                  <span>Accessorize Kanjeevaram sarees with temple jewelry and fresh jasmine flowers in hair</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                  <span>Pair traditional veshti with a silk shirt for formal occasions</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                  <span>For Kasavu sarees, opt for minimal gold jewelry to complement the gold border</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="lg:col-span-1">
+            <div class="sticky top-24">
+              <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg mb-6">
+                <div class="h-64 bg-gradient-to-br from-green-500 to-blue-500 relative flex items-center justify-center">
+                  <div class="text-white text-6xl">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </div>
+                </div>
+                <div class="p-6">
+                  <h4 class="text-xl font-bold mb-3">Featured Style</h4>
+                  <h5 class="text-pink-500 font-semibold mb-2">Kanjeevaram Saree</h5>
+                  <p class="text-gray-300 mb-4">The iconic Kanjeevaram silk saree is woven with pure mulberry silk and real gold zari. Known for its vibrant colors, contrasting borders, and intricate motifs inspired by temple architecture.</p>
+                  <button class="px-4 py-2 rounded-md bg-pink-500 text-white hover:bg-pink-600 transition-colors w-full">Try On Virtual Outfit</button>
+                </div>
+              </div>
+              
+              <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                <div class="p-6">
+                  <h4 class="text-xl font-bold mb-3">Festival Connect</h4>
+                  <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                      <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <div>
+                        <h5 class="font-semibold">Pongal</h5>
+                        <p class="text-gray-400 text-sm">Vibrant silk sarees in harvest colors</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                      <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <div>
+                        <h5 class="font-semibold">Onam</h5>
+                        <p class="text-gray-400 text-sm">Traditional Kasavu sarees and mundus</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                      <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <div>
+                        <h5 class="font-semibold">Ugadi</h5>
+                        <p class="text-gray-400 text-sm">Pochampally or Gadwal sarees</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="region-content" id="east" style="display: none;">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div class="lg:col-span-2">
+            <h3 class="text-2xl font-bold mb-4 text-pink-500">East Indian Traditional Attire</h3>
+            <p class="text-gray-300 mb-6">East Indian traditional clothing is renowned for its intricate weaving techniques, vibrant textiles, and indigenous craftsmanship, reflecting the region's rich cultural heritage.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                <h4 class="text-xl font-bold mb-3">Women's Attire</h4>
+                <ul class="space-y-3 text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Tant Saree</strong> - Lightweight cotton sarees from Bengal with distinctive borders</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Sambalpuri Saree</strong> - Odisha's traditional ikat sarees with geometric patterns</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Mekhela Chador</strong> - Two-piece traditional Assamese attire</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                <h4 class="text-xl font-bold mb-3">Men's Attire</h4>
+                <ul class="space-y-3 text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Dhoti-Kurta</strong> - Traditional Bengali attire often with intricate embroidery</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Panjabi</strong> - Distinctive knee-length kurta popular in Bengal</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                    <span><strong>Munda</strong> - Traditional lower garment from Odisha</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 mb-8">
+              <h4 class="text-xl font-bold mb-3">Regional Specialties</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">West Bengal</h5>
+                  <p class="text-gray-300 mb-4">Famous for Baluchari sarees depicting mythological scenes and Kantha embroidery on cotton fabrics.</p>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Odisha</h5>
+                  <p class="text-gray-300 mb-4">Known for Sambalpuri ikat and Bomkai sarees with distinctive temple borders and motifs.</p>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Bihar</h5>
+                  <p class="text-gray-300 mb-4">Madhubani art-inspired prints on cotton sarees and Bhagalpuri silk are regional treasures.</p>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-pink-400 mb-2">Jharkhand</h5>
+                  <p class="text-gray-300 mb-4">Tribal textiles with nature-inspired motifs and vibrant colors reflect indigenous heritage.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+              <h4 class="text-xl font-bold mb-3">Styling Tips</h4>
+              <ul class="space-y-3 text-gray-300">
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                  <span>Pair Bengal tant sarees with oxidized silver jewelry and a bold red bindi</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                  <span>Accessorize Mekhela Chador with traditional Assamese gold jewelry</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                  <span>For men, complement dhoti-kurta with a traditional Bengali topor (headgear) for weddings</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="lg:col-span-1">
+            <div class="sticky top-24">
+              <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg mb-6">
+                <div class="h-64 bg-gradient-to-br from-purple-500 to-red-500 relative flex items-center justify-center">
+                  <div class="text-white text-6xl">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </div>
+                </div>
+                <div class="p-6">
+                  <h4 class="text-xl font-bold mb-3">Featured Style</h4>
+                  <h5 class="text-pink-500 font-semibold mb-2">Baluchari Saree</h5>
+                  <p class="text-gray-300 mb-4">The exquisite Baluchari saree from Bengal features elaborate silk weaving with intricate panels (pallu) depicting mythological stories and scenes from royal courts. Each saree is a masterpiece of artistry.</p>
+                  <button class="px-4 py-2 rounded-md bg-pink-500 text-white hover:bg-pink-600 transition-colors w-full">Try On Virtual Outfit</button>
+                </div>
+              </div>
+              
+              <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                <div class="p-6">
+                  <h4 class="text-xl font-bold mb-3">Festival Connect</h4>
+                  <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                      <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <div>
+                        <h5 class="font-semibold">Durga Puja</h5>
+                        <p class="text-gray-400 text-sm">Traditional white/red bordered sarees</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                      <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <div>
+                        <h5 class="font-semibold">Bihu</h5>
+                        <p class="text-gray-400 text-sm">Colorful mekhela chador with motifs</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                      <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <div>
+                        <h5 class="font-semibold">Raja Parba</h5>
+                        <p class="text-gray-400 text-sm">Sambalpuri sarees in vibrant colors</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Virtual Try-On CTA -->
+  <section class="py-16 bg-gradient-to-r from-pink-500 to-purple-600">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-6">Try On Traditional Outfits Virtually</h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">Experience the beauty of regional Indian attire with our AI-powered virtual dressing room</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="index.html#try-on" class="px-8 py-3 rounded-full bg-white text-pink-600 hover:bg-gray-100 transition-colors font-medium">
+          Virtual Try-On
+        </a>
+        <a href="Traditional Outfits.html" class="px-8 py-3 rounded-full border-2 border-white text-white hover:bg-white hover:bg-opacity-10 transition-colors font-medium">
+          Explore More Styles
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Festival Connection -->
+  <section class="py-16 bg-gray-800">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Regional Outfits & Festival Connections</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">Discover the traditional attire worn during major festivals across different regions of India</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-105">
+          <div class="h-40 bg-gradient-to-r from-red-500 to-yellow-500 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-fire text-white text-5xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Diwali</h3>
+              <span class="text-sm text-pink-500">Pan-India</span>
+            </div>
+            <p class="text-gray-400 mb-4">Rich silk sarees in South, elegant Anarkali suits in North, traditional dhoti-kurta in East, and vibrant chaniya choli in West India.</p>
+            <a href="Indian Festivals.html" class="text-pink-500 hover:text-pink-400 inline-flex items-center">
+              Learn more <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-105">
+          <div class="h-40 bg-gradient-to-r from-green-500 to-teal-500 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-sun text-white text-5xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Onam</h3>
+              <span class="text-sm text-pink-500">Kerala</span>
+            </div>
+            <p class="text-gray-400 mb-4">Traditional Kerala kasavu sarees for women and mundus for men, featuring elegant cream fabric with gold borders.</p>
+            <a href="Indian Festivals.html" class="text-pink-500 hover:text-pink-400 inline-flex items-center">
+              Learn more <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-105">
+          <div class="h-40 bg-gradient-to-r from-pink-500 to-purple-500 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-moon text-white text-5xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-xl font-bold">Navratri</h3>
+              <span class="text-sm text-pink-500">Gujarat & North India</span>
+            </div>
+            <p class="text-gray-400 mb-4">Vibrant chaniya choli in Gujarat with mirror work and bandhani prints. Each day features a specific color with symbolic meaning.</p>
+            <a href="Indian Festivals.html" class="text-pink-500 hover:text-pink-400 inline-flex items-center">
+              Learn more <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cultural Preservation -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <h2 class="text-3xl font-bold mb-6">Preserving Cultural Heritage</h2>
+          <p class="text-gray-300 mb-6">Traditional clothing is more than just attire—it's a living expression of India's rich cultural heritage. Each region's distinctive styles tell stories of local traditions, craftsmanship, and historical influences.</p>
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start">
+              <div class="text-pink-500 text-xl mr-4">
+                <i class="fas fa-hands"></i>
+              </div>
+              <div>
+                <h4 class="font-bold mb-1">Supporting Artisan Communities</h4>
+                <p class="text-gray-400">VastraVerse collaborates with traditional weavers and craftspeople across India to document authentic techniques and designs.</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="text-pink-500 text-xl mr-4">
+                <i class="fas fa-book"></i>
+              </div>
+              <div>
+                <h4 class="font-bold mb-1">Digital Documentation</h4>
+                <p class="text-gray-400">Our platform serves as a digital archive of regional clothing styles, preserving knowledge for future generations.</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="text-pink-500 text-xl mr-4">
+                <i class="fas fa-users"></i>
+              </div>
+              <div>
+                <h4 class="font-bold mb-1">Cultural Education</h4>
+                <p class="text-gray-400">Learn about the significance and symbolism behind each regional style and its connection to local traditions.</p>
+              </div>
+            </div>
+          </div>
+          <a href="about.html" class="px-6 py-3 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors inline-flex items-center">
+            Learn About Our Mission <i class="fas fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+        
+        <div class="region-content" id="south" style="display: none;">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+              <h3 class="text-2xl font-bold mb-4 text-pink-500">South Indian Traditional Attire</h3>
+              <p class="text-gray-300 mb-6">South Indian traditional clothing reflects the region's cultural richness and typically features elegant drapes and exquisite craftsmanship, designed for the predominantly warm climate.</p>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                  <h4 class="text-xl font-bold mb-3">Women's Attire</h4>
+                  <ul class="space-y-3 text-gray-300">
+                    <li class="flex items-start">
+                      <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                      <span><strong>Kanjeevaram Saree</strong> - Luxurious silk sarees with rich gold zari borders from Tamil Nadu</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                      <span><strong>Kasavu</strong> - Kerala's traditional cream cotton saree with gold border</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                      <span><strong>Pavada Davani</strong> - A half-saree ensemble worn by young women</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                  <h4 class="text-xl font-bold mb-3">Men's Attire</h4>
+                  <ul class="space-y-3 text-gray-300">
+                    <li class="flex items-start">
+                      <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                      <span><strong>Veshti</strong> - White or cream cotton dhoti worn with an angavastram (shoulder cloth)</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                      <span><strong>Mundu</strong> - Traditional garment from Kerala, similar to a dhoti</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                      <span><strong>Panche</strong> - Kannada version of the dhoti, often with color borders</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 mb-8">
+                <h4 class="text-xl font-bold mb-3">Regional Specialties</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h5 class="font-semibold text-pink-400 mb-2">Tamil Nadu</h5>
+                    <p class="text-gray-300 mb-4">Known for the exquisite Kanjeevaram silk sarees with contrasting borders and traditional temple motifs.</p>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold text-pink-400 mb-2">Kerala</h5>
+                    <p class="text-gray-300 mb-4">Famous for elegant Kasavu sarees and mundus with gold borders, perfect for the tropical climate.</p>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold text-pink-400 mb-2">Karnataka</h5>
+                    <p class="text-gray-300 mb-4">Mysore silk sarees with delicate patterns and Ilkal sarees with distinct border designs are traditional treasures.</p>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold text-pink-400 mb-2">Andhra Pradesh & Telangana</h5>
+                    <p class="text-gray-300 mb-4">Pochampally ikat and Gadwal sarees showcase intricate weaving techniques with geometric patterns.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                <h4 class="text-xl font-bold mb-3">Styling Tips</h4>
+                <ul class="space-y-3 text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                    <span>Accessorize Kanjeevaram sarees with temple jewelry and fresh jasmine flowers in hair</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                    <span>Pair traditional veshti with a silk shirt for formal occasions</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                    <span>For Kasavu sarees, opt for minimal gold jewelry to complement the gold border</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="lg:col-span-1">
+              <div class="sticky top-24">
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg mb-6">
+                  <div class="h-64 bg-gradient-to-br from-green-500 to-blue-500 relative flex items-center justify-center">
+                    <div class="text-white text-6xl">
+                      <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                  </div>
+                  <div class="p-6">
+                    <h4 class="text-xl font-bold mb-3">Featured Style</h4>
+                    <h5 class="text-pink-500 font-semibold mb-2">Kanjeevaram Saree</h5>
+                    <p class="text-gray-300 mb-4">The iconic Kanjeevaram silk saree is woven with pure mulberry silk and real gold zari. Known for its vibrant colors, contrasting borders, and intricate motifs inspired by temple architecture.</p>
+                    <button class="px-4 py-2 rounded-md bg-pink-500 text-white hover:bg-pink-600 transition-colors w-full">Try On Virtual Outfit</button>
+                  </div>
+                </div>
+                
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                  <div class="p-6">
+                    <h4 class="text-xl font-bold mb-3">Festival Connect</h4>
+                    <div class="space-y-4">
+                      <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                          <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                          <h5 class="font-semibold">Pongal</h5>
+                          <p class="text-gray-400 text-sm">Vibrant silk sarees in harvest colors</p>
+                        </div>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                          <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                          <h5 class="font-semibold">Onam</h5>
+                          <p class="text-gray-400 text-sm">Traditional Kasavu sarees and mundus</p>
+                        </div>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                          <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                          <h5 class="font-semibold">Ugadi</h5>
+                          <p class="text-gray-400 text-sm">Pochampally or Gadwal sarees</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="region-content" id="east" style="display: none;">
+          <!-- East India content structure similar to North -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+              <h3 class="text-2xl font-bold mb-4 text-pink-500">East Indian Traditional Attire</h3>
+              <p class="text-gray-300 mb-6">East Indian traditional clothing is renowned for its intricate weaving techniques, vibrant textiles, and indigenous craftsmanship, reflecting the region's rich cultural heritage.</p>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                  <h4 class="text-xl font-bold mb-3">Women's Attire</h4>
+                  <ul class="space-y-3 text-gray-300">
+                    <li class="flex items-start">
+                      <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                      <span><strong>Tant Saree</strong> - Lightweight cotton sarees from Bengal with distinctive borders</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                      <span><strong>Sambalpuri Saree</strong> - Odisha's traditional ikat sarees with geometric patterns</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                      <span><strong>Mekhela Chador</strong> - Two-piece traditional Assamese attire</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                  <h4 class="text-xl font-bold mb-3">Men's Attire</h4>
+                  <ul class="space-y-3 text-gray-300">
+                    <li class="flex items-start">
+                      <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                      <span><strong>Dhoti-Kurta</strong> - Traditional Bengali attire often with intricate embroidery</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                      <span><strong>Panjabi</strong> - Distinctive knee-length kurta popular in Bengal</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-circle text-pink-500 text-xs mt-1.5 mr-2"></i>
+                      <span><strong>Munda</strong> - Traditional lower garment from Odisha</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 mb-8">
+                <h4 class="text-xl font-bold mb-3">Regional Specialties</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h5 class="font-semibold text-pink-400 mb-2">West Bengal</h5>
+                    <p class="text-gray-300 mb-4">Famous for Baluchari sarees depicting mythological scenes and Kantha embroidery on cotton fabrics.</p>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold text-pink-400 mb-2">Odisha</h5>
+                    <p class="text-gray-300 mb-4">Known for Sambalpuri ikat and Bomkai sarees with distinctive temple borders and motifs.</p>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold text-pink-400 mb-2">Bihar</h5>
+                    <p class="text-gray-300 mb-4">Madhubani art-inspired prints on cotton sarees and Bhagalpuri silk are regional treasures.</p>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold text-pink-400 mb-2">Jharkhand</h5>
+                    <p class="text-gray-300 mb-4">Tribal textiles with nature-inspired motifs and vibrant colors reflect indigenous heritage.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                <h4 class="text-xl font-bold mb-3">Styling Tips</h4>
+                <ul class="space-y-3 text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                    <span>Pair Bengal tant sarees with oxidized silver jewelry and a bold red bindi</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                    <span>Accessorize Mekhela Chador with traditional Assamese gold jewelry</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                    <span>For men, complement dhoti-kurta with a traditional Bengali topor (headgear) for weddings</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="lg:col-span-1">
+              <div class="sticky top-24">
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg mb-6">
+                  <div class="h-64 bg-gradient-to-br from-purple-500 to-red-500 relative flex items-center justify-center">
+                    <div class="text-white text-6xl">
+                      <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                  </div>
+                  <div class="p-6">
+                    <h4 class="text-xl font-bold mb-3">Featured Style</h4>
+                    <h5 class="text-pink-500 font-semibold mb-2">Baluchari Saree</h5>
+                    <p class="text-gray-300 mb-4">The exquisite Baluchari saree from Bengal features elaborate silk weaving with intricate panels (pallu) depicting mythological stories and scenes from royal courts. Each saree is a masterpiece of artistry.</p>
+                    <button class="px-4 py-2 rounded-md bg-pink-500 text-white hover:bg-pink-600 transition-colors w-full">Try On Virtual Outfit</button>
+                  </div>
+                </div>
+                
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                  <div class="p-6">
+                    <h4 class="text-xl font-bold mb-3">Festival Connect</h4>
+                    <div class="space-y-4">
+                      <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                          <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                          <h5 class="font-semibold">Durga Puja</h5>
+                          <p class="text-gray-400 text-sm">Traditional white/red bordered sarees</p>
+                        </div>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                          <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                          <h5 class="font-semibold">Bihu</h5>
+                          <p class="text-gray-400 text-sm">Colorful mekhela chador with motifs</p>
+                        </div>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
+                          <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                          <h5 class="font-semibold">Raja Parba</h5>
+                          <p class="text-gray-400 text-sm">Sambalpuri sarees in vibrant colors</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <!-- Footer -->
+  <footer class="bg-gray-900 pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <div class="text-pink-500 text-2xl"><i class="fas fa-tshirt"></i></div>
+            <div class="text-xl font-bold">Vastra<span class="text-pink-500">Verse</span></div>
+          </div>
+          <p class="text-gray-400 mb-4">Celebrating the rich diversity of Indian traditional fashion and culture through AI innovation.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-pink-500 transition-colors">Home</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-pink-500 transition-colors">About Us</a></li>
+            <li><a href="chatbot.html" class="text-gray-400 hover:text-pink-500 transition-colors">AI Chatbot</a></li>
+            <li><a href="Festival Calendar.html" class="text-gray-400 hover:text-pink-500 transition-colors">Festival Calendar</a></li>
+            <li><a href="Traditional Outfits.html" class="text-gray-400 hover:text-pink-500 transition-colors">Traditional Outfits</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Resources</h4>
+          <ul class="space-y-2">
+            <li><a href="blog.html" class="text-gray-400 hover:text-pink-500 transition-colors">Blog</a></li>
+            <li><a href="Cultural Guides.html" class="text-gray-400 hover:text-pink-500 transition-colors">Cultural Guides</a></li>
+            <li><a href="Outfit Dictionary.html" class="text-gray-400 hover:text-pink-500 transition-colors">Outfit Dictionary</a></li>
+            <li><a href="Regional Styles.html" class="text-gray-400 hover:text-pink-500 transition-colors">Regional Styles</a></li>
+            <li><a href="FAQ.html" class="text-gray-400 hover:text-pink-500 transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Subscribe to Our Newsletter</h4>
+          <p class="text-gray-400 mb-4">Stay updated with the latest festival guides and traditional fashion trends</p>
+          <form class="mb-4">
+            <div class="flex">
+              <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 w-full">
+              <button type="submit" class="px-4 py-2 bg-pink-500 text-white rounded-r-md hover:bg-pink-600 transition-colors">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+        <p>&copy; 2025 VastraVerse All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    
+    themeToggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      const icon = themeToggle.querySelector('i');
+      icon.classList.toggle('fa-sun');
+      icon.classList.toggle('fa-moon');
+    });
+
+    // Mobile Menu
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Region Navigation
+    const regionBtns = document.querySelectorAll('.region-btn');
+    const regionContents = document.querySelectorAll('.region-content');
+    
+    regionBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        regionBtns.forEach(b => {
+          b.classList.remove('active', 'bg-pink-500', 'text-white');
+          b.classList.add('border', 'border-pink-500', 'text-pink-500');
+        });
+        
+        // Add active class to clicked button
+        btn.classList.add('active', 'bg-pink-500', 'text-white');
+        btn.classList.remove('border', 'border-pink-500', 'text-pink-500');
+        
+        // Hide all region contents
+        regionContents.forEach(content => {
+          content.style.display = 'none';
+        });
+        
+        // Show selected region content
+        const region = btn.getAttribute('data-region');
+        document.getElementById(region).style.display = 'block';
+      });
+    });
+
+    // Navbar Scroll Effect
+    const navbar = document.getElementById('navbar');
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll <= 0) {
+        navbar.classList.remove('bg-opacity-90');
+        return;
+      }
+      
+      if (currentScroll > lastScroll) {
+        navbar.style.transform = 'translateY(-100%)';
+      } else {
+        navbar.style.transform = 'translateY(0)';
+        navbar.classList.add('bg-opacity-90');
+      }
+      
+      lastScroll = currentScroll;
+    });
+  </script>
+  <script src="auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+/* Festival Calendar Specific Styles */
+
+/* Festival patterns background */
+.festival-patterns {
+    background-image: linear-gradient(45deg, transparent 50%, rgba(255, 105, 180, 0.1) 50%),
+                      linear-gradient(-45deg, transparent 50%, rgba(255, 105, 180, 0.1) 50%),
+                      linear-gradient(135deg, transparent 50%, rgba(173, 216, 230, 0.1) 50%),
+                      linear-gradient(-135deg, transparent 50%, rgba(173, 216, 230, 0.1) 50%);
+    background-size: 20px 20px;
+    height: 100%;
+    width: 100%;
+  }
+  
+  /* Calendar day styles */
+  #calendarGrid .aspect-square {
+    min-height: 100px;
+  }
+  
+  /* Calendar day hover */
+  #calendarGrid .aspect-square:not(.opacity-50):hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+    transition: all 0.2s ease;
+  }
+  
+  /* Festival cell hover */
+  .festival-cell:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+  }
+  
+  /* Festival card hover animation */
+  .transition-transform {
+    transition: transform 0.3s ease;
+  }
+  
+  /* Calendar animation transitions */
+  #calendarView, #listView {
+    transition: opacity 0.3s ease;
+  }
+  
+  /* Modal animation */
+  #festivalModal {
+    transition: opacity 0.3s ease;
+  }
+  
+  #festivalModal > div {
+    transition: transform 0.3s ease;
+  }
+  
+  #festivalModal.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  #festivalModal:not(.hidden) > div {
+    animation: modal-slide-in 0.3s forwards;
+  }
+  
+  @keyframes modal-slide-in {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Custom scrollbar for modal */
+  #festivalModalContent::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  #festivalModalContent::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+  
+  #festivalModalContent::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 105, 180, 0.5);
+    border-radius: 4px;
+  }
+  
+  /* Responsive calendar */
+  @media (max-width: 640px) {
+    #calendarGrid .aspect-square {
+      min-height: 70px;
+      padding: 8px 4px;
+    }
+    
+    #calendarGrid .text-xl {
+      font-size: 1rem;
+    }
+    
+    #calendarGrid .festival-cell {
+      padding: 2px 4px;
+      font-size: 0.6rem;
+    }
+    /* Festival Calendar Specific Styles - Updated for Google Calendar Style */
+
+/* Festival patterns background */
+.festival-patterns {
+  background-image: linear-gradient(45deg, transparent 50%, rgba(255, 105, 180, 0.1) 50%),
+                    linear-gradient(-45deg, transparent 50%, rgba(255, 105, 180, 0.1) 50%),
+                    linear-gradient(135deg, transparent 50%, rgba(173, 216, 230, 0.1) 50%),
+                    linear-gradient(-135deg, transparent 50%, rgba(173, 216, 230, 0.1) 50%);
+  background-size: 20px 20px;
+  height: 100%;
+  width: 100%;
+}
+
+/* Google Calendar style grid */
+#calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Calendar day styles */
+#calendarGrid > div {
+  min-height: 120px;
+}
+
+/* For mobile responsiveness */
+@media (max-width: 768px) {
+  #calendarGrid > div {
+    min-height: 80px;
+  }
+}
+
+/* Calendar day hover */
+#calendarGrid > div:not(.opacity-50):hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  transition: background-color 0.2s ease;
+}
+
+/* Festival event hover */
+.festival-event {
+  padding: 4px 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.festival-event:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Calendar navigation buttons */
+#prevMonth, #nextMonth {
+  transition: all 0.2s ease;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+#prevMonth:hover, #nextMonth:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Calendar animation transitions */
+#calendarView, #listView {
+  transition: opacity 0.3s ease;
+}
+
+/* Modal animation */
+#festivalModal {
+  transition: opacity 0.3s ease;
+}
+
+#festivalModal > div {
+  transition: transform 0.3s ease;
+}
+
+#festivalModal.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#festivalModal:not(.hidden) > div {
+  animation: modal-slide-in 0.3s forwards;
+}
+
+@keyframes modal-slide-in {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Current day highlight */
+.ring-2 {
+  position: relative;
+}
+
+.min-h-32 {
+  min-height: 8rem;
+}
+
+/* Custom scrollbar for modal */
+#festivalModalContent::-webkit-scrollbar {
+  width: 8px;
+}
+
+#festivalModalContent::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+#festivalModalContent::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 105, 180, 0.5);
+  border-radius: 4px;
+}
+
+/* Responsive calendar */
+/* Festival Calendar Specific Styles - Updated for Google Calendar Style */
+
+/* Festival patterns background */
+.festival-patterns {
+    background-image: linear-gradient(45deg, transparent 50%, rgba(255, 105, 180, 0.1) 50%),
+                      linear-gradient(-45deg, transparent 50%, rgba(255, 105, 180, 0.1) 50%),
+                      linear-gradient(135deg, transparent 50%, rgba(173, 216, 230, 0.1) 50%),
+                      linear-gradient(-135deg, transparent 50%, rgba(173, 216, 230, 0.1) 50%);
+    background-size: 20px 20px;
+    height: 100%;
+    width: 100%;
+  }
+  
+  /* Google Calendar style grid */
+  #calendarGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  /* Calendar day styles */
+  #calendarGrid > div {
+    min-height: 120px;
+  }
+  
+  /* For mobile responsiveness */
+  @media (max-width: 768px) {
+    #calendarGrid > div {
+      min-height: 80px;
+    }
+  }
+  
+  /* Calendar day hover */
+  #calendarGrid > div:not(.opacity-50):hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: background-color 0.2s ease;
+  }
+  
+  /* Festival event hover */
+  .festival-event {
+    padding: 4px 6px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .festival-event:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Calendar navigation buttons */
+  #prevMonth, #nextMonth {
+    transition: all 0.2s ease;
+    padding: 8px;
+    border-radius: 50%;
+  }
+  
+  #prevMonth:hover, #nextMonth:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Calendar animation transitions */
+  #calendarView, #listView {
+    transition: opacity 0.3s ease;
+  }
+  
+  /* Modal animation */
+  #festivalModal {
+    transition: opacity 0.3s ease;
+  }
+  
+  #festivalModal > div {
+    transition: transform 0.3s ease;
+  }
+  
+  #festivalModal.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  #festivalModal:not(.hidden) > div {
+    animation: modal-slide-in 0.3s forwards;
+  }
+  
+  @keyframes modal-slide-in {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Current day highlight */
+  .ring-2 {
+    position: relative;
+  }
+  
+  .min-h-32 {
+    min-height: 8rem;
+  }
+  
+  /* Custom scrollbar for modal */
+  #festivalModalContent::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  #festivalModalContent::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+  
+  #festivalModalContent::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 105, 180, 0.5);
+    border-radius: 4px;
+  }
+  
+  /* Responsive calendar */
+  @media (max-width: 640px) {
+    #calendarGrid > div {
+      min-height: 70px;
+      padding: 8px 4px;
+    }
+    
+    #calendarGrid .text-lg {
+      font-size: 0.875rem;
+    }
+    
+    .festival-event {
+      padding: 2px 4px;
+      font-size: 0.6rem;
+    }
+  }
+  }

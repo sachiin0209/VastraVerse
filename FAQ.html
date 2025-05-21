@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VastraVerse - Frequently Asked Questions</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <!-- LottieFiles CDN for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
+  <style>
+    /* Custom animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-fade-in {
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+    
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.5s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+    
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+      padding-top: 1rem;
+      opacity: 1;
+    }
+    
+    .faq-icon {
+      transition: transform 0.3s ease;
+    }
+    
+    .faq-item.active .faq-icon {
+      transform: rotate(45deg);
+    }
+    
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(to right, #ec4899, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    /* Shimmer base style for skeleton loaders */
+    .shimmer {
+      position: relative;
+      overflow: hidden;
+      background: #23272f;
+    }
+    .shimmer::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -150px; width: 150px; height: 100%;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      100% { left: 100%; }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white font-sans antialiased">
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-10 transition-all duration-300 ease-in-out py-4 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <div class="text-pink-500 text-2xl"><i class="fas fa-tshirt"></i></div>
+        <a href="index.html" class="text-xl font-bold">Vastra<span class="text-pink-500">Verse</span></a>
+      </div>
+      
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="hover:text-pink-500 transition-colors">Home</a>
+        <a href="about.html" class="hover:text-pink-500 transition-colors">About</a>
+        <a href="chatbot.html" class="hover:text-pink-500 transition-colors">Chatbot</a>
+        <button id="themeToggle" class="hover:text-pink-500 transition-colors">
+          <i class="fas fa-sun"></i>
+        </button>
+      </div>
+      
+      <div class="auth-buttons flex items-center space-x-4">
+        <a href="login.html" class="px-4 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">Login</a>
+        <a href="signup.html" class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors hidden md:block">Sign Up</a>
+      </div>
+      <div class="user-menu hidden items-center space-x-4">
+        <span class="text-gray-400">Hello, <span class="user-name">User</span></span>
+        <button id="logoutButton" class="px-4 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">Logout</button>
+      </div>
+      <button id="mobileMenuBtn" class="md:hidden text-gray-200 hover:text-pink-500">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="md:hidden bg-gray-800 hidden absolute w-full top-16">
+      <div class="container mx-auto px-4 py-4 flex flex-col space-y-3">
+        <a href="index.html" class="block py-2 hover:text-pink-500 transition-colors">Home</a>
+        <a href="about.html" class="block py-2 hover:text-pink-500 transition-colors">About</a>
+        <a href="chatbot.html" class="block py-2 hover:text-pink-500 transition-colors">Chatbot</a>
+        <a href="faq.html" class="block py-2 text-pink-500 transition-colors">FAQ</a>
+        <button class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors w-full mt-2">Sign Up</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 bg-gradient-to-b from-gray-900 to-gray-800">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">
+        Frequently Asked <span class="gradient-text">Questions</span>
+      </h1>
+      <p class="text-xl text-gray-300 max-w-2xl mx-auto animate-fade-in" style="animation-delay: 0.2s">
+        Find answers to common questions about our cultural dressing platform
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ Categories -->
+  <section class="py-12 bg-gray-800">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <button class="faq-category-btn active bg-gray-900 hover:bg-gray-700 text-white rounded-lg p-4 text-center transition-colors border border-pink-500" data-category="all">
+          <i class="fas fa-border-all text-pink-500 text-xl mb-2"></i>
+          <p class="font-medium">All Questions</p>
+        </button>
+        <button class="faq-category-btn bg-gray-900 hover:bg-gray-700 text-white rounded-lg p-4 text-center transition-colors" data-category="technology">
+          <i class="fas fa-microchip text-pink-500 text-xl mb-2"></i>
+          <p class="font-medium">Technology</p>
+        </button>
+        <button class="faq-category-btn bg-gray-900 hover:bg-gray-700 text-white rounded-lg p-4 text-center transition-colors" data-category="platform">
+          <i class="fas fa-laptop text-pink-500 text-xl mb-2"></i>
+          <p class="font-medium">Platform</p>
+        </button>
+        <button class="faq-category-btn bg-gray-900 hover:bg-gray-700 text-white rounded-lg p-4 text-center transition-colors" data-category="culture">
+          <i class="fas fa-globe-asia text-pink-500 text-xl mb-2"></i>
+          <p class="font-medium">Culture</p>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-16">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <!-- Search Box -->
+      <div class="relative mb-12">
+        <input type="text" id="faqSearch" placeholder="Search for questions..." class="w-full bg-gray-800 border border-gray-700 rounded-full px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 pl-12">
+        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+      </div>
+      
+      <!-- FAQ Items -->
+      <div class="space-y-6" id="faqContainer">
+        <!-- FAQ Item 1 -->
+        <div class="faq-item bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-pink-500 transition-colors" data-category="platform">
+          <div class="faq-question p-6 cursor-pointer flex justify-between items-center">
+            <h3 class="text-xl font-bold">What is the Cultural Dressing Virtual Photoshoot?</h3>
+            <div class="faq-icon text-pink-500 text-xl">
+              <i class="fas fa-plus"></i>
+            </div>
+          </div>
+          <div class="faq-answer px-6 pb-6">
+            <p class="text-gray-300">
+              It's an AI-powered platform that allows users to visualize themselves in traditional Indian attire using a single photo. By leveraging Generative AI and pose estimation, it creates hyper-realistic images where the user appears dressed in authentic cultural outfits.
+            </p>
+          </div>
+        </div>
+        
+        <!-- FAQ Item 2 -->
+        <div class="faq-item bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-pink-500 transition-colors" data-category="technology">
+          <div class="faq-question p-6 cursor-pointer flex justify-between items-center">
+            <h3 class="text-xl font-bold">How does the technology work?</h3>
+            <div class="faq-icon text-pink-500 text-xl">
+              <i class="fas fa-plus"></i>
+            </div>
+          </div>
+          <div class="faq-answer px-6 pb-6">
+            <p class="text-gray-300">
+              We use a combination of pose estimation, GAN-based image synthesis, and Stable Diffusion with ControlNet. This enables precise clothing alignment, texture mapping, and realistic rendering of outfits on user-submitted photos.
+            </p>
+          </div>
+        </div>
+        
+        <!-- FAQ Item 3 -->
+        <div class="faq-item bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-pink-500 transition-colors" data-category="platform">
+          <div class="faq-question p-6 cursor-pointer flex justify-between items-center">
+            <h3 class="text-xl font-bold">What is the Festival & Ritual Guide Chatbot?</h3>
+            <div class="faq-icon text-pink-500 text-xl">
+              <i class="fas fa-plus"></i>
+            </div>
+          </div>
+          <div class="faq-answer px-6 pb-6">
+            <p class="text-gray-300">
+              It's an interactive chatbot that educates users about Indian festivals, rituals, and traditional dress codes. It provides personalized suggestions based on regions, religions, and occasions, making the experience both informative and engaging.
+            </p>
+          </div>
+        </div>
+        
+        <!-- FAQ Item 4 -->
+        <div class="faq-item bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-pink-500 transition-colors" data-category="platform">
+          <div class="faq-question p-6 cursor-pointer flex justify-between items-center">
+            <h3 class="text-xl font-bold">Do I need special hardware or apps to use this platform?</h3>
+            <div class="faq-icon text-pink-500 text-xl">
+              <i class="fas fa-plus"></i>
+            </div>
+          </div>
+          <div class="faq-answer px-6 pb-6">
+            <p class="text-gray-300">
+              No. The platform is fully web-based and optimized for desktops, tablets, and mobile browsers—no downloads or installations required.
+            </p>
+          </div>
+        </div>
+        
+        <!-- FAQ Item 5 -->
+        <div class="faq-item bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-pink-500 transition-colors" data-category="platform">
+          <div class="faq-question p-6 cursor-pointer flex justify-between items-center">
+            <h3 class="text-xl font-bold">Is my photo stored or used anywhere else?</h3>
+            <div class="faq-icon text-pink-500 text-xl">
+              <i class="fas fa-plus"></i>
+            </div>
+          </div>
+          <div class="faq-answer px-6 pb-6">
+            <p class="text-gray-300">
+              User privacy is a top priority. Photos are processed securely and either discarded after processing or stored temporarily with full user consent. We follow strict data protection policies.
+            </p>
+          </div>
+        </div>
+        
+        <!-- FAQ Item 6 -->
+        <div class="faq-item bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-pink-500 transition-colors" data-category="platform">
+          <div class="faq-question p-6 cursor-pointer flex justify-between items-center">
+            <h3 class="text-xl font-bold">Can I download or share my virtual photoshoot images?</h3>
+            <div class="faq-icon text-pink-500 text-xl">
+              <i class="fas fa-plus"></i>
+            </div>
+          </div>
+          <div class="faq-answer px-6 pb-6">
+            <p class="text-gray-300">
+              Yes! After your virtual transformation is complete, you can download the image or share it on social media directly through the platform.
+            </p>
+          </div>
+        </div>
+        
+        <!-- FAQ Item 7 -->
+        <div class="faq-item bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-pink-500 transition-colors" data-category="culture">
+          <div class="faq-question p-6 cursor-pointer flex justify-between items-center">
+            <h3 class="text-xl font-bold">Which cultural attires are available?</h3>
+            <div class="faq-icon text-pink-500 text-xl">
+              <i class="fas fa-plus"></i>
+            </div>
+          </div>
+          <div class="faq-answer px-6 pb-6">
+            <p class="text-gray-300">
+              We offer a growing collection of traditional outfits from various Indian states and communities, including sarees, lehengas, sherwanis, dhotis, turbans, and more. We continuously expand our wardrobe library to include more regions and customs.
+            </p>
+          </div>
+        </div>
+        
+        <!-- FAQ Item 8 -->
+        <div class="faq-item bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-pink-500 transition-colors" data-category="culture">
+          <div class="faq-question p-6 cursor-pointer flex justify-between items-center">
+            <h3 class="text-xl font-bold">Is this platform only for Indian users?</h3>
+            <div class="faq-icon text-pink-500 text-xl">
+              <i class="fas fa-plus"></i>
+            </div>
+          </div>
+          <div class="faq-answer px-6 pb-6">
+            <p class="text-gray-300">
+              Not at all! It's designed for anyone interested in exploring and appreciating Indian culture—whether you're a student, traveler, diaspora member, or cultural enthusiast from around the world.
+            </p>
+          </div>
+        </div>
+        
+        <!-- FAQ Item 9 -->
+        <div class="faq-item bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-pink-500 transition-colors" data-category="technology">
+          <div class="faq-question p-6 cursor-pointer flex justify-between items-center">
+            <h3 class="text-xl font-bold">What makes this different from a costume filter app?</h3>
+            <div class="faq-icon text-pink-500 text-xl">
+              <i class="fas fa-plus"></i>
+            </div>
+          </div>
+          <div class="faq-answer px-6 pb-6">
+            <p class="text-gray-300">
+              Unlike typical filters, our platform uses advanced AI for accurate body mapping, fabric simulation, and cultural context. It's not just about dressing up—it's about learning and engaging with heritage in a meaningful way.
+            </p>
+          </div>
+        </div>
+        
+        <!-- FAQ Item 10 -->
+        <div class="faq-item bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-pink-500 transition-colors" data-category="culture">
+          <div class="faq-question p-6 cursor-pointer flex justify-between items-center">
+            <h3 class="text-xl font-bold">Can this be used for education or tourism?</h3>
+            <div class="faq-icon text-pink-500 text-xl">
+              <i class="fas fa-plus"></i>
+            </div>
+          </div>
+          <div class="faq-answer px-6 pb-6">
+            <p class="text-gray-300">
+              Absolutely. Our platform serves as a cultural gateway for schools, museums, tourism boards, and events. It promotes digital heritage, virtual experiences, and cultural literacy.
+            </p>
+          </div>
+        </div>
+        
+        <!-- No Results Message -->
+        <div id="noResults" class="hidden text-center py-8">
+          <div id="lottieNoResults" style="width:120px;height:120px;margin:0 auto;"></div>
+          <p class="text-xl text-gray-400">No matching questions found</p>
+          <p class="text-gray-500 mt-2">Try a different search term or browse all questions</p>
+        </div>
+        <!-- Search Loading Lottie -->
+        <div id="lottieSearchLoading" class="hidden text-center py-8">
+          <div style="width:120px;height:120px;margin:0 auto;"></div>
+          <p class="text-xl text-gray-400">Searching...</p>
+        </div>
+      </div>
+      
+      <!-- Still Have Questions -->
+      <div class="mt-16 text-center p-8 bg-gray-800 rounded-xl border border-gray-700">
+        <h3 class="text-2xl font-bold mb-4">Still have questions?</h3>
+        <p class="text-gray-300 mb-6">Our support team is ready to help you with any other questions you might have</p>
+        <a href="contact.html" class="px-8 py-3 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:opacity-90 transition-opacity inline-flex items-center">
+          Contact Us <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <div class="text-pink-500 text-2xl"><i class="fas fa-tshirt"></i></div>
+            <div class="text-xl font-bold">Vastra<span class="text-pink-500">Verse</span></div>
+          </div>
+          <p class="text-gray-400 mb-4">Celebrating the rich diversity of Indian traditional fashion and culture through AI innovation.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-pink-500 transition-colors">Home</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-pink-500 transition-colors">About Us</a></li>
+            <li><a href="chatbot.html" class="text-gray-400 hover:text-pink-500 transition-colors">AI Chatbot</a></li>
+            <li><a href="Festival Calendar.html" class="text-gray-400 hover:text-pink-500 transition-colors">Festival Calendar</a></li>
+            <li><a href="Traditional Outfits.html" class="text-gray-400 hover:text-pink-500 transition-colors">Traditional Outfits</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Resources</h4>
+          <ul class="space-y-2">
+            <li><a href="blog.html" class="text-gray-400 hover:text-pink-500 transition-colors">Blog</a></li>
+            <li><a href="Cultural Guides.html" class="text-gray-400 hover:text-pink-500 transition-colors">Cultural Guides</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">Outfit Dictionary</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">Regional Styles</a></li>
+            <li><a href="faq.html" class="text-gray-400 hover:text-pink-500 transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Subscribe to Our Newsletter</h4>
+          <p class="text-gray-400 mb-4">Stay updated with the latest festival guides and traditional fashion trends</p>
+          <form class="mb-4">
+            <div class="flex">
+              <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 w-full">
+              <button type="submit" class="px-4 py-2 bg-pink-500 text-white rounded-r-md hover:bg-pink-600 transition-colors">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+        <p>&copy; 2025 VastraVerse All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="auth.js"></script>
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 10) {
+        navbar.classList.add('py-2', 'shadow-lg');
+        navbar.classList.remove('py-4');
+      } else {
+        navbar.classList.add('py-4');
+        navbar.classList.remove('py-2', 'shadow-lg');
+      }
+    });
+    
+    // Theme toggle (for demonstration)
+    document.getElementById('themeToggle').addEventListener('click', function() {
+      const icon = this.querySelector('i');
+      if (icon.classList.contains('fa-sun')) {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+        document.documentElement.classList.remove('dark');
+      } else {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+        document.documentElement.classList.add('dark');
+      }
+    });
+    
+    // FAQ accordion functionality
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        const isActive = item.classList.contains('active');
+        
+        // Close all other items
+        document.querySelectorAll('.faq-item').forEach(faqItem => {
+          faqItem.classList.remove('active');
+          const icon = faqItem.querySelector('.faq-icon i');
+          icon.classList.remove('fa-minus');
+          icon.classList.add('fa-plus');
+        });
+        
+        // If the clicked item wasn't active, open it
+        if (!isActive) {
+          item.classList.add('active');
+          const icon = question.querySelector('.faq-icon i');
+          icon.classList.remove('fa-plus');
+          icon.classList.add('fa-minus');
+        }
+      });
+    });
+    
+    // FAQ search functionality
+    const searchInput = document.getElementById('faqSearch');
+    const faqItems = document.querySelectorAll('.faq-item');
+    const noResults = document.getElementById('noResults');
+    
+    searchInput.addEventListener('input', function() {
+      const searchTerm = this.value.toLowerCase();
+      let matchCount = 0;
+      
+      faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question h3').textContent.toLowerCase();
+        const answer = item.querySelector('.faq-answer p').textContent.toLowerCase();
+        
+        if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+          item.style.display = 'block';
+          matchCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+      
+      if (matchCount === 0) {
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+      }
+    });
+    
+    // FAQ category filtering
+    const categoryButtons = document.querySelectorAll('.faq-category-btn');
+    
+    categoryButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const category = this.getAttribute('data-category');
+        
+        // Update active button styling
+        categoryButtons.forEach(btn => {
+          btn.classList.remove('active', 'border-pink-500');
+          btn.classList.add('border-gray-700');
+        });
+        this.classList.add('active', 'border-pink-500');
+        
+        // Filter the FAQ items
+        let matchCount = 0;
+        faqItems.forEach(item => {
+          if (category === 'all' || item.getAttribute('data-category') === category) {
+            item.style.display = 'block';
+            matchCount++;
+          } else {
+            item.style.display = 'none';
+          }
+        });
+        
+        if (matchCount === 0) {
+          noResults.classList.remove('hidden');
+        } else {
+          noResults.classList.add('hidden');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

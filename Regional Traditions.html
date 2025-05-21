@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regional Traditions - VastraVerse</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <!-- LottieFiles CDN for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
+  <style>
+    .bg-gray-850 {
+      background-color: #1a1c23;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #2d3748;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #ec4899;
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #d53f8c;
+    }
+
+    /* Tradition card hover animation */
+    .tradition-item {
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      min-height: 420px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      border: 2px solid #374151; /* gray-700 */
+      box-sizing: border-box;
+      background-color: #23263a;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+    }
+    .tradition-item:hover, .tradition-item:focus-within {
+      border-color: #ec4899;
+    }
+    
+    /* Modal animation */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    #traditionModal {
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    /* Tradition image container */
+    .tradition-image-container {
+      height: 200px;
+      overflow: hidden;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tradition-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .tradition-image:hover {
+      transform: scale(1.05);
+    }
+
+    /* Tradition card content */
+    .tradition-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .tradition-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: white;
+    }
+
+    .tradition-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      color: #9ca3af;
+      margin-bottom: 0.5rem;
+    }
+
+    .tradition-description {
+      font-size: 0.875rem;
+      color: #9ca3af;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+
+    .tradition-button {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1.5px solid #ec4899;
+      color: #ec4899;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease;
+      margin-top: auto;
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
+
+    .tradition-button:hover {
+      background-color: #ec4899;
+      color: white;
+    }
+
+    /* Shimmer base style for skeleton loaders */
+    .shimmer {
+      position: relative;
+      overflow: hidden;
+      background: #23272f;
+    }
+    .shimmer::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -150px; width: 150px; height: 100%;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      100% { left: 100%; }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white font-sans antialiased">
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-10 transition-all duration-300 ease-in-out py-4 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <div class="text-pink-500 text-2xl"><i class="fas fa-tshirt"></i></div>
+        <a href="index.html" class="text-xl font-bold">Vastra<span class="text-pink-500">Verse</span></a>
+      </div>
+      
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="hover:text-pink-500 transition-colors">Home</a>
+        <a href="about.html" class="hover:text-pink-500 transition-colors">About</a>
+        <a href="chatbot.html" class="hover:text-pink-500 transition-colors">Chatbot</a>
+        <button id="themeToggle" class="hover:text-pink-500 transition-colors">
+          <i class="fas fa-sun"></i>
+        </button>
+      </div>
+      
+      <div class="auth-buttons flex items-center space-x-4">
+        <a href="login.html" class="px-4 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">Login</a>
+        <a href="signup.html" class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors hidden md:block">Sign Up</a>
+      </div>
+      <div class="user-menu hidden items-center space-x-4">
+        <span class="text-gray-400">Hello, <span class="user-name">User</span></span>
+        <button id="logoutButton" class="px-4 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors">Logout</button>
+      </div>
+      <button id="mobileMenuBtn" class="md:hidden text-gray-200 hover:text-pink-500">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="md:hidden bg-gray-800 hidden">
+      <div class="container mx-auto px-4 py-4 flex flex-col space-y-3">
+        <a href="index.html" class="block py-2 hover:text-pink-500 transition-colors">Home</a>
+        <a href="about.html" class="block py-2 hover:text-pink-500 transition-colors">About</a>
+        <a href="indian-festivals.html" class="block py-2 hover:text-pink-500 transition-colors">Festivals</a>
+        <a href="chatbot.html" class="block py-2 hover:text-pink-500 transition-colors">Chatbot</a>
+        <button class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors w-full mt-2">Sign Up</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-24 pb-6 bg-gradient-to-r from-purple-600 to-pink-500 text-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-8">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Regional <span class="text-yellow-300">Traditions</span></h1>
+        <p class="text-xl max-w-3xl mx-auto">
+          Explore the rich tapestry of India's cultural heritage through its diverse regional traditions and customs
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- All Traditions Section -->
+  <section class="py-12 bg-gray-850">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-8 text-center">Discover India's <span class="text-pink-500">Cultural Heritage</span></h2>
+      
+      <div id="traditionsContainer" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <!-- Bharatanatyam -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="bharatanatyam" data-region="south" data-category="dance">
+          <div class="tradition-image-container">
+            <img src="images/bharatnatiyam.png" alt="Bharatanatyam" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Bharatanatyam</h3>
+            <div class="tradition-meta">
+              <span>South India</span>
+              <span>Dance Form</span>
+            </div>
+            <p class="tradition-description">
+              Ancient classical dance form originated in Tamil Nadu, known for its grace, expressions, and sculptural poses.
+            </p>
+            <button class="tradition-button tradition-details-btn" data-tradition="bharatanatyam">View Details</button>
+          </div>
+        </div>
+
+        <!-- Kathakali -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="kathakali" data-region="south" data-category="dance">
+          <div class="tradition-image-container">
+            <img src="images/kathakali.png" alt="Kathakali" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Kathakali</h3>
+            <div class="tradition-meta">
+              <span>South India</span>
+              <span>Dance Form</span>
+            </div>
+            <p class="tradition-description">Kerala's theatrical dance-drama known for elaborate makeup, costumes, and facial expressions.</p>
+            <button class="tradition-button tradition-details-btn" data-tradition="kathakali">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Madhubani Art -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="madhubani" data-region="east" data-category="art">
+          <div class="tradition-image-container">
+            <img src="images/madhurbani art.png" alt="Madhubani Art" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Madhubani Art</h3>
+            <div class="tradition-meta">
+              <span>East India</span>
+              <span>Art & Crafts</span>
+            </div>
+            <p class="tradition-description">Ancient folk art from Bihar with geometric patterns and natural dyes depicting mythology and social events.</p>
+            <button class="tradition-button tradition-details-btn" data-tradition="madhubani">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Dhokra Craft -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="dhokra" data-region="east" data-category="art">
+          <div class="tradition-image-container">
+            <img src="images/dhokra.png" alt="Dhokra Craft" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Dhokra Craft</h3>
+            <div class="tradition-meta">
+              <span>East India</span>
+              <span>Art & Crafts</span>
+            </div>
+            <p class="tradition-description">Ancient bell metal craft using lost-wax casting technique to create tribal motifs and figurines.</p>
+            <button class="tradition-button tradition-details-btn" data-tradition="dhokra">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Kathak -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="kathak" data-region="north" data-category="dance">
+          <div class="tradition-image-container">
+            <img src="images/kathak.png" alt="Kathak" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Kathak</h3>
+            <div class="tradition-meta">
+              <span>North India</span>
+              <span>Dance Form</span>
+            </div>
+            <p class="tradition-description">Classical dance characterized by swift pirouettes, rhythmic footwork, and storytelling through expressions.</p>
+            <button class="tradition-button tradition-details-btn" data-tradition="kathak">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Carnatic Music -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="carnatic" data-region="south" data-category="music">
+          <div class="tradition-image-container">
+            <img src="images/carnatic.png" alt="Carnatic Music" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Carnatic Music</h3>
+            <div class="tradition-meta">
+              <span>South India</span>
+              <span>Music</span>
+            </div>
+            <p class="tradition-description">Classical music tradition with emphasis on vocals, intricate ragas, and devotional themes.</p>
+            <button class="tradition-button tradition-details-btn" data-tradition="carnatic">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Bandhani Tie-Dye -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="bandhani" data-region="west" data-category="art">
+          <div class="tradition-image-container">
+            <img src="images/Bandhani Tie-Dye.png" alt="Bandhani Tie-Dye" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Bandhani Tie-Dye</h3>
+            <div class="tradition-meta">
+              <span>West India</span>
+              <span>Art & Crafts</span>
+            </div>
+            <p class="tradition-description">Ancient tie-dye textile art from Gujarat and Rajasthan creating intricate patterns through binding and dyeing.</p>
+            <button class="tradition-button tradition-details-btn" data-tradition="bandhani">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Bihu Dance -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="bihu-dance" data-region="northeast" data-category="dance">
+          <div class="tradition-image-container">
+            <img src="images/bihu.png" alt="Bihu Dance" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Bihu Dance</h3>
+            <div class="tradition-meta">
+              <span>Northeast India</span>
+              <span>Dance Form</span>
+            </div>
+            <p class="tradition-description">Vibrant folk dance of Assam performed during Bihu festivals with energetic movements and colorful attire.</p>
+            <button class="tradition-button tradition-details-btn" data-tradition="bihu-dance">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Chhau Dance -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="chhau" data-region="east" data-category="dance">
+          <div class="tradition-image-container">
+            <img src="images/Chhau Dance.jpeg" alt="Chhau Dance" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Chhau Dance</h3>
+            <div class="tradition-meta">
+              <span>East India</span>
+              <span>Dance Form</span>
+            </div>
+            <p class="tradition-description">Semi-classical dance form from Odisha, West Bengal, and Jharkhand featuring masks and martial art movements.</p>
+            <button class="tradition-button tradition-details-btn" data-tradition="chhau">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Ghee Tilak Ceremony -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="ghee-tilak" data-region="north" data-category="ritual">
+          <div class="tradition-image-container">
+            <img src="images/Ghee Tilak Ceremony.jpeg" alt="Ghee Tilak Ceremony" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Ghee Tilak Ceremony</h3>
+            <div class="tradition-meta">
+              <span>North India</span>
+              <span>Rituals & Ceremonies</span>
+            </div>
+            <p class="tradition-description">Traditional welcome ritual where a mark of clarified butter is applied to the forehead of guests as a blessing.</p>
+            <button class="tradition-button tradition-details-btn" data-tradition="ghee-tilak">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Hyderabadi Biryani -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="hyderabadi-biryani" data-region="south" data-category="cuisine">
+          <div class="tradition-image-container">
+            <img src="images/Hyderabadi Biryani.jpeg" alt="Hyderabadi Biryani" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Hyderabadi Biryani</h3>
+            <div class="tradition-meta">
+              <span>South India</span>
+              <span>Cuisine</span>
+            </div>
+            <p class="tradition-description">Iconic Mughlai-influenced rice dish with aromatic spices, meat, and the unique 'dum' cooking method.</p>
+            <button class="tradition-button tradition-details-btn" data-tradition="hyderabadi-biryani">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Gond Art -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="gond-art" data-region="central" data-category="art">
+          <div class="tradition-image-container">
+            <img src="images/Gond Art.jpeg" alt="Gond Art" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Gond Art</h3>
+            <div class="tradition-meta">
+              <span>Central India</span>
+              <span>Art & Crafts</span>
+            </div>
+            <p class="tradition-description">Traditional art form of Gond tribes featuring intricate patterns, natural colors, and nature-inspired motifs.</p>
+            <button class="tradition-button tradition-details-btn" data-tradition="gond-art">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Hindustani Classical Music -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="hindustani" data-region="north" data-category="music">
+          <div class="tradition-image-container">
+            <img src="images/Hindustani Classical Music.jpeg" alt="Hindustani Classical Music" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Hindustani Classical Music</h3>
+            <div class="tradition-meta">
+              <span>North India</span>
+              <span>Music</span>
+            </div>
+            <p class="tradition-description">Traditional musical form with Persian influences featuring ragas, talas, and improvisation.</p>
+            <button class="tradition-button tradition-details-btn" data-tradition="hindustani">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Mehndi Ceremony -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="mehndi" data-region="pan-india" data-category="ritual">
+          <div class="tradition-image-container">
+            <img src="images/mehndi.png" alt="Mehndi Ceremony" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Mehndi Ceremony</h3>
+            <div class="tradition-meta">
+              <span>Pan-India</span>
+              <span>Rituals & Ceremonies</span>
+            </div>
+            <p class="tradition-description">Pre-wedding ritual where intricate henna designs are applied to the bride's hands and feet.</p>
+            <button class="tradition-button tradition-details-btn" data-tradition="mehndi">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Manipuri Dance -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="manipuri" data-region="northeast" data-category="dance">
+          <div class="tradition-image-container">
+            <img src="images/Manipuri Dance.jpeg" alt="Manipuri Dance" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Manipuri Dance</h3>
+            <div class="tradition-meta">
+              <span>Northeast India</span>
+              <span>Dance Form</span>
+            </div>
+            <p class="tradition-description">Gentle and lyrical classical dance from Manipur with graceful movements inspired by Radha and Krishna.</p>
+            <button class="tradition-button tradition-details-btn" data-tradition="manipuri">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Pattachitra -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="pattachitra" data-region="east" data-category="art">
+          <div class="tradition-image-container">
+            <img src="images/Pattachitra.jpeg" alt="Pattachitra" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Pattachitra</h3>
+            <div class="tradition-meta">
+              <span>East India</span>
+              <span>Art & Crafts</span>
+            </div>
+            <p class="tradition-description">Ancient cloth-based scroll painting from Odisha with intricate mythological narratives and natural colors.</p>
+            <button class="tradition-button tradition-details-btn" data-tradition="pattachitra">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Warli Art -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="warli" data-region="west" data-category="art">
+          <div class="tradition-image-container">
+            <img src="images/Warli Art.jpeg" alt="Warli Art" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Warli Art</h3>
+            <div class="tradition-meta">
+              <span>West India</span>
+              <span>Art & Crafts</span>
+            </div>
+            <p class="tradition-description">Tribal art form from Maharashtra using simple geometric shapes to depict daily life and social events.</p>
+            <button class="tradition-button tradition-details-btn" data-tradition="warli">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="bhangra" data-region="north" data-category="dance">
+          <div class="tradition-image-container">
+            <img src="images/Bhangra-Dance.jpeg" alt="Bhangra-Dance" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Bhangra Dance</h3>
+            <div class="tradition-meta">
+              <span>North India</span>
+              <span>Dance Form</span>
+            </div>
+            <p class="tradition-description">Energetic folk dance from Punjab performed with lively music and vibrant traditional attire.</p>
+            <button class="tradition-button tradition-details-btn" data-tradition="bhangra">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" data-tradition="ram-leela" data-region="north" data-category="theatre">
+          <div class="tradition-image-container">
+            <img src="images/Ram-Leela.jpeg" alt="Ram-Leela" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Ram Leela</h3>
+            <div class="tradition-meta">
+              <span>North India</span>
+              <span>Theatre</span>
+            </div>
+            <p class="tradition-description">
+              A traditional Hindu folk theatre play that dramatizes the story of Lord Rama, based on the ancient Indian epic, the Ramayana. It is typically performed during the festival of Dussehra, celebrating the victory of good over evil. Originating in Northern India, it has been a part of Indian culture for centuries.
+            </p>
+            <button class="tradition-button tradition-details-btn" data-tradition="ram-leela">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" 
+             data-tradition="kumbh-mela" data-region="pan-india" data-category="ritual">
+          <div class="tradition-image-container">
+            <img src="images\kumbh.jpeg" alt="Kumbh Mela" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Kumbh Mela</h3>
+            <div class="tradition-meta">
+              <span>Pan-India</span>
+              <span>Ritual</span>
+            </div>
+            <p class="tradition-description">The world's largest spiritual gathering, held every 12 years at sacred riverbanks.</p>
+            <button class="tradition-button tradition-details-btn" 
+                    data-tradition="kumbh-mela">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" 
+             data-tradition="ghoomar" data-region="rajasthan" data-category="dance">
+          <div class="tradition-image-container">
+            <img src="images\ghoomar.jpeg" alt="Ghoomar" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Ghoomar</h3>
+            <div class="tradition-meta">
+              <span>Rajasthan</span>
+              <span>Dance</span>
+            </div>
+            <p class="tradition-description">A traditional folk dance performed by women, spinning gracefully in colorful attire.</p>
+            <button class="tradition-button tradition-details-btn" 
+                    data-tradition="ghoomar">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" 
+             data-tradition="puppet-show" data-region="pan-india" data-category="performance">
+          <div class="tradition-image-container">
+            <img src="images/puppet-show.jpeg" alt="Puppet Show" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Puppet Show</h3>
+            <div class="tradition-meta">
+              <span>Pan-India</span>
+              <span>Performance</span>
+            </div>
+            <p class="tradition-description">A traditional form of storytelling using puppets, depicting mythological and social tales.</p>
+            <button class="tradition-button tradition-details-btn" 
+                    data-tradition="puppet-show">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" 
+             data-tradition="vallam-kali" data-region="kerala" data-category="sport">
+          <div class="tradition-image-container">
+            <img src="images/vallam-kali.jpeg" alt="Vallam Kali" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Vallam Kali</h3>
+            <div class="tradition-meta">
+              <span>Kerala</span>
+              <span>Sport</span>
+            </div>
+            <p class="tradition-description">Vallam Kali, or the traditional Kerala boat race, is a vibrant water sport celebrated during Onam festivals in Kerala.</p>
+            <button class="tradition-button tradition-details-btn" 
+                    data-tradition="vallam-kali">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" 
+             data-tradition="durga-puja" data-region="pan-india" data-category="festival">
+          <div class="tradition-image-container">
+            <img src="images/durga-puja.jpeg" alt="Durga Puja" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Durga Puja</h3>
+            <div class="tradition-meta">
+              <span>Pan-India</span>
+              <span>Festival</span>
+            </div>
+            <p class="tradition-description">Durga Puja is an annual Hindu festival celebrating the victory of Goddess Durga over the buffalo demon Mahishasura, symbolizing the triumph of good over evil.</p>
+            <button class="tradition-button tradition-details-btn" 
+                    data-tradition="durga-puja">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" 
+             data-tradition="jagannath-yatra" data-region="odisha" data-category="festival">
+          <div class="tradition-image-container">
+            <img src="images/jagannath-yatra.jpeg" alt="Jagannath Yatra" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Jagannath Yatra</h3>
+            <div class="tradition-meta">
+              <span>Odisha</span>
+              <span>Festival</span>
+            </div>
+            <p class="tradition-description">Jagannath Yatra is a grand procession of Lord Jagannath, held annually in Puri, Odisha, symbolizing the journey of the Lord from his temple to his birthplace.</p>
+            <button class="tradition-button tradition-details-btn" 
+                    data-tradition="jagannath-yatra">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" 
+             data-tradition="odissi-dance" data-region="odisha" data-category="dance">
+          <div class="tradition-image-container">
+            <img src="images/odissi-dance.jpeg" alt="Odissi Dance" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Odissi Dance</h3>
+            <div class="tradition-meta">
+              <span>Odisha</span>
+              <span>Dance</span>
+            </div>
+            <p class="tradition-description">Odissi is a classical Indian dance form originating from Odisha, known for its graceful movements, intricate footwork, and expressions that tell stories from Indian mythology.</p>
+            <button class="tradition-button tradition-details-btn" 
+                    data-tradition="odissi-dance">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" 
+             data-tradition="sarhul-festival" data-region="jharkhand" data-category="festival">
+          <div class="tradition-image-container">
+            <img src="images/sarhul-festival.jpeg" alt="Sarhul Festival" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Sarhul Festival</h3>
+            <div class="tradition-meta">
+              <span>Jharkhand</span>
+              <span>Festival</span>
+            </div>
+            <p class="tradition-description">Sarhul is a vibrant tribal festival of Jharkhand that celebrates the arrival of spring and honors nature, especially trees and village deities, with song, dance, and rituals.</p>
+            <button class="tradition-button tradition-details-btn" 
+                    data-tradition="sarhul-festival">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" 
+             data-tradition="lavani-dance" data-region="maharashtra" data-category="dance">
+          <div class="tradition-image-container">
+            <img src="images/lavani-dance.jpeg" alt="Lavani Dance" 
+                 class="w-full h-60 object-cover object-top sm:h-72 md:h-80 lg:h-96 rounded-md">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Lavani Dance</h3>
+            <div class="tradition-meta">
+              <span>Maharashtra</span>
+              <span>Dance</span>
+            </div>
+            <p class="tradition-description">
+              Lavani is a powerful folk dance from Maharashtra known for its rhythmic beats, bold expressions, and vibrant costumes, often performed to the tune of dholki and rich Marathi music.
+            </p>
+            <button class="tradition-button tradition-details-btn" 
+                    data-tradition="lavani-dance">View Details</button>
+          </div>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" 
+             data-tradition="warkari-pilgrimage" data-region="maharashtra" data-category="pilgrimage">
+          <div class="tradition-image-container">
+            <img src="images/warkari-pilgrimage.jpeg" alt="Warkari Pilgrimage" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Warkari Pilgrimage</h3>
+            <div class="tradition-meta">
+              <span>Maharashtra</span>
+              <span>Pilgrimage</span>
+            </div>
+            <p class="tradition-description">The Warkari Pilgrimage is a revered religious journey undertaken by followers of the Warkari sect, primarily in Maharashtra, to visit the temples of Lord Vithoba in Pandharpur.</p>
+            <button class="tradition-button tradition-details-btn" 
+                    data-tradition="warkari-pilgrimage">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" 
+             data-tradition="garba-dandiya" data-region="gujarat" data-category="dance">
+          <div class="tradition-image-container">
+            <img src="images/garba-dandiya.jpeg" alt="Garba and Dandiya Raas" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Garba and Dandiya Raas</h3>
+            <div class="tradition-meta">
+              <span>Gujarat</span>
+              <span>Dance</span>
+            </div>
+            <p class="tradition-description">Garba and Dandiya Raas are vibrant traditional dances of Gujarat, performed during the Navratri festival, where participants dance with rhythmic movements and colorful sticks (dandiya) to celebrate the victory of good over evil.</p>
+            <button class="tradition-button tradition-details-btn" 
+                    data-tradition="garba-dandiya">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" 
+             data-tradition="uttarayan" data-region="gujarat" data-category="festival">
+          <div class="tradition-image-container">
+            <img src="images/uttarayan.jpeg" alt="Uttarayan Festival" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Uttarayan</h3>
+            <div class="tradition-meta">
+              <span>Gujarat</span>
+              <span>Festival</span>
+            </div>
+            <p class="tradition-description">Uttarayan is one of the most famous festivals in Gujarat, celebrated with enthusiasm, where people fly kites to mark the transition of the sun into the northern hemisphere, symbolizing new beginnings and the arrival of the harvest season.</p>
+            <button class="tradition-button tradition-details-btn" 
+                    data-tradition="uttarayan">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" 
+             data-tradition="goa-carnival" data-region="goa" data-category="festival">
+          <div class="tradition-image-container">
+            <img src="images/goa-carnival.jpeg" alt="Goa Carnival" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Goa Carnival</h3>
+            <div class="tradition-meta">
+              <span>Goa</span>
+              <span>Festival</span>
+            </div>
+            <p class="tradition-description">The Goa Carnival is a vibrant festival celebrated with great enthusiasm, featuring parades, music, dance, and colorful costumes, marking the pre-Lenten festivities in Goa.</p>
+            <button class="tradition-button tradition-details-btn" 
+                    data-tradition="goa-carnival">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" 
+             data-tradition="hornbill-festival" data-region="nagaland" data-category="festival">
+          <div class="tradition-image-container">
+            <img src="images/hornbill-festival.jpeg" alt="Hornbill Festival" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Hornbill Festival</h3>
+            <div class="tradition-meta">
+              <span>Nagaland</span>
+              <span>Festival</span>
+            </div>
+            <p class="tradition-description">The Hornbill Festival is an annual cultural festival of Nagaland, celebrated with a series of traditional dances, music, crafts, and rituals. It is named after the hornbill bird, which holds great cultural significance in the state.</p>
+            <button class="tradition-button tradition-details-btn" 
+                    data-tradition="hornbill-festival">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" 
+             data-tradition="naga-warrior-dance" data-region="nagaland" data-category="dance">
+          <div class="tradition-image-container">
+            <img src="images/naga-warrior-dance.jpeg" alt="Naga Warrior Dance" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Naga Warrior Dance</h3>
+            <div class="tradition-meta">
+              <span>Nagaland</span>
+              <span>Dance</span>
+            </div>
+            <p class="tradition-description">The Naga Warrior Dance is a traditional martial dance performed by the Naga tribes. It represents the valor and strength of the Naga warriors and is a symbol of their cultural pride and heritage. The dance is accompanied by drumming and vibrant attire, showcasing the warrior spirit of the region.</p>
+            <button class="tradition-button tradition-details-btn" 
+                    data-tradition="naga-warrior-dance">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" 
+             data-tradition="wangala-festival" data-region="meghalaya" data-category="festival">
+          <div class="tradition-image-container">
+            <img src="images/wangala-festival.jpeg" alt="Wangala Festival" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Wangala Festival</h3>
+            <div class="tradition-meta">
+              <span>Meghalaya</span>
+              <span>Festival</span>
+            </div>
+            <p class="tradition-description">Wangala is the harvest festival of the Garo tribe in Meghalaya, celebrated with great enthusiasm. It marks the end of the harvest season and is dedicated to the sun god. The festival is known for its traditional dances, vibrant attire, and the rhythmic beat of drums, which create a festive atmosphere in the region.</p>
+            <button class="tradition-button tradition-details-btn" 
+                    data-tradition="wangala-festival">View Details</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition-colors cursor-pointer tradition-item" 
+             data-tradition="manipuri-dance" data-region="manipur" data-category="dance">
+          <div class="tradition-image-container">
+            <img src="images/manipuri-dance.jpeg" alt="Manipuri Dance" class="tradition-image">
+          </div>
+          <div class="tradition-content">
+            <h3 class="tradition-title">Manipuri Dance</h3>
+            <div class="tradition-meta">
+              <span>Manipur</span>
+              <span>Dance</span>
+            </div>
+            <p class="tradition-description">Manipuri Dance is a classical dance form that originated in the state of Manipur in northeastern India. Known for its graceful, fluid movements and subtle expressions, Manipuri Dance dates back over 2,000 years and has deep religious and cultural significance. It was initially performed in temples as a form of devotion to the divine and has been an integral part of Manipuri culture for centuries. The dance often tells stories of divine love and devotion, with performances usually accompanied by traditional Manipuri music.</p>
+            <button class="tradition-button tradition-details-btn" 
+                    data-tradition="manipuri-dance">View Details</button>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+    
+
+<!-- Add more tradition items here as needed -->
+
+      </div>
+      
+      <!-- No Results Message -->
+      <div id="noResults" class="hidden text-center py-10">
+        <div id="lottieNoResults" style="width:120px;height:120px;margin:0 auto;"></div>
+        <h3 class="text-xl font-semibold mb-2">No traditions found</h3>
+        <p class="text-gray-400">Try adjusting your search or filters</p>
+      </div>
+      <!-- Search Loading Lottie -->
+      <div id="lottieSearchLoading" class="hidden text-center py-10">
+        <div style="width:120px;height:120px;margin:0 auto;"></div>
+        <h3 class="text-xl font-semibold mb-2">Searching...</h3>
+      </div>
+      
+      <!-- Load More Button -->
+      <div class="text-center mt-10">
+        <button id="loadMoreBtn" class="px-6 py-2 bg-pink-500 text-white rounded-full hover:bg-pink-600 transition-colors">
+          Load More Traditions
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tradition Modal Template -->
+  <div id="traditionModal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+    <div class="bg-gray-900 text-white max-w-lg w-full p-6 rounded-2xl shadow-lg relative">
+      <button id="closeModalBtn" class="absolute top-2 right-4 text-pink-500 hover:text-white text-lg font-bold">×</button>
+      <h2 id="modalTitle" class="text-2xl font-bold mb-4 text-pink-400"></h2>
+      <div id="modalContent" class="text-sm text-gray-300 leading-relaxed"></div>
+    </div>
+  </div>
+
+  <!-- Newsletter Section -->
+  <section class="py-12 bg-gradient-to-r from-purple-700 to-pink-600">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-6 md:mb-0">
+          <h2 class="text-3xl font-bold mb-2">Stay Connected to India's Cultural Heritage</h2>
+          <p class="text-lg opacity-90">Subscribe to our newsletter for the latest updates on traditions, festivals, and cultural events.</p>
+        </div>
+        <div class="md:w-1/2 flex">
+          <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-l-lg focus:outline-none text-gray-800">
+          <button class="px-6 py-3 bg-pink-500 text-white font-semibold rounded-r-lg hover:bg-pink-600 transition-colors">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <div class="text-pink-500 text-2xl"><i class="fas fa-tshirt"></i></div>
+            <div class="text-xl font-bold">Vastra<span class="text-pink-500">Verse</span></div>
+          </div>
+          <p class="text-gray-400 mb-4">Celebrating the rich diversity of Indian traditional fashion and culture through AI innovation.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-pink-500 transition-colors">Home</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-pink-500 transition-colors">About Us</a></li>
+            <li><a href="chatbot.html" class="text-gray-400 hover:text-pink-500 transition-colors">AI Chatbot</a></li>
+            <li><a href="Festival Calendar.html" class="text-gray-400 hover:text-pink-500 transition-colors">Festival Calendar</a></li>
+            <li><a href="Traditional Outfits.html" class="text-gray-400 hover:text-pink-500 transition-colors">Traditional Outfits</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Resources</h4>
+          <ul class="space-y-2">
+            <li><a href="blog.html" class="text-gray-400 hover:text-pink-500 transition-colors">Blog</a></li>
+            <li><a href="Cultural Guides.html" class="text-gray-400 hover:text-pink-500 transition-colors">Cultural Guides</a></li>
+            <li><a href="Outfit Dictionary.html" class="text-gray-400 hover:text-pink-500 transition-colors">Outfit Dictionary</a></li>
+            <li><a href="Regional Styles.html" class="text-gray-400 hover:text-pink-500 transition-colors">Regional Styles</a></li>
+            <li><a href="FAQ.html" class="text-gray-400 hover:text-pink-500 transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Subscribe to Our Newsletter</h4>
+          <p class="text-gray-400 mb-4">Stay updated with the latest festival guides and traditional fashion trends</p>
+          <form class="mb-4">
+            <div class="flex">
+              <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 w-full">
+              <button type="submit" class="px-4 py-2 bg-pink-500 text-white rounded-r-md hover:bg-pink-600 transition-colors">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+        <p>&copy; 2025 VastraVerse All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Navbar Scroll Effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('bg-opacity-95', 'shadow-md', 'py-2');
+        navbar.classList.remove('py-4');
+      } else {
+        navbar.classList.remove('bg-opacity-95', 'shadow-md', 'py-2');
+        navbar.classList.add('py-4');
+      }
+    });
+    
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlTag = document.documentElement;
+    
+    themeToggle.addEventListener('click', () => {
+      htmlTag.classList.toggle('dark');
+      if (htmlTag.classList.contains('dark')) {
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      } else {
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      }
+    });
+    
+    // Tradition Filter and Search Functionality
+    const traditionSearch = document.getElementById('traditionSearch');
+    const regionFilter = document.getElementById('regionFilter');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const traditionItems = document.querySelectorAll('.tradition-item');
+    const noResults = document.getElementById('noResults');
+    
+    function filterTraditions() {
+      const searchTerm = traditionSearch.value.toLowerCase();
+      const region = regionFilter.value;
+      const category = categoryFilter.value;
+      
+      let visibleCount = 0;
+      
+      traditionItems.forEach(item => {
+        const itemName = item.querySelector('h3').textContent.toLowerCase();
+        const itemRegion = item.dataset.region;
+        const itemCategory = item.dataset.category;
+        
+        const matchesSearch = itemName.includes(searchTerm);
+        const matchesRegion = region === 'all' || itemRegion === region;
+        const matchesCategory = category === 'all' || itemCategory === category;
+        
+        const shouldShow = matchesSearch && matchesRegion && matchesCategory;
+        
+        if (shouldShow) {
+          item.style.display = 'block';
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+      
+      if (visibleCount === 0) {
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+      }
+    }
+    
+    traditionSearch.addEventListener('input', filterTraditions);
+    regionFilter.addEventListener('change', filterTraditions);
+    categoryFilter.addEventListener('change', filterTraditions);
+    
+    // Tradition Detail Modal
+    const traditionDetailsBtns = document.querySelectorAll('.tradition-details-btn');
+    const traditionModal = document.getElementById('traditionModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalContent = document.getElementById('modalContent');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    
+    // Tradition details data (you would typically fetch this from a server)
+    const traditionDetails = {
+      'bharatanatyam': {
+        title: '✨ Bharatanatyam - The Divine Dance ✨',
+        content: `
+          <p class="mb-2">
+            <strong>Origin and History:</strong><br>
+            Bharatanatyam originated over 2,000 years ago in Tamil Nadu. It was traditionally performed in Hindu temples and royal courts by Devadasis (temple dancers). After falling into disrepute during colonial times, it was revived in the 20th century and is now recognized as one of India's eight classical dance forms.
+          </p>
+          <p class="mb-2">
+            <strong>Key Features:</strong><br>
+            Characterized by bent knees (aramandi), precise hand gestures (mudras), elaborate footwork, and expressive facial movements (abhinaya). The dance represents a perfect balance of nritta (rhythmic dance movements), nritya (expression), and natya (dramatic elements).
+          </p>
+          <p>
+            <strong>Cultural Significance:</strong><br>
+            Bharatanatyam narrates stories from Hindu mythology and scriptures, particularly from the Natyashastra. Modern performances explore contemporary themes while maintaining traditional techniques. It remains an important spiritual and artistic expression, showcasing the dancer's devotion to the divine.
+          </p>
+        `
+      },
+      'kathakali': {
+        title: '✨ Kathakali - The Storytelling Dance ✨',
+        content: `
+          <p class="mb-2">
+            <strong>Origin and History:</strong><br>
+            Kathakali originated in Kerala during the 17th century, evolving from earlier temple art forms like Koodiyattam. Its name combines "katha" (story) and "kali" (play). It gained royal patronage from the kingdom of Kottarakkara and has since been preserved as a crucial cultural tradition.
+          </p>
+          <p class="mb-2">
+            <strong>Key Features:</strong><br>
+            Distinctive for its elaborate makeup (chutti), vibrant costumes, ornate headgear, and precise facial expressions. Performers undergo rigorous training to master the codified hand gestures, facial expressions, and body movements. Performances typically last all night and are accompanied by percussion instruments.
+          </p>
+          <p>
+            <strong>Cultural Significance:</strong><br>
+            Kathakali primarily depicts stories from Hindu epics like the Mahabharata and Ramayana. It represents a complete art form combining dance, drama, music, and literature. UNESCO recognized it as an Intangible Cultural Heritage in 2012, and it continues to be a symbol of Kerala's cultural identity.
+          </p>
+        `
+      },
+      'madhubani': {
+  title: '🎨 Madhubani - The Vibrant Folk Art 🎨',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Madhubani painting originated in Bihar's Mithila region, dating back to the Ramayana era when King Janaka commissioned artists to document his daughter Sita's wedding. Traditionally created by women on mud walls during festivals, it transitioned to paper in the 1960s during a famine to generate income.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Characterized by vibrant colors, geometric patterns, and nature-inspired motifs. Artists use natural dyes and tools like twigs, fingers, and nib pens. The style features double outlines, no empty spaces, and symbolic imagery of deities, flora, and celestial bodies. Five distinct styles exist: Bharni, Katchni, Tantrik, Godna, and Kohbar.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Originally ritual art for weddings and festivals, Madhubani now addresses contemporary themes like gender equality and conservation. Recognized with the GI tag in 2007, it represents India's living folk tradition. The art form has gained international acclaim while remaining deeply rooted in Mithila's cultural identity.
+    </p>
+  `
+},
+   'dhokra': {
+  title: '🪔 Dhokra - The Ancient Metal Craft 🪔',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Dhokra art dates back over 4,000 years to the Indus Valley Civilization, with famous artifacts like the Dancing Girl of Mohenjo-Daro. Practiced by the Dhokra Damar tribes across Eastern India, this metal casting technique has been passed down through generations, preserving ancient metallurgical knowledge.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Uses the lost-wax (cire perdue) casting technique with brass/bronze alloys. Each piece is unique due to the wax mold being destroyed in the process. Characterized by rustic textures, intricate details, and motifs inspired by nature, tribal life, and deities. Common forms include lamps, jewelry, and animal figurines.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Dhokra represents one of India's oldest living metal craft traditions. The artform sustains tribal livelihoods while connecting modern India to its Bronze Age heritage. Received GI tag for West Bengal and Odisha variants. Contemporary artists preserve traditional techniques while innovating with new designs and applications.
+    </p>
+  `
+},
+     'kathak': {
+  title: '💃 Kathak - The Storyteller\'s Dance 💃',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Kathak originated from North Indian temples as a storytelling art (katha + kahe = "storyteller"). Evolved under Mughal patronage into a sophisticated court dance. The Lucknow, Jaipur, and Banaras gharanas developed distinct styles. Nearly disappeared during British rule before being revived post-independence.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Characterized by intricate footwork (tatkar), spins (chakkars), and expressive gestures. Dancers wear ankle bells (ghungroo) with 100+ bells creating complex rhythms. Unique blend of Hindu devotional themes and Persian elegance. Includes both abstract rhythmic pieces (nritta) and expressive storytelling (nritya).
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      One of India's eight classical dances, Kathak embodies the fusion of Hindu-Muslim cultures. The dance form preserves ancient epics through performances like the Krishna-Leela. Today it bridges tradition and innovation, with contemporary themes alongside traditional compositions. Recognized globally as a symbol of India's syncretic heritage.
+    </p>
+  `
+},
+'carnatic': {
+  title: '🎵 Carnatic Music - The Divine Melody 🎵',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Carnatic music originated in South India over 2000 years ago, with roots in ancient Hindu traditions and Vedic chants. Formalized by musicologist Purandara Dasa (15th century) and later enriched by the Trinity of Carnatic music - Tyagaraja, Muthuswami Dikshitar, and Syama Sastri in the 18th century. Preserved through guru-shishya parampara (teacher-disciple tradition).
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Built on a complex system of ragas (melodic scales) and talas (rhythmic cycles). Features elaborate improvisations (alapana, kalpanaswaram) within strict rules. Primary instruments include veena, mridangam, violin, and ghatam. Vocal music dominates, with compositions (kritis) in Sanskrit and South Indian languages. The music follows a three-part structure: pallavi, anupallavi, and charanam.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Carnatic music remains deeply spiritual, often dedicated to Hindu deities. The December Music Season in Chennai attracts artists and enthusiasts worldwide. Recognized by UNESCO as an Intangible Cultural Heritage, it continues to evolve while maintaining ancient traditions. Annual competitions and youth festivals ensure its transmission to new generations.
+    </p>
+  `
+},
+'bandhani': {
+  title: '🧵 Bandhani - The Art of Knots',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Bandhani (from Sanskrit 'bandha' meaning 'to tie') originated around 5000 years ago in the Indus Valley region. The oldest evidence comes from archaeological finds at Mohenjo-Daro. This traditional tie-dye technique flourished under patronage from the Khatri community in Gujarat and Rajasthan, becoming integral to regional identity and celebrations.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Created by tying thousands of tiny knots on fabric before dyeing, producing distinctive circular patterns. Uses natural dyes from indigo, pomegranate, and turmeric. Different patterns have specific names: Ekdali (single dot), Trikunti (three dots), and Chaubasi (four dots). The finest Bandhani features up to 50,000 knots per saree, requiring weeks of meticulous work.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Bandhani is deeply associated with weddings and festivals - red for brides, yellow for motherhood. The craft received Geographical Indication tags for both Gujarat and Rajasthan. Modern designers are reinventing Bandhani for contemporary fashion while traditional artisans preserve ancient techniques. The global demand for sustainable fashion has brought new recognition to this eco-friendly art form.
+    </p>
+  `
+},
+'bihu-dance': {
+  title: '💃 Bihu - The Rhythmic Pulse of Assam 💃',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Bihu dance originated in Assam as part of the ancient agricultural festival celebrating the Assamese New Year and harvest seasons. Dating back to at least the 14th century, it evolved from community celebrations in villages. The dance was originally performed in rice fields during the Ahom kingdom period and remains deeply connected to Assam's agrarian culture.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Characterized by brisk steps, rapid hand movements, and rhythmic swaying of hips. Dancers wear traditional Assamese attire - men in dhoti and gamosa, women in mekhela chador. Accompanied by folk instruments like dhol (drum), pepa (horn), and taal (cymbals). The dance has three seasonal variations: Bohag Bihu (spring), Kati Bihu (autumn), and Magh Bihu (winter).
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Bihu represents Assamese cultural identity and community bonding. Recognized as an Intangible Cultural Heritage by UNESCO, it transcends religious and social barriers. Modern Bihu competitions attract thousands, while traditional performances continue during harvest seasons. The dance has evolved into professional stage performances while maintaining its folk roots and celebratory spirit.
+    </p>
+  `
+},
+'chhau': {
+  title: '🎭 Chhau - The Masked Warrior Dance 🎭',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Chhau dance originated in the tribal regions of Eastern India, with roots tracing back to ancient martial arts and folk traditions. Developed across three regional styles - Seraikella (Jharkhand), Mayurbhanj (Odisha), and Purulia (West Bengal). Originally performed by warrior communities during spring festivals (Chaitra Parva), it evolved into a sophisticated dance-drama form under royal patronage.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Known for vigorous martial movements, acrobatics, and elaborate masks (except in Mayurbhanj style). Combines graceful gestures with powerful jumps and spins. Performed with traditional instruments like dhol, shehnai, and dhamsa. Themes depict episodes from Mahabharata, Ramayana, and local folklore. The dance follows a strict rhythmic structure (taal) with intricate footwork.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Recognized by UNESCO as Intangible Cultural Heritage in 2010. Chhau preserves tribal traditions while adapting to contemporary themes. Annual Chhau festivals attract international audiences. The dance form is particularly significant for its unique blend of martial, folk, and classical elements, representing the cultural diversity of eastern India.
+    </p>
+  `
+},
+'ghee-tilak': {
+  title: '🪔 Ghee Tilak - The Sacred Anointment 🪔',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      The Ghee Tilak ceremony has Vedic roots, dating back to ancient Hindu fire rituals (yajnas). Mentioned in scriptures like the Atharva Veda as a purification rite, it became integral to royal coronations and temple rituals. The practice evolved through Gupta and medieval periods as a mark of spiritual blessing and social honor.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Involves applying a tilak (mark) with purified ghee on the forehead, often between eyebrows (ajna chakra). Uses specially prepared ghee from grass-fed cows, sometimes infused with herbs. Performed with Vedic mantras, typically by priests or elders. Variations exist across regions - vertical lines in South India, circular marks in Maharashtra, and elaborate designs in temple traditions.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Symbolizes wisdom (ghee as purified knowledge) and divine protection. Performed during weddings, upanayana, and major festivals. The ceremony maintains continuity between Vedic traditions and contemporary Hindu practice. Modern adaptations include eco-friendly versions for urban contexts while preserving spiritual essence. Represents India's living connection to ancient ritual sciences.
+    </p>
+  `
+},
+'hyderabadi-biryani': {
+  title: '🍛 Hyderabadi Biryani - The Nizami Delight 🍛',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Hyderabadi Biryani originated in the kitchens of the Nizams of Hyderabad in the 18th century, blending Mughlai and Telangana culinary traditions. Created by chefs of the Asaf Jahi dynasty, it reflects the fusion of Persian cooking techniques with local Deccan spices. The iconic 'Kacchi Biryani' method was reportedly developed to feed the Nizam's army during campaigns.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Prepared in two distinct styles - Kacchi (raw meat marinated and cooked with rice) and Pakki (pre-cooked meat layered with rice). Uses fragrant Basmati rice, saffron, and a unique spice blend including star anise and bay leaves. The 'dum pukht' slow-cooking method in sealed handis (pots) creates its signature flavors. Served with mirchi ka salan and raita.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Recognized as the culinary emblem of Hyderabad, earning GI tag status in 2020. The annual 'Biryani Festival' attracts food enthusiasts worldwide. Modern variations include vegetarian and vegan versions, while traditional recipes remain guarded secrets in royal kitchens. Represents India's syncretic food heritage, where Persian techniques married local ingredients to create culinary magic.
+    </p>
+  `
+},
+'gond-art': {
+  title: '🎨 Gond Art - The Tribal Visual Poetry 🎨',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Gond art originates from the Gond tribal communities of Central India, dating back over 1400 years. Originally created as ceremonial wall and floor paintings (Digna and Bhittichitra) to decorate homes during festivals. Transformed into a contemporary art form in the 1980s when artist Jangarh Singh Shyam adapted traditional motifs onto paper, bringing global recognition to this indigenous tradition.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Characterized by intricate patterns of dots, dashes, and fluid lines that create vibrant imagery. Uses natural colors derived from charcoal (black), plant sap (green), and clay (ochre). Themes depict tribal mythology, nature, and animals like peacocks and tigers. Each artist develops a unique signature style (like handwriting) within the traditional framework.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Represents one of India's most important living tribal art traditions. The art form has empowered Gond communities economically while preserving their cultural identity. Exhibited internationally at venues like the Pompidou Centre. Modern Gond artists address contemporary themes like environmental conservation while maintaining traditional visual vocabulary. Recognized as a bridge between ancient tribal wisdom and contemporary art practice.
+    </p>
+  `
+},
+'hindustani': {
+  title: '🎵 Hindustani Classical - The Soul of North Indian Music 🎵',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Hindustani Classical Music evolved from ancient Vedic chanting traditions, maturing between the 12th-16th centuries under Persian influence during the Delhi Sultanate and Mughal eras. Developed distinct gharanas (schools) like Gwalior, Jaipur, and Kirana. Legendary musicians like Tansen and Amir Khusrau shaped its evolution, blending Indian ragas with Persian maqams.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Based on raga (melodic framework) and tala (rhythmic cycle) systems. Features improvisational forms like alap, jor, and jhala. Primary instruments include sitar, sarod, tabla, and santoor. The music follows a time-theory where specific ragas are performed at particular times of day. Major vocal styles include khayal, dhrupad, and thumri.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Recognized by UNESCO as Intangible Cultural Heritage. The annual Sawai Gandharva festival in Pune attracts global audiences. Modern fusion projects blend it with jazz, electronica and world music while preserving traditional forms. Represents India's syncretic cultural heritage, where Vedic traditions harmonized with Persian influences to create a unique musical identity.
+    </p>
+  `
+},
+'mehndi': {
+  title: '🌿 Mehndi - The Lively Henna Celebration 🌿',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Mehndi traditions date back over 5,000 years to ancient India and Egypt, mentioned in Vedic rituals and Ayurvedic texts. The ceremonial practice evolved during Mughal courts into elaborate bridal art. Originally a summer cooling agent and medicinal paste, it became integral to Indian weddings through cultural synthesis with Middle Eastern henna traditions.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Uses natural henna paste (from Lawsonia plant) applied via cones or brushes in intricate patterns. Bridal designs incorporate hidden initials, peacocks, and floral motifs with varying regional styles - Rajasthani (dense patterns), Arabic (flowing vines), and South Indian (delicate lace-like). The ceremony features singing, dancing, and games while henna dries.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Symbolizes love, prosperity, and spiritual awakening in Hindu weddings. The darkness of the stain is believed to indicate marital bliss. Modern mehndi artists have elevated it to fine art form through international exhibitions. Contemporary adaptations include glitter/conceptual henna while maintaining traditional symbolism. Represents living cultural heritage connecting ancient beauty rituals to modern celebrations.
+    </p>
+  `
+},
+'manipuri': {
+  title: '🌸 Manipuri - The Divine Dance of Devotion 🌸',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Originating in Manipur's valley temples around the 2nd century CE, Manipuri dance is deeply rooted in Vaishnavism. It flourished under King Bhagyachandra's 18th century patronage, who composed the famous Ras Lila dances depicting Krishna's divine plays. Preserved as a living tradition by Meitei communities, it was recognized as a classical form in 1958.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Characterized by graceful, fluid movements with bent knees and subtle facial expressions. Dancers wear unique barrel-shaped skirts (kumil) and delicate veils. Accompanied by sankirtana music with pung drums, kartals, and flute. The dance includes two main styles: Lasya (feminine) and Tandava (masculine), with Ras Lila being its most celebrated repertoire.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Recognized by UNESCO as Intangible Cultural Heritage in 2013. The dance is integral to Manipur's religious and cultural identity, performed during festivals like Yaoshang. Modern exponents like Guru Bipin Singh brought it to national stages while maintaining its spiritual essence. Represents India's living bridge between ancient temple rituals and classical performing arts.
+    </p>
+  `
+},
+'pattachitra': {
+  title: '🎨 Pattachitra - The Sacred Scroll Art 🎨',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Pattachitra originated in the 12th century Odisha as devotional art for Lord Jagannath's temples in Puri. The name combines "patta" (cloth) and "chitra" (painting). Originally painted on cloth scrolls by the Maharana and Chitrakar communities to narrate religious stories for villagers, it remains deeply connected to the Jagannath cult and temple traditions.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Created on treated cloth or dried palm leaves using natural colors from minerals and plants. Features bold outlines, vibrant colors (especially red, yellow, and black), and intricate detailing. Common themes include Jagannath triad, Radha-Krishna stories, and mythological scenes. The paintings follow strict iconometric rules with distinctive almond-shaped eyes.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Recognized with Geographical Indication status in 2008. Modern artists preserve traditional techniques while adapting to contemporary themes like social issues. The annual Pattachitra festival in Raghurajpur showcases living traditions. Serves as both sacred art and cultural ambassador - exhibited globally while maintaining its ritual importance in Odisha's temple culture.
+    </p>
+  `
+},
+
+      'warli': {
+  title: '🌿 Warli - The Tribal Narrative Art 🌿',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Warli art dates back to 2500 BCE, created by the Warli tribe of Maharashtra. Originally painted on mud walls of huts using rice paste, these ritual artworks documented daily life and beliefs. Rediscovered in the 1970s when artists adapted the tradition to paper, transforming it from tribal ritual to celebrated contemporary art form while preserving its ancient symbolism.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Characterized by monochromatic white designs (from rice paste) on red ochre or mud-colored backgrounds. Uses basic geometric shapes - circles (sun/moon), triangles (mountains/trees), and squares (sacred enclosures). Scenes depict social rituals, harvest cycles, and the Tarpa dance. Human figures appear as two triangles joined at the tip, with stick-like limbs.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Recognized with Geographical Indication tag in 2010. Modern Warli art appears on global platforms while maintaining tribal identity. Artists like Jivya Soma Mashe brought international recognition. The art form represents India's living connection to prehistoric expression - evolving from ritual wall paintings to murals, textiles, and contemporary installations while retaining its elemental storytelling power.
+    </p>
+  `
+},
+  'bhangra': {  
+  title: '💃 Bhangra - The Spirit of Punjab 💃',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Bhangra originated in the Punjab region of India as a traditional folk dance celebrating the harvest festival of Vaisakhi. Originally performed by farmers, it evolved into a vibrant dance form that is now showcased at weddings, festivals, and global cultural events.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Known for its high-energy moves, vigorous kicks, leaps, and the use of traditional instruments like the dhol (drum). Dancers wear colorful turbans, kurtas, and lungis. The movements are rhythmic, joyous, and often accompanied by enthusiastic singing and clapping.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Bhangra is more than just a dance—it's an expression of joy, resilience, and Punjabi pride. It brings communities together and has transcended borders, becoming a global symbol of Indian folk culture, especially popular in diaspora communities around the world.
+    </p>
+  `
+},
+'ram-leela': {  
+  title: '🎭 Ram Leela - The Epic Drama of Lord Rama 🎭',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Ram Leela is a traditional Hindu folk theatre play that dramatizes the story of Lord Rama, based on the ancient Indian epic, the Ramayana. It is typically performed during the festival of Dussehra, celebrating the victory of good over evil. Originating in Northern India, it has been a part of Indian culture for centuries.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      The play involves elaborate stage settings, colorful costumes, and energetic performances by actors portraying characters from the Ramayana, including Lord Rama, Sita, Hanuman, Ravana, and others. The performances often include dialogue, music, dance, and fight sequences, particularly the dramatic battle between Lord Rama and Ravana.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Ram Leela is not only a theatrical performance but a way to educate and instill values such as dharma (righteousness), devotion, courage, and the triumph of good over evil. It brings together communities and reinforces the moral lessons of the Ramayana. The dramatic reenactment of Lord Rama's victory over Ravana is a highlight of the Dussehra celebrations, symbolizing the destruction of evil forces in society.
+    </p>
+  `
+},
+'kumbh-mela': {  
+  title: '🕉️ Kumbh Mela - The Grand Spiritual Gathering 🕉️',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Kumbh Mela is one of the largest religious gatherings in the world, rooted in Hindu mythology. The event takes place every 12 years at four sacred riverbanks—Prayagraj, Haridwar, Ujjain, and Nashik—on a rotating basis. According to legend, during the Samudra Manthan (churning of the ocean), drops of the nectar of immortality fell at these locations, making them spiritually significant.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      The central event of Kumbh Mela is the **Shahi Snan** (royal bath), where millions of devotees bathe in the holy rivers to cleanse their sins. The event features religious discourses, devotional music, prayers, and participation from sadhus, including the ascetic Naga sadhus. The atmosphere is vibrant, with devotees performing rituals and engaging in spiritual practices.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Kumbh Mela is a manifestation of faith, devotion, and the deep spiritual culture of India. It brings together people from diverse backgrounds to partake in a shared spiritual experience. The event is recognized by UNESCO as an Intangible Cultural Heritage of Humanity and showcases the ability of India to organize a peaceful and massive gathering for religious purposes. It symbolizes unity, spirituality, and the triumph of good over evil.
+    </p>
+  `
+},
+  'ghoomar': {
+  title: '💃 Ghoomar - The Majestic Traditional Dance of Rajasthan 💃',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Ghoomar is a traditional folk dance from Rajasthan, India, believed to have originated in the Marwar region. The dance is associated with the royal Rajput women and has been a part of Rajasthan's cultural heritage for centuries. Traditionally performed during festive occasions and celebrations, it has become a symbol of Rajasthani culture and pride. Its roots trace back to the folk traditions of the desert region.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      The Ghoomar dance is characterized by women spinning gracefully in colorful attire, typically wearing ghagras (long skirts) and dupattas (shawls). The dancers move in circular formations, spinning and swaying in rhythm with the music. The dance is accompanied by folk songs and traditional Rajasthani instruments like dholak, tabla, and sarangi. The movements symbolize the joy of life and the connection between women.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Ghoomar holds great cultural significance in Rajasthan, representing the spirit of joy, unity, and celebration. It is performed at weddings, festivals, and important cultural events, often serving as an expression of Rajasthan's vibrant heritage. The dance also showcases the resilience and grace of Rajasthani women. Over time, Ghoomar has gained recognition on national and international platforms, making it a global symbol of Indian folk dance.
+    </p>
+  `
+},
+
+'puppet-show': {
+  title: '🎭 Puppet Show - The Art of Storytelling Through Puppetry 🎭',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Puppet shows have a long and rich history in India, dating back thousands of years. The art of puppetry is believed to have originated in the Indus Valley civilization and has been an integral part of Indian cultural traditions ever since. The tradition evolved through various regional styles, from the shadow puppets of Kerala (Tholpavakoothu) to the string puppets of Rajasthan (Kathputli) and the rod puppets of Tamil Nadu. Puppet shows were traditionally performed to narrate mythological stories, religious themes, and folk tales.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Puppet shows in India involve a variety of puppet types, including string puppets, shadow puppets, and rod puppets. The puppets are typically made of wood, cloth, or leather, and are brightly colored and adorned with intricate designs. The puppeteers control the puppets using strings, rods, or shadows, often accompanying the performance with traditional music and storytelling. These performances are highly visual, with rich cultural references and vibrant performances that captivate audiences of all ages.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Puppet shows play a vital role in preserving oral traditions and storytelling in India. They are often used to pass on moral lessons, historical tales, and religious teachings to audiences in rural and urban areas alike. In addition to their entertainment value, puppet shows are considered a form of social and cultural commentary. Over the years, they have evolved into an art form that blends tradition with contemporary themes, making them a popular form of folk theater across India and internationally.
+    </p>
+  `
+},
+'vallam-kali': {
+  title: '🚣 Vallam Kali - The Majestic Boat Race of Kerala 🚣',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Vallam Kali, the traditional boat race of Kerala, dates back to ancient times when it was used as a competitive water sport in the backwaters of the state. The sport was initially performed during the Onam festival to honor the homecoming of the mythical King Mahabali. Over time, it evolved into a grand spectacle with large teams paddling traditional boats called "chundan vallams," which are uniquely designed with sharp prows.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Vallam Kali is characterized by teams of rowers paddling in unison to race in long, narrow, and intricately designed boats. The races take place in the backwaters and rivers of Kerala, with the "chundan vallams" being the centerpiece of the competition. The boats can accommodate up to 100 rowers. Accompanied by traditional drum beats and the cheering of spectators, the race is a display of synchronization, strength, and teamwork.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Vallam Kali is not just a sport, but a cultural symbol of Kerala. It celebrates the unity and spirit of the people of Kerala and showcases the state's close connection with water. The event is most famously held during the Onam festival, attracting thousands of spectators from across the world. It represents the unity, tradition, and the vibrant culture of Kerala, blending both competitive sport and cultural celebration.
+    </p>
+  `
+},
+'durga-puja': {
+  title: '🌸 Durga Puja - The Victory of Good Over Evil 🌸',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Durga Puja is an ancient Hindu festival, originating in Bengal, dedicated to the worship of Goddess Durga. The festival celebrates her victory over the demon Mahishasura, symbolizing the triumph of good over evil. It is celebrated with grandeur and devotion, especially during the autumn season, with roots in Vedic and Tantric traditions. The history of Durga Puja can be traced back to the 15th century, and it has evolved into one of the most significant cultural and religious events in India.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      The festival spans several days, with elaborate rituals, music, dance, and processions. Temples and pandals (temporary structures) are decorated with intricate idols of Goddess Durga, and special prayers (pujas) are performed. On the final day, known as Vijaya Dashami, devotees immerse the idol of Goddess Durga in water, symbolizing her return to her heavenly abode. Durga Puja is also marked by grand feasts, cultural performances, and the traditional dance form of 'dhunuchi nach' (dancing with incense burners).
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Durga Puja is more than a religious festival; it is a celebration of strength, womanhood, and the power of the divine. It is celebrated with zeal and enthusiasm, especially in West Bengal, Bihar, Assam, Odisha, and other parts of India. The festival fosters community bonding and is a time for social gatherings, artistic expressions, and cultural displays. It also marks the end of the monsoon and the arrival of winter, bringing joy and hope to all. Durga Puja serves as a reminder of the power of good and the eternal struggle between righteousness and evil.
+    </p>
+  `
+},
+'jagannath-yatra': {
+  title: '🌿 Jagannath Yatra - The Sacred Journey of Lord Jagannath 🌿',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Jagannath Yatra, also known as the Rath Yatra, is an annual Hindu festival held in Puri, Odisha, dedicated to Lord Jagannath, an incarnation of Lord Vishnu. The yatra commemorates the journey of Lord Jagannath, along with his siblings, Lord Balabhadra and Goddess Subhadra, from their temple to the Gundicha temple in a grand procession. The tradition dates back to the 12th century and has deep religious significance, symbolizing the Lord's visit to his birthplace.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      The festival is marked by a spectacular procession where the deities are carried on massive wooden chariots, pulled by thousands of devotees. The chariots are adorned with colorful decorations, and the procession is accompanied by traditional music, chanting, and dance. The chariot procession is considered one of the largest religious gatherings in the world. The yatra is held every year during the Ashadha month of the Hindu calendar, usually in June or July, and attracts millions of pilgrims and tourists.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Jagannath Yatra holds immense cultural and religious significance, symbolizing unity, faith, and devotion. It is one of the most important events for Hindus and is celebrated with fervor across India, especially in Odisha. The festival encourages the spirit of inclusivity, as it welcomes devotees from all walks of life to participate in the procession, irrespective of caste or creed. The yatra is also an expression of devotion to Lord Jagannath, highlighting the importance of love and service to God.
+    </p>
+  `
+},
+'odissi-dance': {
+  title: '💃 Odissi Dance - Graceful Expressions of Devotion 💃',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Odissi is one of the oldest classical dance forms of India, originating from the temples of Odisha. Its roots trace back to over 2,000 years, with references found in ancient texts such as the Natya Shastra and temple carvings. Originally performed by temple dancers known as 'Maharis' as an offering to deities, especially Lord Jagannath, Odissi evolved through centuries under the patronage of kings and later through revival by gurus in the 20th century.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Odissi is characterized by fluid upper body movements, intricate footwork, and expressive hand gestures (mudras) combined with facial expressions (abhinaya) that narrate stories from Hindu epics. The dance is known for the signature tribhangi posture—dividing the body into three bends—and the graceful flow of movement. Performances are often set to classical Odia music and include devotional themes centered on Lord Jagannath and Radha-Krishna.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Odissi is not just a dance but a spiritual journey that connects the performer and the audience to divinity. It plays a vital role in preserving the cultural and religious heritage of Odisha and has gained international recognition as a symbol of Indian classical arts. The dance continues to evolve through contemporary interpretations while staying rooted in tradition, serving as a bridge between ancient temple rituals and modern stage performances.
+    </p>
+  `
+},
+'sarhul-festival': {
+  title: '🌿 Sarhul Dance – A Rhythmic Tribute to Nature 🌿',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Sarhul Dance is a traditional tribal dance performed by the indigenous communities of Jharkhand, especially the Oraon, Munda, and Ho tribes. It is deeply associated with the Sarhul festival, which marks the beginning of the new year and the arrival of spring. The dance is rooted in ancient nature-worship practices and is performed to honor the Sal tree, village deities, and the Earth for providing sustenance.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      The Sarhul Dance is performed in groups, typically by men and women dressed in traditional tribal attire, adorned with feathers, flowers, and ornaments. Dancers form circles or lines and move rhythmically to the beat of tribal drums (mandar and dhol) and flutes. The movements are energetic yet graceful, reflecting harmony with nature. Songs sung during the dance narrate folk tales, seasonal changes, and expressions of gratitude to the gods.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Sarhul Dance is more than just a cultural expression—it is a way of connecting with nature and preserving tribal identity. It symbolizes unity, joy, and reverence for the environment. The dance is performed during community gatherings and rituals, strengthening social bonds and passing traditions to younger generations. Today, Sarhul Dance stands as a vibrant symbol of Jharkhand's tribal heritage and ecological consciousness.
+    </p>
+  `
+},
+'lavani-dance': {
+  title: '💃 Lavani Dance – The Vibrant Rhythm of Maharashtra 💃',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Lavani is a traditional folk dance form from Maharashtra, known for its powerful rhythms and dynamic movements. It originated in the rural areas of Maharashtra and is primarily performed to the beats of a dholki (a traditional drum). The dance form has its roots in the 18th century and was historically performed by women in temple courtyards and in front of royal patrons. It is deeply intertwined with the Marathi culture and often showcases themes of love, beauty, and rural life.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Lavani is characterized by its fast-paced rhythm, energetic footwork, and intricate hand gestures. The performers wear colorful sarees and dance to the accompaniment of traditional music, which includes dholki, tabla, and other folk instruments. Lavani performances often involve expressive facial gestures and dynamic body movements, with dancers exhibiting grace and strength simultaneously. The dance is known for its graceful swaying, rapid spins, and flirtatious expressions.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Lavani is not only a dance form but also a means of storytelling, capturing the emotions and experiences of rural life in Maharashtra. Traditionally performed during festive occasions and social gatherings, it represents the strength, sensuality, and cultural heritage of Marathi women. Over time, Lavani has evolved and become a mainstream performance in modern Indian cinema, often seen in Bollywood and Marathi theater. It remains an integral part of Maharashtra's cultural identity, symbolizing joy, celebration, and the power of music and dance.
+    </p>
+  `
+},
+'warkari-pilgrimage': {
+  title: '🙏 Warkari Pilgrimage – A Sacred Journey of Devotion 🙏',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      The Warkari Pilgrimage is a spiritual journey undertaken by devotees of Lord Vithoba (Vitthala), primarily in Maharashtra, India. The tradition dates back to the 13th century when the saint-poet Dnyaneshwar and other saints of the Bhakti movement inspired followers to embark on pilgrimages to Pandharpur. The Warkari sect, which emphasizes devotion to Lord Vithoba, holds the pilgrimage to Pandharpur as the most sacred of their practices. Pilgrims, known as Warkaris, undertake the journey on foot and carry a sacred palkhi (palanquin) containing the idol of Lord Vithoba.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      The Warkari Pilgrimage is a deeply devotional journey, often taking place during the months of Ashadhi Ekadashi and Kartiki Ekadashi. Thousands of devotees from all walks of life participate in this pilgrimage, walking for miles, singing devotional bhajans (hymns), and chanting the name of Lord Vithoba. The Warkaris often travel in large groups, singing and dancing in devotion along the way. The pilgrimage culminates in a grand procession at the Pandharpur temple, where devotees pay their respects to Lord Vithoba.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      The Warkari Pilgrimage represents a profound expression of faith, community, and devotion. It is a symbol of unity and equality, as pilgrims of all castes and backgrounds come together in the name of Lord Vithoba. The journey is not just a religious ritual but also an expression of love and devotion to God. The pilgrimage strengthens the bond between devotees and their spiritual beliefs, and it plays a central role in Maharashtra's religious and cultural life. The Warkari movement also emphasizes the importance of humility, compassion, and a deep connection to spirituality and the natural world.
+    </p>
+  `
+},
+'garba-dandiya': {
+  title: '💃 Garba and Dandiya Raas – The Spirit of Gujarat 💃',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Garba and Dandiya Raas are traditional folk dances from Gujarat, predominantly performed during the Navratri festival to honor Goddess Durga. The origins of Garba trace back to the medieval period, where it was initially performed in the temple courtyards by women. Over time, it evolved into a community celebration with circular dancing. Dandiya Raas, which involves rhythmic stick movements, has a more recent origin, emerging as a group dance in the 20th century. Both dances are intertwined with devotion and celebration of life.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Garba is known for its circular patterns, lively footwork, and graceful hand gestures, typically performed to rhythmic beats produced by dhol, tabla, and other instruments. Dancers often form circles and clap hands in sync with the music. Dandiya Raas is a high-energy dance performed with sticks (dandiyas), where dancers tap their sticks together in rhythm, often forming intricate patterns. The vibrant costumes, rhythmic beats, and energetic atmosphere are hallmark features of these performances.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Garba and Dandiya Raas are more than just dance forms—they are celebrations of the victory of good over evil, symbolizing the triumph of light and knowledge. During the Navratri festival, people from all walks of life participate, fostering a sense of unity and community. The dances are an expression of joy, spiritual devotion, and cultural pride, playing a key role in Gujarat's heritage. Over the years, Garba and Dandiya Raas have become symbolic of the festive spirit in India, with performances in homes, temples, and even large-scale public gatherings.
+    </p>
+  `
+},
+'uttarayan': {
+  title: '🪁 Uttarayan – The Kite Festival of Gujarat 🪁',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Uttarayan is a famous festival celebrated in Gujarat, marking the transition of the sun into the northern hemisphere. The festival takes place every year on January 14th and is primarily celebrated by flying kites. It has historical roots in the harvest festival of Makar Sankranti, which is observed in many parts of India. The word "Uttarayan" refers to the sun's movement towards the northern part of the zodiac, a time that signifies the arrival of longer days and the beginning of the harvest season.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      The highlight of Uttarayan is the kite-flying competition. People of all ages gather on rooftops, armed with colorful kites, and compete to cut their rivals' kites. The skies are filled with thousands of kites, creating a spectacular sight. In addition to kite flying, the festival is celebrated with feasts of traditional sweets like tilgul and undhiyu, and people wear new clothes, exchanging good wishes. Music, dance, and family gatherings are an integral part of the celebrations.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Uttarayan is a festival that celebrates the change of seasons, the victory of light over darkness, and the harvest season. It is not just a festival of kite flying, but a time for people to come together, forget past differences, and celebrate joy and unity. The festival has a deep cultural significance, as it marks a time for renewal, the end of winter, and the beginning of prosperity. Over time, Uttarayan has become one of the most anticipated events in Gujarat, attracting tourists from all over the world who come to witness this vibrant celebration.
+    </p>
+  `
+},
+'goa-carnival': {
+  title: '🎉 Goa Carnival – A Celebration of Life and Colors 🎉',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      The Goa Carnival is one of the most iconic festivals in India, celebrated with grandeur and enthusiasm. It has its roots in the Portuguese colonial era, which introduced the concept of carnival to the region. The carnival was initially a pre-Lenten celebration, but over the years, it has evolved into a vibrant, secular festival celebrated by people of all communities in Goa. It usually takes place in February or March, marking the beginning of Lent with feasting, music, and festivities.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      The Goa Carnival is famous for its grand parades, featuring vibrant floats, colorful costumes, dancers, and musicians. The streets come alive with energetic performances of samba, Latin, and traditional Goan music. One of the key highlights is the iconic King Momo, the leader of the carnival, who presides over the celebrations and declares the start of the festivities. The carnival also includes street plays, music concerts, and plenty of local delicacies, making it a visual and culinary feast.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      The Goa Carnival is more than just a festival; it represents the rich cultural heritage of Goa, blending both Portuguese and Indian traditions. It is a time for people to come together, enjoy music and dance, and celebrate life. The carnival is a symbol of the laid-back, joyous spirit of the Goan people, and it plays an essential role in Goa's tourism industry, attracting thousands of visitors from around the world. It fosters community spirit, embraces diversity, and highlights the carefree nature of life in Goa.
+    </p>
+  `
+},
+'hornbill-festival': {
+  title: '🦅 Hornbill Festival – A Celebration of Naga Culture 🦅',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      The Hornbill Festival is one of the most significant cultural festivals of Nagaland, celebrated annually to showcase the rich traditions and cultures of the Naga tribes. It was first organized in 2000 to promote the cultural heritage of the Naga people. Named after the hornbill bird, which is an important symbol in Naga culture, the festival takes place in December and brings together various Naga tribes to display their traditional music, dances, and customs.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      The Hornbill Festival is known for its vibrant celebrations, which include traditional folk dances, music performances, fashion shows, and sports events. Various Naga tribes participate in the event, each showcasing their unique customs, attire, and rituals. One of the festival's highlights is the Hornbill Rock Festival, which celebrates local and national rock music. The festival also features traditional arts and crafts, showcasing the talent of local artisans, as well as the culinary delights of Nagaland.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      The Hornbill Festival is more than just a cultural celebration; it is an opportunity for the Naga people to preserve and promote their customs and traditions. It is a symbol of unity, as people from different tribes come together to celebrate their shared heritage. The festival fosters a sense of pride among the Naga people and allows visitors to experience the rich cultural diversity of the region. It plays a crucial role in tourism, attracting people from around the world to experience the Naga way of life, its music, dance, and hospitality.
+    </p>
+  `
+},
+'naga-warrior-dance': {
+  title: '⚔️ Naga Warrior Dance – A Tribute to Warrior Spirit ⚔️',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      The Naga Warrior Dance is a traditional and symbolic performance by the Naga tribes of Nagaland. This dance represents the bravery and valor of the Naga warriors who fought to defend their land. Historically, it was performed during war celebrations and victories, and over time, it has evolved into an important cultural expression. The dance takes place during various festivals, notably during the Hornbill Festival, where it is a major attraction.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      The Naga Warrior Dance is a high-energy and thrilling performance, with dancers dressed in elaborate warrior attire, carrying shields and spears. The movements are fierce and synchronized, representing the strength and courage of the Naga warriors. The dance is often accompanied by the rhythmic beat of drums and other traditional instruments. The dancers perform intricate steps, showcasing their agility and coordination, while the audience is captivated by the raw power of the performance.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      The Naga Warrior Dance is a powerful reminder of the Naga people's warrior tradition, their valor in battle, and their deep connection to the land. It is more than just a dance; it is a celebration of Naga identity, bravery, and heritage. The performance is a symbol of pride, unity, and respect for the ancestors who fought to preserve the Naga way of life. It is an essential part of Nagaland's cultural landscape, fostering a sense of pride and continuity in the younger generation while educating visitors about the region's rich history.
+    </p>
+  `
+},
+'wangala-festival': {
+  title: '🌾 Wangala Festival – A Celebration of Harvest and Tradition 🌾',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      The Wangala Festival, also known as the "100 Drums Festival," is a traditional harvest festival of the Garo tribe in Meghalaya. It is celebrated to mark the end of the harvest season and to honor the Sun God. The festival has been celebrated for centuries and is one of the most important cultural events in the Garo community. It typically takes place in the month of November and is characterized by the rhythmic drumming of over 100 drums.
+    </p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      The Wangala Festival is marked by vibrant celebrations that include traditional dances, songs, and the rhythmic beating of drums. The Garo people wear colorful attire, and the festival is filled with lively performances that tell stories of the Garo people's culture and traditions. One of the key highlights is the traditional "Wangala Dance," performed by the people of the Garo tribe, and the festival also features various rituals and offerings to the Sun God for a bountiful harvest.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Wangala is more than just a celebration of the harvest season; it is an embodiment of the Garo people's identity and their deep connection to nature and the land. The festival represents gratitude, unity, and the spirit of community. It serves as a platform for preserving and promoting Garo culture and traditions while also fostering a sense of pride among the younger generation. Wangala plays an important role in attracting tourists to Meghalaya, providing them with a chance to experience the rich cultural heritage of the Garo tribe.
+    </p>
+  `
+},
+'manipuri-dance': {
+  title: '💃 Manipuri Dance – A Celebration of Grace and Devotion 💃',
+  content: `
+    <p class="mb-2">
+      <strong>Origin and History:</strong><br>
+      Manipuri Dance is a classical dance form that originated in the state of Manipur in northeastern India. Known for its graceful, fluid movements and subtle expressions, Manipuri Dance dates back over 2,000 years and has deep religious and cultural significance. It was initially performed in temples as a form of devotion to the divine and has been an integral part of Manipuri culture for centuries. The dance often tells stories of divine love and devotion, with performances usually accompanied by traditional Manipuri music.</p>
+    <p class="mb-2">
+      <strong>Key Features:</strong><br>
+      Manipuri Dance is characterized by its delicate movements, graceful gestures, and intricate footwork. It is performed to classical music and often depicts themes of divine love, especially stories from the life of Lord Krishna. The dancers, both male and female, wear traditional costumes that include elaborate skirts, veils, and jewelry. One of the key features of the dance is its emphasis on slow, controlled movements and the use of hand gestures to convey emotions and stories.
+    </p>
+    <p>
+      <strong>Cultural Significance:</strong><br>
+      Manipuri Dance is more than just an art form; it is a spiritual practice and a way of life for the people of Manipur. The dance expresses deep devotion and reverence for the divine, especially for Lord Krishna, whose stories form the basis of many Manipuri dance performances. The dance is also a symbol of the cultural richness of Manipur and plays an important role in preserving the traditions and heritage of the region. It is a significant part of the state's festivals and cultural events, attracting both local and international audiences.
+    </p>
+  `
+}
+
+
+
+
+
+
+
+
+
+
+
+
+    };
+    
+    traditionDetailsBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const traditionId = btn.dataset.tradition || btn.parentElement.dataset.tradition;
+        
+        if (traditionDetails[traditionId]) {
+          modalTitle.innerHTML = traditionDetails[traditionId].title;
+          modalContent.innerHTML = traditionDetails[traditionId].content;
+        } else {
+          modalTitle.innerHTML = 'Tradition Details';
+          modalContent.innerHTML = '<p>Information about this tradition is coming soon. Please check back later.</p>';
+        }
+        
+        traditionModal.classList.remove('hidden');
+      });
+    });
+    
+    closeModalBtn.addEventListener('click', () => {
+      traditionModal.classList.add('hidden');
+    });
+    
+    // Close modal when clicking outside
+    traditionModal.addEventListener('click', (e) => {
+      if (e.target === traditionModal) {
+        traditionModal.classList.add('hidden');
+      }
+    });
+    
+    // Load More button functionality
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    let currentPage = 1;
+    
+    loadMoreBtn.addEventListener('click', () => {
+      // Simulate loading more items
+      loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+      
+      setTimeout(() => {
+        // In a real application, you would fetch more items from a server
+        // For this demo, we'll just hide the button after clicking
+        loadMoreBtn.innerHTML = 'No More Traditions to Load';
+        loadMoreBtn.disabled = true;
+        loadMoreBtn.classList.add('opacity-50');
+      }, 1500);
+    });
+  </script>
+  <script src="auth.js"></script>
+</body>
+</html>
